@@ -126,7 +126,7 @@ input, input::placeholder {
     font-weight: 500;
 }
 
-.input-small, .input-small::placeholder {
+.input-small, .input-small::placeholder, textarea, textarea::placeholder {
     font-size: 1.6rem;
 }
 
@@ -229,8 +229,9 @@ label {
     left: 0%;
     width: 100%;
     height: 100%;
-    animation: loading-pages 0.9s ease-in 0s 1 normal;
-    display: none;
+    background-color: #000000;
+    opacity: 1;
+    z-index: 888888888888;
 }
 
 .cursor {
@@ -239,7 +240,7 @@ label {
     left: 0px;
     z-index: 99999999;
     opacity: 100%;
-    background-image: url('../images/cursor_defalut.svg');
+    background-image: url('../images/cursor_default.svg');
     background-repeat: no-repeat;
     height: 40px;
     width: 24px;
@@ -247,21 +248,47 @@ label {
 }
 
 .area-mouse {
-    background-color: rgba(0, 255, 42, 0.24);
     position: absolute;
-    top: -68%;
-    left: -19%;
-    width: 140%;
-    height: 250%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 999;
+    transform: scale(1.5, 2);
 }
 
+.link {
+    .area-mouse  {
+        transform: scale(1.5, 1.5);
+    }
+}
+
+#ball {
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    z-index: -1;
+    border-radius: 100%;
+    width: 37.2rem;
+    height: 37.2rem;
+    scale: 0.1;
+    left: calc(50% - (37.2rem/2));
+    top: calc(100% - (37.2rem));
+
+}
 
 * {
     cursor: none;
 }
 
- 
+.output {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+}
+
+
 
 /* ====== BODY/HTML/ROOT ====== */
 
@@ -278,6 +305,11 @@ body {
     overflow-y: hidden;
 }
 
+body.contact {
+    background: linear-gradient(112.871deg, #881FED 10%, #000733 100%);
+    background-size: 100% 1%;
+}
+
 /* ====== HEADER ====== */
 
 header {
@@ -287,14 +319,38 @@ header {
     align-items: center;
 
     .button-music {
-            opacity: 70%;
-            transition: all 1s;
+        opacity: 70%;
+        transition: all 1s;
 
-            &:hover {
-                opacity: 100%;
-                transform: scale(1.1);
+        &:hover {
+            opacity: 100%;
+            transform: scale(1.1);
+        }
+    }
+
+    .button-langs {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+
+        .group-langs {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            
+            button {
+                transition: all 0.5s ease-in;
+                opacity: 0%;
+                height: auto;
+                width: fit-content;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                background-color: #00000000;
+                align-items: center;
             }
         }
+    }
 
     .group-menu {
         display: flex;
@@ -333,6 +389,7 @@ header {
     }
 
     .button-music {
+        opacity: 0;
         display: flex;
         height: 4.1rem;
         width: 4.1rem;
@@ -365,7 +422,6 @@ main.home {
         opacity: 1;
         margin-left: 13.7rem;
         align-items: center;
-        animation: show-about 1s ease-in 1.1s 1 normal forwards;
 
         img {
             background-color: $support-500;
@@ -373,8 +429,6 @@ main.home {
             border-radius: 100%;
             width: 37.2rem;
             height: 37.2rem;
-            opacity: 1;
-            animation: show-avatar 0.5s ease-in 1.6s 1 normal forwards;
         }
 
         .goup-text-button {
@@ -386,21 +440,46 @@ main.home {
 
             h3 {
                 color: $support-200;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                .emoji {
+                    font-size: 2.1rem;
+                }
+            }
+
+            .text-impact {
+                color: $emphasis-default;
+                margin-top: 1rem;
+                opacity: 90%;
             }
 
             h1 {
                 color: $emphasis-default;
-                margin-top: 1.2rem;
+                margin-top: 1rem;
             }
 
             .contact {
                 color: $emphasis-default;
                 border-radius: 1.6rem;
-                padding: 1.9rem 8.1rem;
+                padding: 1.9rem 4rem;
                 font-size: 3.6rem;
-                margin-top: 4rem;
+                margin-top: 2.4rem;
                 background-color: $black-10;
                 position: relative;
+
+                .bg {
+                    position: absolute;
+                    inset: 0 0 0 0;
+                    width: 100%;
+                    border-radius: 1.2rem;
+                    height: 100%;
+                    opacity: 0;
+                    transform: scaleY(0.01);
+                    z-index: -1;
+                    background-color: rgb(255, 255, 255);
+                }
             }
         }
     }
@@ -415,73 +494,26 @@ main.home {
         right: 7.4rem;
         gap: 3.6rem;
         margin-bottom: -3rem;
-        opacity: 0%;
-        animation: show-socialmedia 1s ease-in 1.4s 1 normal forwards;
         
 
         a {
             position: relative;
-            height: 7.8rem;        
+            height: 7.8rem;
+            border: 0.6rem solid;
+            border-radius: 199%;
+            box-sizing: content-box;
+            border: 0.5rem solid $emphasis-default;
             
-            &.link {
-                &.fadein {
-                    animation: link-grow 1s ease-in 0s 1 normal forwards;
-    
-                    .border-container {
-                        animation: border-show 1s ease-in 0s 1 normal forwards;
-                    }
-    
-                    img {
-                       animation: change-color 0.5s ease-in 0s 1 normal forwards;
-                    }
-                }
 
-                &.fadeout {
-                    animation: link-grow-fadeout 1s ease-in 0s 1 reverse forwards;
-    
-                    .border-container {
-                        animation: border-show-fadeout 2s ease-in 0s 1 reverse forwards;
-                    }
-    
-                    img {
-                       animation: change-color-fadeout 0.8s ease-in 0s 1 reverse forwards;
-                    }
-                }
-            }
-
-            .border {
-                position: absolute;
-                border: 0.5rem solid $emphasis-default;
-                border-radius: 100%;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-            }
-
-            .border-container {
-                pointer-events: none;
-                position: absolute; 
-                top: 0.1rem;
-                height: 0%; 
-                width: 100%;  
-                overflow-y: hidden;
-
-                .border-anima {
-                    top: 0rem;
-                    border-radius: 199%;
-                    position: absolute;
-                    height: 7.8rem;        
-                    
-                    width: 100%;
-                    border: 0.5rem solid $support-50;
-                }
-            }
 
             img {
                 width: 7.8rem; 
                 pointer-events: none;
                 margin-top: 0.1rem;
+            }
+
+            #youtube {
+                margin-top: 0;
             }
         }
     }
@@ -737,65 +769,229 @@ main.projects {
 
 main.contact {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 5.4rem;
 
-    .backgroud {
-        background: linear-gradient(112.794deg, #881FED 0%, #000733 90%);
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        z-index: -99;
-    }
-
+    
     .group-input-socialmedia {
-        width: 92.7rem;
-        margin-top: 17.6rem;
-        
-        .input {
-            margin-bottom: 3.4rem;
-            background-color: #0C0C0C40;
-            border-radius: 1.2rem;
-            width: 100%;
-            
-            header {
-                margin-top: 0;
-                background-color: #1B1B1B;
-                padding: 2.2rem 2rem;
+        border: 0.2rem solid $emphasis-default;
+        border-radius: 1.2rem;
+        margin-top: 5rem;
+        width: 112rem;
+        background-color: #0C0C0C60;
+        overflow: hidden;
+        height: 0.3rem;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
 
-                button {
-                    background-color: $support-400;
-                    padding: 0.4rem 1.2rem;
-                    border-radius: 1.2rem;
+        .msg {
+            width: 100%;
+            height: 13rem;
+            position: relative;
+            
+            textarea {
+                padding: 0 2.1rem;
+                padding-top: 0.5rem;
+                background-color: #00000034;
+                width: 100%;
+                height: 100%;
+                color: $white;
+
+
+                &::placeholder {
                     color: $white;
                 }
-            }
-            
-            .message {
-                height: 25.6rem;
-                padding: 0 2rem;
-                padding-top: 1.4rem;
-                width: 100%;
-                background-color: #0C0C0C40;
-                color: $white;
-                border: none;
-                outline: none;
-                resize: none;
 
-                font-size: 1.8rem;
-                font-family: 'Inter', sans-serif;
-                font-weight: 500;
             }
         }
 
-        .group-socialmedia {
+        header {
+            background-color: #1B1B1B;
+            padding: 1.7rem 2.1rem;
             display: flex;
-            justify-content: center;
-            width: 100%;
-            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0;
+            border-top-left-radius: 1.2rem;
+            border-top-right-radius: 1.2rem;
+
+
+            .group-socialmedia-btnSend {
+                display: flex;
+                gap: 2rem;
+
+                .group-socialmedia {
+                    display: flex;
+                    gap: 0.5rem;
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 100%;
+                        border: 0.2rem solid $emphasis-default;
+                        width: 4rem;
+                        height: 4rem;
+                        position: relative;
+                        transform: scale(0.7);
+    
+                        img {
+                            height: auto;
+                            width: 4rem;
+                        }
+                    }
+                }
+            }
+
+            .userEmail {
+                position: relative;
+                width: max-content;
+                opacity: 0.8;
+
+                input {
+                    background-color: #00000020;
+                    margin-bottom: 0.3rem;
+                    width: 48rem;
+                    color: $white;
+                
+                    
+                }
+
+                .border {
+                    position: absolute;
+                    bottom: -0.2rem;
+                    width: 100%;
+                    height: 0.2rem;
+                    background-color: $emphasis-default;
+                    border-radius: 0.6rem;
+                }
+            }
+
+            button {
+                background-color: $support-default;
+                padding: 0 0.8rem;
+                border-radius: 1.2rem;
+                scale: 0.9;
+                transition: all 0.6s;
+
+
+                &:hover {
+                    padding: 0 3rem;
+                }
+            }
+
+            
+
+        }
+    }
+
+    .green {
+        color: $emphasis-default;
+        font-weight: 800;
+        font-size: 2.1rem
+    }
+    
+    .group-cards-scroll {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        width: 100%;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+            height: 0;
         }
 
+
+        .cards-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: start;
+            gap: 3.5rem;
+            width: max-content;
+            position: relative;
+            transform: translateX(70%);
+        
+            .card {
+                border: 0.1rem solid $emphasis-default;
+                border-radius: 1.2rem;
+                width: 45rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4.1rem;
+                text-align: center;
+                position: relative;
+                opacity: 0;
+                padding: 4.4rem 4.5rem 5.1rem 4.5rem;
+                background: linear-gradient(-49.662deg, rgba(12, 12, 12, 43%) 44%, rgba(114, 114, 114, 43%) 100%);
+                transform: translateY(300px);
+
+                img {
+                    height: 6.3rem;
+                    width: auto;
+                }
+
+                button {
+                    border: 0.3rem solid $support-50;
+                    color: $support-50;
+                    background-color: #00000000;
+                    padding: 1.2rem 4.4rem;
+                    opacity: 0.8;
+                    transition: all 0.5s;
+                    border-radius: 1.2rem;
+
+                    &:hover {
+                        opacity: 1;
+                        scale: 1.1;
+                        background-color: $support-50;
+                        color: $white;
+                    }
+                }
+
+                h3 {
+                    color: $emphasis-default;
+                    font-size: 3.55rem;
+                    margin-bottom: 1.2rem;
+                }
+
+                p {
+                    font-size: 2rem;
+                    font-weight: 500;
+                }
+
+                .group-icon-text {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2.7rem;
+                }
+            }
+        }
+
+
+        .scroll-container {
+            opacity: 0;
+            width: 100%;
+            height: 2.2rem;
+            border-radius: 1.2rem;
+            background-color: #ffffff2f;
+            border: 0.2rem solid $emphasis-default;
+            
+
+            .scroll {
+                background-color: $emphasis-default;
+                height: 100%;
+                width: 60%;
+                border-radius: 1.2rem;
+                opacity: 0.7;
+            }
+
+
+            
+        }
     }
 
 }
@@ -806,7 +1002,7 @@ main.skills {
     min-width: 103.5rem;
 
     .explore {
-        opacity: 0;
+        opacity: 1;
         background-color: #0C0C0C79;
         padding: 2.2rem;
         border-radius: 1.2rem;
@@ -815,7 +1011,6 @@ main.skills {
         margin-top: 8rem;
         width: 110.9rem;
         border: 0.1rem solid #D76EFF;
-        animation: explore-fadein 1s ease-out 3.4s 1 normal forwards;
 
         header {
             margin-bottom: 3.6rem;
@@ -830,7 +1025,6 @@ main.skills {
                 padding: 0.4rem 0.9rem;
                 transition: all 0.3s;
                 opacity: 0;
-                animation: opacity-default 1s ease-out 5s 1 normal forwards;
 
 
                 img {
@@ -845,7 +1039,6 @@ main.skills {
             span {
                 opacity: 0;
                 margin-right: 9rem;
-                animation: opacity-default 1s ease-out 5s 1 normal forwards;
 
             }
 
@@ -869,7 +1062,6 @@ main.skills {
                     border-top: 0.2rem solid $emphasis-default;
                     border-radius: 1.2rem 0 0 1.2rem;
                     width: 2%;
-                    animation: add-border 1.5s ease-in 3.5s 1 normal forwards;
                 }
 
                 input {
@@ -881,12 +1073,10 @@ main.skills {
                     height: 4rem;
                     border: 0.2rem solid $emphasis-default;
                     border-radius: 1.2rem;
-                    animation: opacity-border 1s ease-out 0s 1 normal forwards;
                 }
 
                 input, img {
                     opacity: 0;
-                    animation: opacity-default 1s ease-out 5s 1 normal forwards;
                 }
                 
 

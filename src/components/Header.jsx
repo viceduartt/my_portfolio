@@ -1,17 +1,46 @@
 import { Link } from "react-router-dom";
 import iconMusic from "../assets/icons/music.svg";
+import iconBr from "../assets/icons/br.svg";
+import iconFr from "../assets/icons/fr.svg";
+import iconUs from "../assets/icons/us.svg";
+
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 function Header() {
+
   useGSAP(() => {
     const menus = document.querySelectorAll('header h2')
     
-    const changeAnimation = (menu, state, timeline) => {
+    const animaLoadMenu = (menu) => {
+      const pos = menu.getBoundingClientRect()
+
+      gsap.from(`#${menu.id}`, {
+        opacity: 0,
+        x:-pos.left,
+      })
+
+      gsap.to(`#${menu.id}`, {
+        opacity: 0,
+        duration: 0.4
+      })
+
+      gsap.to(`#${menu.id}`, {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+    
+      })
+    }
+
+    const changeAnimation = (menu, timeline) => {
       const animate = document.querySelector(`#${menu.id} .menu .bg`).dataset
+      const retMenu = menu.getBoundingClientRect()
+      const retCursor = document.querySelector('.cursor').getBoundingClientRect()
       
       if (animate.change == '0') {
         animate.change = '1'
+
 
         const time = setTimeout(() => {
           clearTimeout(time)
@@ -89,16 +118,64 @@ function Header() {
         })
       }
     }
+
+    const animaLoadBtnLang = () => {
+      document.querySelectorAll('.button-lang').forEach(btn=>{
+
+        if (btn.className !== 'button-lang on') {
+          btn.addEventListener('mouseenter', () => {
+            gsap.to(btn, {
+              opacity: '100%',
+              scale: 1.1,
+              duration: 0.1,
+            })
+          })
+  
+          btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+              opacity: '75%',
+              scale: 1,
+              duration: 0,
+            })
+          })
+        }
+      })
+
+      gsap.to('.button-lang', {
+        opacity: '75%',
+        duration: 0.6,
+        delay: 0.2
+      })
+
+      gsap.to('.button-lang.on', {
+        opacity: 1,
+        duration: 0.6,
+        scale: 1.1,
+        delay: 0.5
+      })
+    }
+
+    const animaLoadBtnMusic = () => {
+      gsap.to('.button-music', {
+        opacity: 1,
+        duration: 0.6
+      })
+    }
     
     if (menus !== undefined) {
       for (let menu of menus) { 
         const timeline = gsap.timeline({})
         const animate = document.querySelector(`#${menu.id} .menu .bg`).dataset
 
+        animaLoadBtnLang(menu)
+        animaLoadMenu(menu)
+        animaLoadBtnMusic(menu)
+
+        
         menu.addEventListener('mouseenter', (e) => {
           if (animate.change === '0') {
-            changeAnimation(menu, 'fadein', timeline)
-          }
+            changeAnimation(menu, timeline)
+          }          
         })
       }
     }
@@ -112,24 +189,18 @@ function Header() {
         <h2 className="ocult" id="home">
           <Link className="menu" to='/'>
             <div data-change='0' className="bg"></div>
-            <div className="area-mouse"></div>
-
             Home
           </Link>
         </h2>
         <h2 className="ocult" id="projects">
           <Link className="menu"to="/projects">
             <div data-change='0' className="bg"></div>
-            <div className="area-mouse"></div>
-
             Projects
           </Link>
         </h2>
         <h2 className="ocult" id="contact">
           <Link className="menu" to="/contact">
             <div data-change='0' className="bg"></div>
-            <div className="area-mouse"></div>
-
             Contact
           </Link>
 
@@ -137,13 +208,20 @@ function Header() {
         <h2 className="ocult" id="skills">
           <Link className="menu" to="/skills">
             <div data-change='0' className="bg"></div>
-            <div className="area-mouse"></div>
-
             Skills
           </Link>
         </h2>
       </nav>
-      <button className="button-music"><img src={iconMusic} alt="" /></button>
+
+      <div className="button-langs">
+        <div className="group-langs">
+          <button className="button-lang on" id="lang-us"><img src={iconUs} alt="" /></button>
+          <button className="button-lang" id="lang-fr"><img src={iconFr} alt="" /></button>
+          <button className="button-lang" id="lang-br"><img src={iconBr} alt="" /></button>
+        </div>
+
+        <button className="button-music"><img src={iconMusic} alt="" /></button>
+      </div>
     </header>
   );
 }

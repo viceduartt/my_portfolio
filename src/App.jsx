@@ -3,13 +3,11 @@ import Home from './pages/Home';
 import Skills from './pages/Skills';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
-import Cursor from "./components/Cursor";
 
 function App() {
 
   return (
     <>
-      <Cursor></Cursor>
       
       <BrowserRouter>
         <Routes>

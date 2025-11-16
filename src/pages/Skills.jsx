@@ -5,6 +5,11 @@ import iconClose from "../assets/icons/close.svg";
 import iconSearch from "../assets/icons/search.svg";
 import iconFrontend from "../assets/icons/frontend.svg";
 import iconBackend from "../assets/icons/backend.svg";
+import Loading from "../components/Loading";
+import Cursor from "../components/Cursor";
+
+
+
 
 import img1 from "../assets/images/frontend/boostrap.svg";
 import img2 from "../assets/images/frontend/javascript.svg";
@@ -13,64 +18,20 @@ import img3 from "../assets/images/frontend/css.svg";
 function Skills() {
   const text = ''
 
-
-  const changeAnima = (e) => {
-    const idTime = setTimeout(() => {
-      e.className = 'anima-bg fadeout'
-      console.log(e.className)
-      clearTimeout(idTime)
-
-      const timeDeleteE = setInterval(() => {
-        e.className = 'anima-bg delete'
-      }, 1500)
-    }, 3500)
-  }
-
-  const idTime = setInterval(() => {
-    let e = document.getElementsByClassName('anima-bg')[0]
-    
-    if (e !== undefined) {
-      changeAnima(e)
-      clearInterval(idTime)
-    }
-  }, 100)
-
-  const changeBorderInput = (e) => {
-    console.log('jkklkjkl')
-    e.addEventListener('animationend', (e) => {
-      const border = document.querySelector('.search-skills .border')
-
-      border.computedStyleMap.display = 'none'
-    })
-  }
-
-  const changeAnimaInput = (e, state) => {
-    if (state === 'click') {
-      e.className = 'on'
-    } else {
-      e.className = ''
-    }
+  const changeBg = () => {
+      document.querySelector('body').classList.remove('contact')
   }
 
   return (
     <>
+      <Cursor></Cursor>
       <Header/>
 
-      <div className="loading"></div>
+      <Loading></Loading>
+      
 
-      <main className="skills">
+      <main className="skills" onLoad={() => {changeBg()}}>
 
-        <div className="anima-explore">
-          <div className="anima-bg">
-            <div className="border-left">
-              <div className="border"></div>
-            </div>
-            <div className="border-top-right-bottom">
-              <div className="border"></div>
-            </div>
-
-          </div>
-        </div>
         <div className="explore">
           <header>
             <label htmlFor="search-skills" className="search-skills">
@@ -78,9 +39,6 @@ function Skills() {
               <img src={iconSearch} alt="" />
 
               <input 
-                onAnimationStart={(e) => {changeBorderInput(e.target)}} type="text" id="search-skills" 
-                onClick={(e) => {changeAnimaInput(e.target, 'click')}}
-                onMouseLeave={(e) => {changeAnimaInput(e.target, 'fadeout')}}
                 placeholder="Search: boostrap..." 
                 value={text} 
               />

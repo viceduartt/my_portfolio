@@ -5,17 +5,27 @@ import iconTech1 from "../assets/images/frontend/tailwindcss.svg";
 import iconTech2 from "../assets/images/backend/golang.svg";
 import iconSearch from "../assets/icons/search.svg";
 import iconMore from "../assets/icons/more.svg";
+import Loading from "../components/Loading";
+import Cursor from "../components/Cursor";
+
+
 
 function Projects() {
   const text = ""
+
+  const changeBg = () => {
+      document.querySelector('body').classList.remove('contact')
+  }
+
   return (
     <>
+      <Cursor></Cursor>
       <Header/>
 
-      <div className="loading"></div>
+      <Loading></Loading>
 
 
-      <main className="projects">
+      <main className="projects" onLoad={() => {changeBg()}}>
           <div className="project">
             <img className="project-focus" src={img1} alt="" />
 
