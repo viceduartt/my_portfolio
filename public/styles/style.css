@@ -137,27 +137,6 @@ label {
 }
 
 /* ====== ASSETS ====== */
-.scrollbar-container {
-  opacity: 80%;
-  width: 1.5rem;
-  height: 100%;
-  border: 2px solid #28D9DF;
-  border-radius: 1.2rem;
-  position: relative;
-}
-.scrollbar-container .scrollbar {
-  background-color: #28D9DF;
-  width: 100%;
-  height: 4rem;
-  border-radius: 1.2rem;
-  position: absolute;
-  top: 0%;
-}
-
-.scrollbar-container.off {
-  display: none;
-}
-
 .loading {
   position: absolute;
   top: 0%;
@@ -373,13 +352,16 @@ main.home .about .goup-text-button h1 {
   margin-top: 1rem;
 }
 main.home .about .goup-text-button .contact {
-  color: #28D9DF;
   border-radius: 1.6rem;
   padding: 1.9rem 4rem;
   font-size: 3.6rem;
   margin-top: 2.4rem;
   background-color: #0C0C0C;
   position: relative;
+}
+main.home .about .goup-text-button .contact a {
+  color: #28D9DF;
+  display: block;
 }
 main.home .about .goup-text-button .contact .bg {
   position: absolute;
@@ -829,35 +811,58 @@ main.skills .explore {
   background-color: rgba(12, 12, 12, 0.4745098039);
   padding: 2.2rem;
   border-radius: 1.2rem;
-  max-height: 70rem;
   min-height: 61rem;
   margin-top: 8rem;
   width: 110.9rem;
+  width: -moz-fit-content;
+  width: fit-content;
   border: 0.1rem solid #D76EFF;
 }
 main.skills .explore header {
-  margin-bottom: 3.6rem;
+  margin-bottom: 4.3rem;
   display: flex;
   justify-content: space-between;
   margin-top: 0;
   align-items: center;
+}
+main.skills .explore header .menu-category {
+  display: flex;
+  gap: 2rem;
+}
+main.skills .explore header .menu-category button {
+  opacity: 90%;
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 2.2rem;
+  background-color: rgba(0, 3, 24, 0.1254901961);
+  font-size: 2.3rem;
+}
+main.skills .explore header .menu-category button span {
+  margin: 0;
+}
+main.skills .explore header .menu-category button img {
+  width: 1.9rem;
+}
+main.skills .explore header .menu-category button.on {
+  opacity: 100%;
+  border: 0.2rem solid #28D9DF;
+  border-radius: 1.2rem;
+  margin-left: 2rem;
 }
 main.skills .explore header .close {
   border-radius: 100%;
   background-color: #B248FF;
   padding: 0.4rem 0.9rem;
   transition: all 0.3s;
-  opacity: 0;
 }
 main.skills .explore header .close img {
   width: 1.6rem;
 }
 main.skills .explore header .close.on, main.skills .explore header .close:hover {
   opacity: 100%;
-}
-main.skills .explore header span {
-  opacity: 0;
-  margin-right: 9rem;
 }
 main.skills .explore header label {
   position: relative;
@@ -888,9 +893,6 @@ main.skills .explore header label input {
   border: 0.2rem solid #28D9DF;
   border-radius: 1.2rem;
 }
-main.skills .explore header label input, main.skills .explore header label img {
-  opacity: 0;
-}
 main.skills .explore header label input::-moz-placeholder {
   color: #FFFFFF;
   font-size: 1.7rem;
@@ -905,18 +907,40 @@ main.skills .explore header label img {
   left: 1.4rem;
   width: 1.6rem;
 }
+main.skills .explore .scrollbar-container {
+  margin-left: 1rem;
+  opacity: 0.6;
+  width: 1.5rem;
+  height: 100%;
+  border: 2px solid #28D9DF;
+  border-radius: 1.2rem;
+  position: relative;
+}
+main.skills .explore .scrollbar-container .scrollbar {
+  background-color: #28D9DF;
+  width: 100%;
+  height: 4rem;
+  border-radius: 1.2rem;
+  position: absolute;
+  top: 0%;
+}
+main.skills .explore .scrollbar-container.off {
+  display: none;
+}
 main.skills .explore .group-list-skills {
-  opacity: 0;
   display: flex;
   height: 93%;
   overflow: hidden;
+  padding-left: 1rem;
+  position: relative;
+  width: 100%;
 }
 main.skills .explore .group-list-skills .list-skills {
+  width: 100%;
   display: flex;
   height: 100%;
   flex-direction: column;
   gap: 3.2rem;
-  margin-left: 3rem;
 }
 main.skills .explore .group-list-skills .list-skills .line-skill {
   display: flex;
@@ -939,98 +963,10 @@ main.skills .explore .group-list-skills .list-skills .line-skill .skill img {
 main.skills .explore .group-list-skills .list-skills .line-skill .skill.on, main.skills .explore .group-list-skills .list-skills .line-skill .skill:hover {
   opacity: 100%;
 }
-main.skills .explore .group-list-skills .menu-category {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-main.skills .explore .group-list-skills .menu-category button {
-  opacity: 90%;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem 2.2rem;
-  background-color: rgba(0, 3, 24, 0.1254901961);
-  font-size: 2.3rem;
-}
-main.skills .explore .group-list-skills .menu-category button img {
-  width: 1.9rem;
-}
-main.skills .explore .group-list-skills .menu-category button.on {
-  opacity: 100%;
-  border: 0.2rem solid #28D9DF;
-  border-radius: 1.2rem;
-  margin-left: 2rem;
-}
-main.skills .anima-explore {
-  position: absolute;
-  padding: 2.2rem;
-  border-radius: 1.2rem;
-  margin: auto;
-  top: 17.2rem;
-  height: 61rem;
-  width: 110.9rem;
-}
-main.skills .anima-explore .anima-bg {
-  position: absolute;
-  animation: start-explore 1.5s ease-out 0s 1 normal forwards;
-  background-color: rgba(255, 255, 255, 0.9098039216);
-  border-radius: 1.2rem;
-  left: 37rem;
-  top: 17.2rem;
-  height: 61rem;
-  width: 110.9rem;
-  border: 2px solid rgba(255, 255, 255, 0);
-}
-main.skills .anima-explore .anima-bg.delete {
+main.skills .explore .group-list-skills .list-off {
+  pointer-events: none;
   display: none;
-}
-main.skills .anima-explore .anima-bg.fadeout {
-  animation: end-explore 2s ease-out 0s 1 normal forwards;
-}
-main.skills .anima-explore .anima-bg .border-top-right-bottom {
   opacity: 0;
-  position: absolute;
-  top: -0.2rem;
-  left: 0.9rem;
-  height: 101%;
-  width: 99.5%;
-  overflow: hidden;
-  animation: border-right-top-bottom-anima 1s ease-out 1.6s 1 normal forwards;
-}
-main.skills .anima-explore .anima-bg .border-top-right-bottom .border {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  height: 61rem;
-  width: 109.8rem;
-  border-top-right-radius: 1.2rem;
-  border-bottom-right-radius: 1.2rem;
-  border-top: 0.3rem solid #D76EFF;
-  border-bottom: 0.3rem solid rgba(214, 110, 255, 0);
-  border-right: 0.3rem solid #D76EFF;
-}
-main.skills .anima-explore .anima-bg .border-left {
-  opacity: 0;
-  position: absolute;
-  animation: border-left-top-bottom-anima 1s ease-out 2.5s 1 normal forwards;
-  bottom: -0.2rem;
-  right: 0.9rem;
-  height: 101%;
-  width: 99.5%;
-  overflow: hidden;
-}
-main.skills .anima-explore .anima-bg .border-left .border {
-  position: absolute;
-  right: 0%;
-  bottom: 0%;
-  height: 61rem;
-  width: 109.8rem;
-  border-top-left-radius: 1.2rem;
-  border-bottom-left-radius: 1.2rem;
-  border-left: 0.3rem solid #D76EFF;
-  border-bottom: 0.3rem solid #D76EFF;
-  border-top: 0.3rem solid #D76EFF;
 }
 
 /* ====== FOOTER ====== *//*# sourceMappingURL=style.css.map */

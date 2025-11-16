@@ -114,76 +114,83 @@ function Contact() {
 
       const time = setTimeout(() => {
         clearTimeout(time)
+        
+        const cardsContainer = document.querySelector('.cards-container')
+        
+        if (cardsContainer !== null) {
 
-        document.querySelector('.cards-container').addEventListener('wheel', (e) => {
-          const timeline = gsap.timeline({})
-  
-          clearTimeout(scrollTime)
-  
-          if (e.deltaY > 0 || e.deltaY < 0) {
-            scrollTime = setTimeout(() => {
-              clearTimeout(scrollTime)
-              console.log(timeline.isActive())
-                if (timeline.isActive() === false) {
-                  gsap.to('.scroll', {
-                    duration: 1,
-                    opacity: 0.7
-                  })
-                }
-              }, 2000)
-          }
-          
-          if (e.deltaY > 0) {
-            if (posView < 0) {
-              gsap.to(groupCards, {
-                duration: 1,
-                x: `${posView++}%`
-              })
-  
-              gsap.to('.scroll', {
-                duration: 1,
-                x: `${posScrollBar--}%`
-              })
-  
-              timeline.to('.scroll', {
-                duration: 0.5,
-                opacity: 1
-              })
-            } else {
-              gsap.to('.scroll', {
-                duration: 1,
-                x: `0%`
-              })
-            }
+          document.querySelector('.cards-container').addEventListener('wheel', (e) => {
+            const timeline = gsap.timeline({})
     
-  
-  
-          } else {
-            if (posView > -50.5) {
-  
-              gsap.to(groupCards, {
-                duration: 1,
-                x: `${posView--}%`
-                
-              })
-  
-              gsap.to('.scroll', {
-                duration: 1,
-                x: `${posScrollBar++}%`
-              })
-  
-              timeline.to('.scroll', {
-                duration: 0.5,
-                opacity: 1
-              })
-            } else {
-              gsap.to('.scroll', {
-                duration: 1,
-                x: `67%`
-              })
+            clearTimeout(scrollTime)
+    
+            if (e.deltaY > 0 || e.deltaY < 0) {
+              scrollTime = setTimeout(() => {
+                clearTimeout(scrollTime)
+                console.log(timeline.isActive())
+                  if (timeline.isActive() === false) {
+                    gsap.to('.scroll', {
+                      duration: 1,
+                      opacity: 0.7
+                    })
+                  }
+                }, 2000)
             }
-          }
-        })
+            
+            if (e.deltaY > 0) {
+              if (posView < 0) {
+                gsap.to(groupCards, {
+                  duration: 1,
+                  x: `${posView++}%`
+                })
+    
+                gsap.to('.scroll', {
+                  duration: 1,
+                  x: `${posScrollBar--}%`
+                })
+    
+                timeline.to('.scroll', {
+                  duration: 0.5,
+                  opacity: 1
+                })
+              } else {
+                gsap.to('.scroll', {
+                  duration: 1,
+                  x: `0%`
+                })
+              }
+      
+    
+    
+            } else {
+              if (posView > -50.5) {
+    
+                gsap.to(groupCards, {
+                  duration: 1,
+                  x: `${posView--}%`
+                  
+                })
+    
+                gsap.to('.scroll', {
+                  duration: 1,
+                  x: `${posScrollBar++}%`
+                })
+    
+                timeline.to('.scroll', {
+                  duration: 0.5,
+                  opacity: 1
+                })
+              } else {
+                gsap.to('.scroll', {
+                  duration: 1,
+                  x: `67%`
+                })
+              }
+            }
+          })
+        }
+
+        
       }, 4500)
     }
 

@@ -26,10 +26,14 @@ function Home() {
         })
 
         gsap.to('.contact', {
-          color: '#28D9DF',
           backgroundColor: '#0C0C0C',
           scale: 1,
           duration: 0.5
+        })
+
+        gsap.to('.contact a', {
+          duration: 1,
+          color: '#28D9DF'
         })
       })
 
@@ -41,9 +45,13 @@ function Home() {
         })
 
         gsap.to('.contact', {
-          color: 'black',
           backgroundColor: '#11111100',
           duration: 0.5
+        })
+        
+        gsap.to('.contact a', {
+          duration: 1,
+          color: 'black',
         })
       })
     }
@@ -154,7 +162,7 @@ function Home() {
       gsap.to('#ball', {
         display: 'none',
         duration: 0.1,
-        delay: 3
+        delay: 4
       })
     } 
 
@@ -208,7 +216,7 @@ function Home() {
 
             <button className="contact">
               <div className="bg"></div>
-              Build the Future
+              <a href="/contatc" className="button">Build the Future</a>
             </button>
           </div>
         </div>

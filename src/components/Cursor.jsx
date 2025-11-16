@@ -21,14 +21,10 @@ function Cursor() {
           eClick.addEventListener('mouseenter', () => {
             console.log('teste enter')
 
-            gsap.from('.cursor', {
-              opacity: 0,
-              duration: 0.5,
-            })
             
             gsap.to('.cursor', {
               opacity: 1,
-              scale: 0.05,
+              scale: 1,
               backgroundImage: "url('../images/cursor_pointer.svg')",
               duration: 1,
 
@@ -37,11 +33,6 @@ function Cursor() {
 
           eClick.addEventListener('mouseleave', () => {
           console.log('teste leave')
-
-            gsap.from('.cursor', {
-              opacity: 0,
-              duration: 0.5,
-            })
             
             gsap.to('.cursor', {
               opacity: 1,
@@ -72,7 +63,8 @@ function Cursor() {
             y: cursorY,
             opacity: 1,
             scale: 1,
-            duration: 10
+            duration: 0.1,
+            ease: 'sine'
           })  
         }
       })
