@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import img1 from "../assets/images/projects/00/1338843.png";
 import iconTech1 from "../assets/images/frontend/tailwindcss.svg";
 import iconTech2 from "../assets/images/backend/golang.svg";
-import iconSearch from "../assets/icons/search.svg";
 import iconMore from "../assets/icons/more.svg";
 import Loading from "../components/Loading";
 import Cursor from "../components/Cursor";
@@ -25,7 +24,21 @@ function Projects() {
       <Loading></Loading>
 
 
+      <div className="backgroumd">
+        <div className="msg">
+          <img src={img1} alt="" />
+
+          <div className="groupbtn-msg">
+            <span>I'm selecting the best projects; in the meantime, you can contact me.</span>
+
+            <a href="#contact" className="contact">Contact</a>
+          </div>
+
+        </div>
+      </div>
+
       <main className="projects" onLoad={() => {changeBg()}}>
+
           <div className="project">
             <img className="project-focus" src={img1} alt="" />
 
@@ -111,162 +124,17 @@ Our goal is to provide an intuitive navigation experience, modern design, and sm
           </div>
 
           <div className="list-projects">
-            <header>
-              <div className="sections">
-                <button className="section on" id="projects-list"></button>
-                <button className="section" id="projects-details"></button>
-              </div>
-              
-              <div className="group-search-technology">
-                <label htmlFor="search-projects" className="search-projects">
-                  <img src={iconSearch} alt="" />
+            <header>              
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
 
-                  <input type="text" id="search-projects" placeholder="Search by: landing page..." value={text} />
-                </label>
-
-                <div className="list-technologies">
-                  <div className="group-show-technologies">
-                    <div className="highlight-list-technologies">
-                      <button className="technology on">
-                        <img src={iconTech1} alt="" />
-
-                        ailwind cs
-                      </button>
-
-                      <button className="technology">
-                        <img src={iconTech2} alt="" />
-
-                        Golang
-                      </button>
-
-                      <button className="technology">
-                        <img src={iconTech1} alt="" />
-
-                        ailwind cs
-                      </button>
-
-                      <button className="technology">
-                        <img src={iconTech1} alt="" />
-
-                        ailwind cs
-                      </button>
-                    </div>
-
-                    <button className="button-more">
-                      <img src={iconMore} alt="" />
-                    </button>
-
-                    <div className="more-list-technologies on">
-                      <div className="line-list-technologies">
-                        <button className="technology">
-                          <img src={iconTech1} alt="" />
-
-                          ailwind cs
-                        </button>
-
-                        <button className="technology">
-                          <img src={iconTech2} alt="" />
-
-                          Golang
-                        </button>
-
-                        <button className="technology">
-                          <img src={iconTech1} alt="" />
-
-                          ailwind cs
-                        </button>
-
-                        <button className="technology">
-                          <img src={iconTech1} alt="" />
-
-                          ailwind cs
-                        </button>
-                      </div>
-
-                      <div className="more-list-technologies">
-                        <div className="line-list-technologies">
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech2} alt="" />
-
-                            Golang
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-                        </div>
-
-                        <div className="line-list-technologies">
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech2} alt="" />
-
-                            Golang
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-                        </div>
-
-                        <div className="line-list-technologies">
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech2} alt="" />
-
-                            Golang
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-
-                          <button className="technology">
-                            <img src={iconTech1} alt="" />
-
-                            ailwind cs
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
+              <button className="btnTag" id="landingPage">Landing page</button>
             </header>
 
             <div className="group-list-projects">

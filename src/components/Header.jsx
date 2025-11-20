@@ -3,11 +3,14 @@ import iconMusic from "../assets/icons/music.svg";
 import iconBr from "../assets/icons/br.svg";
 import iconFr from "../assets/icons/fr.svg";
 import iconUs from "../assets/icons/us.svg";
+import menu from "../assets/icons/menu.svg";
+import logo from "../assets/images/avatar.svg";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 function Header() {
+  let showMenu = false
 
   useGSAP(() => {
     const menus = document.querySelectorAll('header h2')
@@ -35,8 +38,6 @@ function Header() {
 
     const changeAnimation = (menu, timeline) => {
       const animate = document.querySelector(`#${menu.id} .menu .bg`).dataset
-      const retMenu = menu.getBoundingClientRect()
-      const retCursor = document.querySelector('.cursor').getBoundingClientRect()
       
       if (animate.change == '0') {
         animate.change = '1'
@@ -180,50 +181,171 @@ function Header() {
       }
     }
 
+    
+    const shwoHeader = () => {
+      const menuBtn = document.querySelector('.btn-menu')
+
+      menuBtn.addEventListener('click', () => {
+        const header = document.querySelector('.header-moblie')
+        
+        console.log(showMenu)
+        
+        if (showMenu === false) {
+          console.log('test')
+          gsap.to(header, {
+            duration: 1,
+            x: '0%',
+            opacity: 1,
+          })
+
+          gsap.to(menuBtn, {
+            duration: 1,
+            opacity: 1,
+            scale: 0.95,
+            delay: 0.5
+          })
+
+        } else {
+          console.log('oioio')
+
+          gsap.to(header, {
+            duration: 1,
+            x: '60%',
+            opacity: 0,
+          })
+
+          gsap.to(menuBtn, {
+            duration: 1,
+            opacity: 0.9,
+            scale: 0.9
+          })
+        }
+      })
+
+    }
+
+    if (document.querySelector('.header-moblie') !== null) {
+      gsap.to(document.querySelector('.header-moblie'), {
+        duration: 0.1,
+        x: '60%',
+        
+      })
+      shwoHeader()
+    }
+    
   }, [])
 
-  return (
-    <header>
+  if (window.innerWidth <= 1000) {
+    return (
+      <>
+
+        <header>
+          <div className="logo">
+            <div className="bg-img">
+
+              <img src={logo} alt="" />
+            </div>
+
+            <span> &lt;VicedArtt/&gt;</span>
+          </div>
+          <button className="btn-menu" onClick={() => {showMenu = !showMenu}}><img src={menu} alt="" /></button> 
+
+
+          <div className="header-moblie">
+
+            <nav className="group-menu">
+              <h2 className="ocult" id="home">
+                <Link className="menu" to='/'>
+                  <div data-change='0' className="bg"></div>
+                  Home
+                </Link>
+              </h2>
+              <h2 className="ocult" id="projects">
+                <Link className="menu"to="/projects">
+                  <div data-change='0' className="bg"></div>
+                  Projects
+                </Link>
+              </h2>
+              <h2 className="ocult" id="contact">
+                <Link className="menu" to="/contact">
+                  <div data-change='0' className="bg"></div>
+                  Contact
+                </Link>
       
-      <nav className="group-menu">
-        <h2 className="ocult" id="home">
-          <Link className="menu" to='/'>
-            <div data-change='0' className="bg"></div>
-            Home
-          </Link>
-        </h2>
-        <h2 className="ocult" id="projects">
-          <Link className="menu"to="/projects">
-            <div data-change='0' className="bg"></div>
-            Projects
-          </Link>
-        </h2>
-        <h2 className="ocult" id="contact">
-          <Link className="menu" to="/contact">
-            <div data-change='0' className="bg"></div>
-            Contact
-          </Link>
+              </h2>
+              <h2 className="ocult" id="skills">
+                <Link className="menu" to="/skills">
+                  <div data-change='0' className="bg"></div>
+                  Skills
+                </Link>
+              </h2>
+            </nav>
 
-        </h2>
-        <h2 className="ocult" id="skills">
-          <Link className="menu" to="/skills">
-            <div data-change='0' className="bg"></div>
-            Skills
-          </Link>
-        </h2>
-      </nav>
+            <div className="button-langs">
 
-      <div className="button-langs">
-        <div className="group-langs">
-          <button className="button-lang on" id="lang-us"><img src={iconUs} alt="" /></button>
-          <button className="button-lang" id="lang-fr"><img src={iconFr} alt="" /></button>
-          <button className="button-lang" id="lang-br"><img src={iconBr} alt="" /></button>
+              <div className="group-langs">
+                <button className="button-lang on" id="lang-us"><img src={iconUs} alt="" /></button>
+                <button className="button-lang" id="lang-fr"><img src={iconFr} alt="" /></button>
+                <button className="button-lang" id="lang-br"><img src={iconBr} alt="" /></button>
+              </div>
+              
+              <button className="button-music"><img src={iconMusic} alt="" /></button>
+      
+            </div>
+            
+            
+
+          </div>
+    
+        </header>
+      </>
+    );
+  } else {
+
+    return (
+      <header>
+        
+        <nav className="group-menu">
+          <h2 className="ocult" id="home">
+            <Link className="menu" to='/'>
+              <div data-change='0' className="bg"></div>
+              Home
+            </Link>
+          </h2>
+          <h2 className="ocult" id="projects">
+            <Link className="menu"to="/projects">
+              <div data-change='0' className="bg"></div>
+              Projects
+            </Link>
+          </h2>
+          <h2 className="ocult" id="contact">
+            <Link className="menu" to="/contact">
+              <div data-change='0' className="bg"></div>
+              Contact
+            </Link>
+  
+          </h2>
+          <h2 className="ocult" id="skills">
+            <Link className="menu" to="/skills">
+              <div data-change='0' className="bg"></div>
+              Skills
+            </Link>
+          </h2>
+        </nav>
+  
+        <div className="button-langs">
+          <div className="group-langs">
+            <button className="button-lang on" id="lang-us"><img src={iconUs} alt="" /></button>
+            <button className="button-lang" id="lang-fr"><img src={iconFr} alt="" /></button>
+            <button className="button-lang" id="lang-br"><img src={iconBr} alt="" /></button>
+          </div>
+  
+          <button className="button-music"><img src={iconMusic} alt="" /></button>
         </div>
+      </header>
+    );
+  }
 
-        <button className="button-music"><img src={iconMusic} alt="" /></button>
-      </div>
-    </header>
-  );
 }
 
 export default Header;

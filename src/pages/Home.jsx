@@ -120,7 +120,7 @@ function Home() {
       })
 
       gsap.to('#ball', {
-        left: '139rem',
+        left: '79vw',
         duration: 1,
         delay: delay = delay + 0.5
       })
@@ -216,7 +216,7 @@ function Home() {
 
             <button className="contact">
               <div className="bg"></div>
-              <a href="/contatc" className="button">Build the Future</a>
+              <a href="/contact" className="button">Build the Future</a>
             </button>
           </div>
         </div>

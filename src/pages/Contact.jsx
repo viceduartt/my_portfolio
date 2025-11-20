@@ -197,7 +197,7 @@ function Contact() {
     const animaLoading = () => {
       gsap.to('.group-input-socialmedia', {
         duration: 1,
-        height: '20rem',
+        height: '23rem',
         opacity: 1,
         delay: 0.2
       })
@@ -227,155 +227,313 @@ function Contact() {
     }
 
 
-  return (
-    <>
-      <Cursor></Cursor>
-      <Header/>
+    if (window.innerWidth <= 1000) {
+      return (
+        <>
+          <Cursor></Cursor>
+          <Header/>
 
-      <Loading></Loading>
-
-
-      <main className="contact">
-        <div className="group-input-socialmedia">
-          <header>
-            <label className="userEmail" htmlFor="userEmail">
-              <div className="output" id="outputEmail"></div>
-              <input type="email" name="userEmail" translate="no" onChange={(e) => {handleEmail(e.target.value)}} id="userEmail" value={valueEmail} placeholder="contactemail@example.com" />
-
-              <div className="border"></div>
-            </label>
+          <Loading></Loading>
 
 
-            <div className="group-socialmedia-btnSend">
+          <main className="contact">
+            <div className="group-input-socialmedia">
+              <header>
+                <label className="userEmail" htmlFor="userEmail">
+                  <div className="output" id="outputEmail"></div>
+                  <input type="email" name="userEmail" translate="no" onChange={(e) => {handleEmail(e.target.value)}} id="userEmail" value={valueEmail} placeholder="contactemail@example.com" />
+
+                  <div className="border"></div>
+                </label>
+              </header>
+
+
+              <div className="msg-send">
+                <label htmlFor="msg" className="msg">
+                  <div className="output" id="outputMsg"></div>
+
+                  <textarea name="msg" id="msg"  translate="no" onChange={(e) => {handleMsg(e.target.value)}} value={valueMsg} placeholder="teste"></textarea>
+                </label>
+
+
+                <button className="button-small" id="sendEmail">Send</button>
+              </div>
+            </div>
+
+
+            <div className="group-socialmedia-cards">
               <div className="group-socialmedia">
-                <a href="" className="btn-socialmedia"><img src={email} alt="" /></a>
+                <a href="mailto:viceduartt@gmail.com" type="email" className="btn-socialmedia"><img src={email} alt="" /></a>
                 <a href="" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
                 <a href="" className="btn-socialmedia"><img src={instagram} alt="" /></a>
                 <a href="" className="btn-socialmedia"><img src={discord} alt="" /></a>
               </div>
 
-              <button className="button-small" id="sendEmail">Send</button>
-            </div>
-          </header>
+              <div className="group-cards-scroll">
+                <div className="scroll-container">
+                  <div className="scroll"></div>
+                </div>
 
-          <label htmlFor="msg" className="msg">
-            <div className="output" id="outputMsg"></div>
+                <div className="cards-container">
+                  
+                  <div className="card">
 
-            <textarea name="msg" id="msg"  translate="no" onChange={(e) => {handleMsg(e.target.value)}} value={valueMsg} placeholder="teste"></textarea>
-          </label>
-        </div>
+                    <div className="group-icon-text">
+                      <img src={website} alt="" />
 
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">Website Development</h3>
 
-        <div className="group-cards-scroll">
-          <div className="scroll-container">
-            <div className="scroll"></div>
-          </div>
+                        <p className="body-big">I develop everything from <span className="green">landing pages</span> to <span className="green">media streaming websites!</span> But I'm always available for challenges.</p>
+                      </div>
+                    </div>
 
-          <div className="cards-container">
-            
-            <div className="card">
+                    <button id="Website" className="btn-selectService">Let’s Go</button>
+                  </div>
 
-              <div className="group-icon-text">
-                <img src={website} alt="" />
+                  <div className="card">
+                    <div className="group-icon-text">
+                      <img src={virtualStory} alt="" />
 
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">Website Development</h3>
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">E-commerce creation</h3>
 
-                  <p className="body-big">I develop everything from <span className="green">landing pages</span> to <span className="green">media streaming websites!</span> But I'm always available for challenges.</p>
+                        <p className="body-big">I create online stores for everyone from small to <span className="green">large</span>, tailored to your needs.</p>
+                      </div>
+                    </div>
+
+                    <button id="Ecommerce" className="btn-selectService">Let’s Go</button>
+                  </div>
+
+                  <div className="card">
+                    <div className="group-icon-text">
+                      <img src={systemInternal} alt="" />
+
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">Creation of internal systems</h3>
+
+                        <p className="body-big">I can develop any type of system your business needs, from <span className="green">tracking</span> and <span className="green">inventory management systems</span> to <span className="green">fully customized solutions.</span></p>
+                      </div>
+                    </div>
+
+                    <button id="internalSystems" className="btn-selectService">Let’s Go</button>
+                  </div>
+
+                  <div className="card">
+                    <div className="group-icon-text">
+                      <img src={interfaces} alt="" />
+
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">Creating interfaces for websites/apps</h3>
+
+                        <p className="body-big">I develop the product interface and design from scratch or enhance what you already have.</p>
+                      </div>
+                    </div>
+
+                    <button id="interfaces" className="btn-selectService">Let’s Go</button>
+                  </div>
+
+                  <div className="card">
+                    <div className="group-icon-text">
+                      <img src={moblieApp} alt="" />
+
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">Mobile app development</h3>
+
+                        <p className="body-big">Do you have an amazing idea for a mobile app? I can help turn your idea into reality! I create apps for <span className="green">iOS</span> and <span className="green">ndroid</span> at no extra cost.</p>
+                      </div>
+                    </div>
+
+                    <button id="MobileApp" className="btn-selectService">Let’s Go</button>
+                  </div>
+
+                  <div className="card">
+                    <div className="group-icon-text">
+                      <img src={consultingWebsite} alt="" />
+
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">Web Application Consulting</h3>
+
+                        <p className="body-big">Is your web application not getting as many visitors as before? Is it slow? I can find out why for you!</p>
+                      </div>
+                    </div>
+
+                    <button id="consultingWebapp" className="btn-selectService">Let’s Go</button>
+                  </div>
+
+                  <div className="card">
+                    <div className="group-icon-text">
+                      <img src={consultingInterface} alt="" />
+
+                      <div className="group-nameService-descriptionService">
+                        <h3 className="nameService">UI/UX Design Consulting</h3>
+
+                        <p className="body-big">Has your product reached the level you've always dreamed of? Don't be fooled, <span className="green">it can go much further with a solid design!</span></p>
+                      </div>
+                    </div>
+
+                    <button id="consulting Design" className="btn-selectService">Let’s Go</button>
+                  </div>
                 </div>
               </div>
-
-              <button id="Website" className="btn-selectService">Let’s Go</button>
             </div>
 
-            <div className="card">
-              <div className="group-icon-text">
-                <img src={virtualStory} alt="" />
+          </main>
+        </>
+      );
+    } else {
 
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">E-commerce creation</h3>
-
-                  <p className="body-big">I create online stores for everyone from small to <span className="green">large</span>, tailored to your needs.</p>
+      return (
+        <>
+          <Cursor></Cursor>
+          <Header/>
+    
+          <Loading></Loading>
+    
+    
+          <main className="contact">
+            <div className="group-input-socialmedia">
+              <header>
+                <label className="userEmail" htmlFor="userEmail">
+                  <div className="output" id="outputEmail"></div>
+                  <input type="email" name="userEmail" translate="no" onChange={(e) => {handleEmail(e.target.value)}} id="userEmail" value={valueEmail} placeholder="contactemail@example.com" />
+    
+                  <div className="border"></div>
+                </label>
+    
+    
+                <div className="group-socialmedia-btnSend">
+                  <div className="group-socialmedia">
+                    <a href="" className="btn-socialmedia"><img src={email} alt="" /></a>
+                    <a href="" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
+                    <a href="" className="btn-socialmedia"><img src={instagram} alt="" /></a>
+                    <a href="" className="btn-socialmedia"><img src={discord} alt="" /></a>
+                  </div>
+    
+                  <button className="button-small" id="sendEmail">Send</button>
+                </div>
+              </header>
+    
+              <label htmlFor="msg" className="msg">
+                <div className="output" id="outputMsg"></div>
+    
+                <textarea name="msg" id="msg"  translate="no" onChange={(e) => {handleMsg(e.target.value)}} value={valueMsg} placeholder="teste"></textarea>
+              </label>
+            </div>
+    
+    
+            <div className="group-cards-scroll">
+              <div className="scroll-container">
+                <div className="scroll"></div>
+              </div>
+    
+              <div className="cards-container">
+                
+                <div className="card">
+    
+                  <div className="group-icon-text">
+                    <img src={website} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">Website Development</h3>
+    
+                      <p className="body-big">I develop everything from <span className="green">landing pages</span> to <span className="green">media streaming websites!</span> But I'm always available for challenges.</p>
+                    </div>
+                  </div>
+    
+                  <button id="Website" className="btn-selectService">Let’s Go</button>
+                </div>
+    
+                <div className="card">
+                  <div className="group-icon-text">
+                    <img src={virtualStory} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">E-commerce creation</h3>
+    
+                      <p className="body-big">I create online stores for everyone from small to <span className="green">large</span>, tailored to your needs.</p>
+                    </div>
+                  </div>
+    
+                  <button id="Ecommerce" className="btn-selectService">Let’s Go</button>
+                </div>
+    
+                <div className="card">
+                  <div className="group-icon-text">
+                    <img src={systemInternal} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">Creation of internal systems</h3>
+    
+                      <p className="body-big">I can develop any type of system your business needs, from <span className="green">tracking</span> and <span className="green">inventory management systems</span> to <span className="green">fully customized solutions.</span></p>
+                    </div>
+                  </div>
+    
+                  <button id="internalSystems" className="btn-selectService">Let’s Go</button>
+                </div>
+    
+                <div className="card">
+                  <div className="group-icon-text">
+                    <img src={interfaces} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">Creating interfaces for websites/apps</h3>
+    
+                      <p className="body-big">I develop the product interface and design from scratch or enhance what you already have.</p>
+                    </div>
+                  </div>
+    
+                  <button id="interfaces" className="btn-selectService">Let’s Go</button>
+                </div>
+    
+                <div className="card">
+                  <div className="group-icon-text">
+                    <img src={moblieApp} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">Mobile app development</h3>
+    
+                      <p className="body-big">Do you have an amazing idea for a mobile app? I can help turn your idea into reality! I create apps for <span className="green">iOS</span> and <span className="green">ndroid</span> at no extra cost.</p>
+                    </div>
+                  </div>
+    
+                  <button id="MobileApp" className="btn-selectService">Let’s Go</button>
+                </div>
+    
+                <div className="card">
+                  <div className="group-icon-text">
+                    <img src={consultingWebsite} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">Web Application Consulting</h3>
+    
+                      <p className="body-big">Is your web application not getting as many visitors as before? Is it slow? I can find out why for you!</p>
+                    </div>
+                  </div>
+    
+                  <button id="consultingWebapp" className="btn-selectService">Let’s Go</button>
+                </div>
+    
+                <div className="card">
+                  <div className="group-icon-text">
+                    <img src={consultingInterface} alt="" />
+    
+                    <div className="group-nameService-descriptionService">
+                      <h3 className="nameService">UI/UX Design Consulting</h3>
+    
+                      <p className="body-big">Has your product reached the level you've always dreamed of? Don't be fooled, <span className="green">it can go much further with a solid design!</span></p>
+                    </div>
+                  </div>
+    
+                  <button id="consulting Design" className="btn-selectService">Let’s Go</button>
                 </div>
               </div>
-
-              <button id="Ecommerce" className="btn-selectService">Let’s Go</button>
             </div>
+          </main>
+        </>
+      );
+    }
 
-            <div className="card">
-              <div className="group-icon-text">
-                <img src={systemInternal} alt="" />
-
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">Creation of internal systems</h3>
-
-                  <p className="body-big">I can develop any type of system your business needs, from <span className="green">tracking</span> and <span className="green">inventory management systems</span> to <span className="green">fully customized solutions.</span></p>
-                </div>
-              </div>
-
-              <button id="internalSystems" className="btn-selectService">Let’s Go</button>
-            </div>
-
-            <div className="card">
-              <div className="group-icon-text">
-                <img src={interfaces} alt="" />
-
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">Creating interfaces for websites/apps</h3>
-
-                  <p className="body-big">I develop the product interface and design from scratch or enhance what you already have.</p>
-                </div>
-              </div>
-
-              <button id="interfaces" className="btn-selectService">Let’s Go</button>
-            </div>
-
-            <div className="card">
-              <div className="group-icon-text">
-                <img src={moblieApp} alt="" />
-
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">Mobile app development</h3>
-
-                  <p className="body-big">Do you have an amazing idea for a mobile app? I can help turn your idea into reality! I create apps for <span className="green">iOS</span> and <span className="green">ndroid</span> at no extra cost.</p>
-                </div>
-              </div>
-
-              <button id="MobileApp" className="btn-selectService">Let’s Go</button>
-            </div>
-
-            <div className="card">
-              <div className="group-icon-text">
-                <img src={consultingWebsite} alt="" />
-
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">Web Application Consulting</h3>
-
-                  <p className="body-big">Is your web application not getting as many visitors as before? Is it slow? I can find out why for you!</p>
-                </div>
-              </div>
-
-              <button id="consultingWebapp" className="btn-selectService">Let’s Go</button>
-            </div>
-
-            <div className="card">
-              <div className="group-icon-text">
-                <img src={consultingInterface} alt="" />
-
-                <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">UI/UX Design Consulting</h3>
-
-                  <p className="body-big">Has your product reached the level you've always dreamed of? Don't be fooled, <span className="green">it can go much further with a solid design!</span></p>
-                </div>
-              </div>
-
-              <button id="consulting Design" className="btn-selectService">Let’s Go</button>
-            </div>
-          </div>
-        </div>
-      </main>
-    </>
-  );
 }
 
 export default Contact;

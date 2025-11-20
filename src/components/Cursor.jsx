@@ -12,14 +12,12 @@ function Cursor() {
       const areaCursor = document.querySelectorAll('.area-mouse')
 
       if (cursor !== undefined && areaCursor !== null) {
-        console.log('oi')
         clearInterval(idTime)
 
-        const elementsClick = document.querySelectorAll('a, button, .button-music, label, textarea ')
+        const elementsClick = document.querySelectorAll('a, button, .button-music, label, textarea, .skill ')
 
         elementsClick.forEach(eClick => {
           eClick.addEventListener('mouseenter', () => {
-            console.log('teste enter')
 
             
             gsap.to('.cursor', {
@@ -32,7 +30,6 @@ function Cursor() {
           })
 
           eClick.addEventListener('mouseleave', () => {
-          console.log('teste leave')
             
             gsap.to('.cursor', {
               opacity: 1,
