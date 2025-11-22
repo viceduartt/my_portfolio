@@ -111,19 +111,36 @@ function Home() {
         delay: delay
       })
 
-      gsap.to('#ball', {
-        scale: 1,
-        top: (photo.getBoundingClientRect().top + window.screenY),
-        backgroundColor: '#7407D5',
-        duration: 0.6,
-        delay: delay = delay + 0.3
-      })
+      if (window.innerWidth <= 840) {
+        gsap.to('#ball', {
+          scale: 0.5,
+          top: (photo.getBoundingClientRect().top + window.screenY),
+          backgroundColor: '#7407D5',
+          duration: 0.6,
+          delay: delay = delay + 0.3
+        })
 
-      gsap.to('#ball', {
-        left: '79vw',
-        duration: 1,
-        delay: delay = delay + 0.5
-      })
+        gsap.to('#ball', {
+          duration: 1,
+          scale: 1,
+          delay: delay = delay + 0.5
+        })
+      } else {
+        gsap.to('#ball', {
+          scale: 1,
+          top: (photo.getBoundingClientRect().top + window.screenY),
+          backgroundColor: '#7407D5',
+          duration: 0.6,
+          delay: delay = delay + 0.3
+        })
+
+        gsap.to('#ball', {
+          left: '79vw',
+          duration: 1,
+          delay: delay = delay + 0.5
+        })
+      }
+
 
       gsap.to('#ball', {
         left: photo.getBoundingClientRect().left + window.scrollX,
@@ -189,7 +206,6 @@ function Home() {
       console.log(btnContact)
     }, 200)
   })
-
 
 
   return (

@@ -17,6 +17,8 @@ import gsap from "gsap";
 import Cursor from "../components/Cursor";
 import { useState } from "react";
 
+import axios from "axios";
+
 
 function Contact() {
 
@@ -39,11 +41,57 @@ function Contact() {
 
         animaLoading()
 
-        scroll()
+        sendEmail()
+
+        if (window.innerWidth > 840) {
+        
+          scroll()
+
+        } else {
+          scrollMobile()
+        }
         animaSocialmediaBtns()
         changeBg()
       }
     }, 300)
+
+    const sendEmail = async () => {
+      const btnSend = document.querySelector('#sendEmail')
+      
+      btnSend.addEventListener('click', async () => {
+        const emailContact = document.querySelector('#userEmail').value.trim()
+        const bodyMsg = document.querySelector('#msg').value.trim()
+
+        const checkEmail = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
+
+
+        if ((emailContact !== '' && bodyMsg !== '') && (emailContact.length < 254 && checkEmail.test(emailContact))) {
+
+          const data = {
+            emailContact: emailContact,
+            bodyMsg: bodyMsg
+          }
+
+          try {
+
+  
+            const res = await axios.post(
+              "http://localhost:8080/sendEmail",
+              data
+            );
+  
+            console.log(res)
+            console.log('teste')
+          } catch {
+            console.log('error in sendEmail')
+            
+          }
+
+
+        }
+
+      })
+    }
 
     const animaSocialmediaBtns = () => {
       const btnsSM = document.querySelectorAll('.btn-socialmedia')
@@ -55,10 +103,19 @@ function Contact() {
             filter: "brightness(0) saturate(100%) invert(65%) sepia(37%) saturate(6800%) hue-rotate(238deg) brightness(100%) contrast(103%)"
           })
 
-          gsap.to(btn, {
-            duration: 0.6,
-            scale: 0.9,
-          })
+          if (window.innerWidth <= 840) { 
+            gsap.to(btn, {
+              duration: 0.6,
+              scale: 1.1,
+            })
+          } else {
+
+            gsap.to(btn, {
+              duration: 0.6,
+              scale: 0.9,
+            })
+          }
+
         })
 
         btn.addEventListener('mouseleave', () => {
@@ -67,12 +124,52 @@ function Contact() {
             filter: "brightness(0) saturate(100%) invert(76%) sepia(95%) saturate(1417%) hue-rotate(134deg) brightness(95%) contrast(84%)"
           })
 
-          gsap.to(btn, {
-            duration: 0.6,
-            scale: 0.7,
-          })
+          if (window.innerWidth <= 840) {
+            gsap.to(btn, {
+              duration: 0.6,
+              scale: 1,
+            })
+          } else {
+
+            gsap.to(btn, {
+              duration: 0.6,
+              scale: 0.7,
+            })
+          }
         })
 
+
+      }
+    }
+
+    const scrollMobile = () => {
+      const cards = document.querySelectorAll('.card')
+
+      const obs = new IntersectionObserver((entries) => {
+        console.log(entries)
+
+        if (entries[0].isIntersecting === true) {
+
+          gsap.to(entries[0].target, {
+            duration: 1,
+            opacity: 1,
+            x: '0rem'
+
+          })
+        } else {
+          gsap.to(entries[0].target, {
+            duration: 1,
+            opacity: '0',
+            x: '20rem'
+          })
+        }
+      }, {
+        threshold: 0.2,
+        rootMargin: ''
+      })
+
+      for (const card of cards) {
+        obs.observe(card)
       }
     }
 
@@ -195,12 +292,22 @@ function Contact() {
     }
 
     const animaLoading = () => {
-      gsap.to('.group-input-socialmedia', {
-        duration: 1,
-        height: '23rem',
-        opacity: 1,
-        delay: 0.2
-      })
+
+      if (window.innerWidth <= 840) {
+        gsap.to('.group-input-socialmedia', {
+          duration: 1,
+          height: '36rem',
+          opacity: 1,
+          delay: 0.2
+        })
+      } else {
+        gsap.to('.group-input-socialmedia', {
+          duration: 1,
+          height: '23rem',
+          opacity: 1,
+          delay: 0.2
+        })
+      }
 
       gsap.to('.scroll-container', {
         duration: 3,
@@ -218,6 +325,7 @@ function Contact() {
 
     const handleEmail = (e) => {
       setValueEmail(e)
+      console.log(valueEmail)
 
       
     }
@@ -240,7 +348,6 @@ function Contact() {
             <div className="group-input-socialmedia">
               <header>
                 <label className="userEmail" htmlFor="userEmail">
-                  <div className="output" id="outputEmail"></div>
                   <input type="email" name="userEmail" translate="no" onChange={(e) => {handleEmail(e.target.value)}} id="userEmail" value={valueEmail} placeholder="contactemail@example.com" />
 
                   <div className="border"></div>
@@ -250,7 +357,6 @@ function Contact() {
 
               <div className="msg-send">
                 <label htmlFor="msg" className="msg">
-                  <div className="output" id="outputMsg"></div>
 
                   <textarea name="msg" id="msg"  translate="no" onChange={(e) => {handleMsg(e.target.value)}} value={valueMsg} placeholder="teste"></textarea>
                 </label>
@@ -274,7 +380,7 @@ function Contact() {
                   <div className="scroll"></div>
                 </div>
 
-                <div className="cards-container">
+                <div className="cards-container" data-scroll='no'>
                   
                   <div className="card">
 

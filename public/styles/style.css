@@ -823,7 +823,8 @@ main.skills .explore {
   height: fit-content;
   margin-top: 8rem;
   overflow: hidden;
-  width: 110.9rem;
+  width: -moz-fit-content;
+  width: fit-content;
   border: 0.1rem solid #D76EFF;
 }
 main.skills .explore header {
@@ -927,7 +928,6 @@ main.skills .explore .scrollbar-container {
 main.skills .explore .scrollbar-container .scrollbar {
   background-color: #28D9DF;
   width: 100%;
-  height: 65%;
   border-radius: 1.2rem;
   position: absolute;
   top: 0%;
@@ -947,7 +947,8 @@ main.skills .explore .group-list-skills {
 main.skills .explore .group-list-skills .view-list {
   overflow: hidden;
   height: 45rem;
-  width: 95%;
+  width: 100%;
+  margin-right: 4rem;
 }
 main.skills .explore .group-list-skills .list-skills {
   opacity: 0;
@@ -957,7 +958,7 @@ main.skills .explore .group-list-skills .list-skills {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 5rem 2rem;
-  margin-left: 4rem;
+  margin-left: 1rem;
   transform: translateY(100%);
 }
 main.skills .explore .group-list-skills .list-skills .skill {
@@ -997,7 +998,7 @@ main.skills .explore .group-list-skills .list-off {
     margin-left: 0.5rem !important;
   }
 }
-@media (max-width: 1300px) {
+@media (max-width: 1390px) {
   :root {
     font-size: 63%;
   }
@@ -1005,26 +1006,10 @@ main.skills .explore .group-list-skills .list-off {
     width: 100% !important;
   }
   .explore {
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.3137254902) !important;
-    padding: 2rem 3rem;
-    border: none !important;
     width: 100% !important;
-    margin-top: 3rem !important;
-  }
-  .explore h1 {
-    margin-bottom: 3rem;
-  }
-  .explore h2 {
-    margin-bottom: 3rem;
   }
   .explore .list-skills {
-    display: flex !important;
-    gap: 0 5rem !important;
-    margin-bottom: 4rem;
-  }
-  .explore .list-skills .skill img {
-    margin-bottom: 2rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr !important;
   }
 }
 @media (max-width: 1000px) {
@@ -1059,11 +1044,18 @@ main.skills .explore .group-list-skills .list-off {
   .group-input-socialmedia {
     margin: 0 !important;
   }
+  .group-input-socialmedia textarea {
+    padding-top: 2rem !important;
+  }
+  .group-input-socialmedia header {
+    padding: 0 !important;
+  }
   .group-input-socialmedia .userEmail {
     margin-top: 1REM;
     width: 100% !important;
   }
-  .group-input-socialmedia .userEmail INPUT {
+  .group-input-socialmedia .userEmail input {
+    padding: 1rem 2rem !important;
     width: 100%;
   }
   .group-input-socialmedia .msg-send {
@@ -1079,7 +1071,7 @@ main.skills .explore .group-list-skills .list-off {
     background-color: #881FED;
     opacity: 0.8;
     color: #FFFFFF;
-    height: 55%;
+    height: 25%;
     width: 100% !important;
     border-bottom-left-radius: 1.2rem;
     border-bottom-right-radius: 1.2rem;
@@ -1170,18 +1162,47 @@ main.skills .explore .group-list-skills .list-off {
   main.home {
     margin-top: 10rem;
   }
-  .explore .list-skills {
-    grid-template-columns: 1fr 1fr 1fr 1fr !important;
-  }
 }
 @media (max-width: 840px) {
   :root {
     font-size: 56%;
+    overflow-x: hidden !important;
+  }
+  #ball {
+    width: 30.2rem !important;
+    height: 30.2rem !important;
+  }
+  .scroll-container {
+    display: none;
+  }
+  .group-lists {
+    display: flex;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .group-cards-scroll {
+    flex-direction: column !important;
+    margin-bottom: 5rem;
+  }
+  .cards-container {
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  .cards-container .card {
+    width: 100% !important;
+    transform: translateY(0) !important;
+    transform: translateX(20rem);
   }
   body {
-    overflow: hidden;
+    overflow-y: hidden !important;
     margin: 0;
     padding: 0 2rem;
+  }
+  .group-cards-scroll {
+    overflow: hidden !important;
+  }
+  .cursor {
+    display: none !important;
   }
   .btn-menu {
     width: 5rem;
@@ -1212,6 +1233,7 @@ main.skills .explore .group-list-skills .list-off {
     padding: 3rem 3rem;
     padding-top: 17rem;
     align-items: end;
+    display: none;
     justify-content: start;
   }
   header {
@@ -1268,10 +1290,15 @@ main.skills .explore .group-list-skills .list-off {
   main.home {
     margin-top: 2rem;
     justify-content: center;
+    margin-bottom: 4rem;
   }
   main.home .about {
     flex-direction: column;
     text-align: center;
+  }
+  main.home .about img {
+    width: 30.2rem !important;
+    height: 30.2rem !important;
   }
   main.home .about button {
     width: 100%;
@@ -1281,18 +1308,43 @@ main.skills .explore .group-list-skills .list-off {
     display: flex;
     justify-content: center;
   }
+  .explore {
+    text-align: center;
+    background-color: transparent !important;
+    padding: 2rem 3rem;
+    border: none !important;
+    width: 100% !important;
+    margin-top: 3rem !important;
+    margin-bottom: 7rem;
+  }
+  .explore .view-list {
+    display: flex;
+    flex-direction: column !important;
+    gap: 9rem 0 !important;
+  }
+  .explore h1 {
+    margin-bottom: 9rem;
+    color: #28D9DF;
+  }
+  .explore h2 {
+    margin-bottom: 14rem;
+    color: #28D9DF;
+  }
   .explore .list-skills {
-    grid-template-columns: 1fr 1fr 1fr 1fr !important;
+    background-color: rgba(255, 0, 0, 0.356);
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0 5rem !important;
+    width: -moz-fit-content !important;
+    width: fit-content !important;
+  }
+  .explore .list-skills .skill img {
+    margin-bottom: 2rem;
   }
 }
 @media (max-width: 710px) {
   :root {
     font-size: 53%;
-  }
-  body {
-    overflow: hidden;
-    margin: 0;
-    padding: 0 2rem;
   }
   .btn-menu {
     width: 5rem;

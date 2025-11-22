@@ -41,6 +41,7 @@ function Skills() {
     let posView = 0
     let indice = 0
     const time = setInterval(() => {
+
       if (document.querySelector('.group-list-skills') !== null) {
         clearInterval(time)
   
@@ -55,15 +56,14 @@ function Skills() {
 
         
         scroll()
-        document.querySelector('.scrollbar').style.height = '100%'
-
         configList()
         configBtnsSkills()
         configViewEx()
 
         configSkills()
+      
 
-        
+  
         
         
       } else if (document.querySelector('.area-list') !== null) {
@@ -73,38 +73,47 @@ function Skills() {
       }
     }, 200)
 
-    const configCarroselSkills = () => {
-      const listsSkills = document.querySelectorAll('.list-skills')
+    
 
+    const configCarroselSkills = () => {
+      const listsSkills = document.querySelectorAll('.group-lists')
+      
       for (const listSkill of listsSkills) {
+        const skillEnd = listSkill.querySelector('#end')
+        
+        const obs = new IntersectionObserver((entries) => {
+
+
+          if (entries[0].isIntersecting === true) {
+            
+          }
+        }, {
+          root: document.querySelector('.area-list'),
+          threshold: 0
+        })
+        
         if (listSkill.id === 'frontEnd') {
           const timeline = gsap.timeline({repeat: -1, yoyo: true})
+
+          obs.observe(skillEnd)
+
           timeline.fromTo(listSkill, {
-            duration: 8,
-            x: '2%',
-            ease: 'none',
-
+            duration: 6, 
+            x: `1%`,
+            ease: 'back.out'
           }, {
-            duration: 8,
-            x: '-115%',
-            ease: 'none',
+            duration: 6, 
+            x: `-83%`,
           })
-
-          
-
         } else if (listSkill.id === 'backEnd') {
           const timeline = gsap.timeline({repeat: -1, yoyo: true})
-          timeline.fromTo(listSkill, {
-            duration: 3,
-            x: '2%',
-            ease: 'none',
 
-          }, {
-            duration: 3,
-            x: '-18%',
-            ease: 'none',
+          timeline.to(listSkill, {
+            duration: 6, 
+            x: `-63%`
           })
         }
+
 
       }
     }
@@ -151,20 +160,25 @@ function Skills() {
 
     const configViewEx = () => {
       const listsSkills = document.querySelectorAll('.list-skills')
-      const cursor = document.querySelector('.cursor')
 
       for (const listSkill of listsSkills) {
+        console.log(listSkill.dataset.display)        
         if (listSkill.dataset.display === 'yes') {
           const cardsSkills = document.querySelectorAll(`#${listSkill.id} .skill`)
           const boxInfo = document.querySelector('.container-ex')
           const contentTextBox = document.querySelector('.group-text-ex')
+          const cursor = document.querySelector('.cursor')
+          const explore = document.querySelector('.explore')
           
           
-          for (const skill of cardsSkills) {            
+          for (const skill of cardsSkills) {    
             skill.addEventListener('mouseenter', (e) => {
 
               const proeficity = parseInt(skill.dataset.proficiancy, 10);
               const fillGraphic = proeficity * 4
+              const xp = skill.dataset.time
+
+              boxInfo.querySelector('.data-ex').innerText = `Experience: ${xp}`
 
               gsap.to('.graphic',{
                   duration: 0.1,
@@ -191,7 +205,7 @@ function Skills() {
 
               skill.addEventListener('mousemove', () => {
 
-                if (skill.dataset.reverse === 'yes') {
+                if ((cursor.getBoundingClientRect().right - 120) <= explore.getBoundingClientRect().right/2) {
                   gsap.to(contentTextBox, {
                     duration: 0.1,
                     alignItems: 'end',
@@ -245,7 +259,7 @@ function Skills() {
                 transparent 0}deg 0deg)`
                 })
 
-              if (skill.dataset.reverse == 'yes') {
+              if ((cursor.getBoundingClientRect().right - 120) <= explore.getBoundingClientRect().right/2) {
                 gsap.to(boxInfo, {
                   duration: 1,
                   opacity: 0,
@@ -302,64 +316,90 @@ function Skills() {
     }
 
     const scroll = () => {
-      const viewScroll = document.querySelector('.list-skills')
+      const viewsScroll = document.querySelectorAll('.list-skills')
       const scrollBar = document.querySelector('.scrollbar')
 
-      console.log(viewScroll.getBoundingClientRect().bottom)
+      
+      for (const viewScroll of viewsScroll) {
+        const skills = viewScroll.querySelectorAll('.skill')
 
-      const skills = document.querySelectorAll('.skill')
+        if (window.innerWidth <= 1390) {
+          document.querySelector('.scrollbar').style.height = `95%`
 
-      for (const skill of skills) {
-        if (skill.dataset.end === 'yes') {
-          const oberser = new IntersectionObserver(lockScroll, {
-            root: document.querySelector('.list-skills'),
-            threshold: 1
+          if (viewScroll.dataset.whellEnd === 'yes') {
+            document.querySelector('.scrollbar').style.height = `100%`
+          }
+        } else {
+          document.querySelector('.scrollbar').style.height = `${100}%`
+        }
+          
+        
+        for (const skill of skills) {
+          if (skill.dataset.end === 'yes') {
+  
+            const oberser = new IntersectionObserver((entries) => {
+              console.log(entries[0].isIntersecting)
+              if (entries[0].isIntersecting === true) {
+                skill.parentElement.dataset.whellEnd = 'yes'
+              } else {
+                skill.parentElement.dataset.whellEnd = 'no'
+              }
+            }, {
+              root: document.querySelector('.view-list'),
+              threshold: 1
+            })
+  
+            oberser.observe(skill)
+          }
+
+          viewScroll.addEventListener('wheel', (e) => {
+            const timelineSkills = gsap.timeline({})
+            const timelineScrollbar = gsap.timeline({})
+            const duratition = 0.1
+    
+            
+            if (viewScroll.dataset.whellOff !== 'off') {
+              if (e.deltaY > 0) {
+                console.log(`teste ${viewScroll.dataset.whellEnd}`)
+                if (viewScroll.dataset.whellEnd === 'no') {
+      
+      
+                  timelineSkills.to(viewScroll, {
+                    duration: duratition,
+                    y: `-${posView = posView + 0.1}%`,
+                  })
+      
+                  timelineScrollbar.to(scrollBar, {
+                    duration: duratition,
+                    y: posView
+                  })
+                }
+              } else {
+                if (posView > 0) {
+      
+                  timelineSkills.to(viewScroll, {
+                    duration: duratition,
+                    y: `-${posView = posView - 0.1}%`,
+
+    
+                    
+                  })
+      
+                  timelineScrollbar.to(scrollBar, {
+                    duration: duratition,
+                    y: posView
+                  })
+                }
+              }
+            }
+    
+    
+    
           })
-
-          oberser.observe(skill)
         }
       }
 
-      viewScroll.addEventListener('wheel', (e) => {
 
-
-        if (viewScroll.dataset.whellOff !== 'off') {
-          if (e.deltaY > 0) {
-            console.log(posView)
-            if (posView < 100) {
-  
-  
-              gsap.to(viewScroll, {
-                duration: 1,
-                y: `-${posView = posView + 10}%`
-              })
-  
-              gsap.to(scrollBar, {
-                duration: 1,
-                y: posView
-              })
-            }
-          } else {
-            if (posView > 0) {
-  
-              gsap.to(viewScroll, {
-                duration: 1,
-                y: `-${posView = posView - 10}%`
-
-                
-              })
-  
-              gsap.to(scrollBar, {
-                duration: 1,
-                y: posView
-              })
-            }
-          }
-        }
-
-
-
-      })
     }
 
     const changeSkills = (area) => {
@@ -372,7 +412,8 @@ function Skills() {
           const skills = listSkill.querySelectorAll('.skill')
           listSkill.dataset.display = 'yes'
 
-          console.log('testeteste')
+          
+
 
           gsap.to(listSkill, {
             duration: 0.2, 
@@ -398,6 +439,11 @@ function Skills() {
             display: 'none'
           })
 
+          console.log(listSkill.dataset.whellEnd)
+
+
+
+
           const skills = listSkill.querySelectorAll('.skill')
 
           for (const skill of skills) {
@@ -415,10 +461,6 @@ function Skills() {
           listSkill.dataset.display = 'no'
         }
       }
-    }
-
-    const lockScroll = () => {
-      console.log('teste 123')
     }
 
     const animaBtn = (btnSelected, area) => {
@@ -486,7 +528,7 @@ function Skills() {
       document.querySelector('body').classList.remove('contact')
   }
 
-  if (window.innerWidth <= 1300) {
+  if (window.innerWidth <= 840) {
     return (
       <>
         <Cursor></Cursor>
@@ -517,151 +559,159 @@ function Skills() {
 
             <div className="view-list">
               <div className="area-list" id="areaFackEnd">
-                <h2>Back-end</h2>                
+                <h2>Front-end</h2>   
 
-                <div className="list-skills" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no' id="frontEnd">
+
+                <div className="group-lists" id="frontEnd">                  
+                  <div className="list-skills" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
+                    
+                    <div className="skill" data-proficiancy='70' data-time='3 years'>
+                      <img src={react} alt="" />
+
+                      <span className="caption-small">ReactJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='30' data-time='3 years'>
+                      <img src={next} alt="" />
+
+                      <span className="caption-small">NextJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='65' data-time='5 years'>
+                      <img src={javascript} alt="" />
+
+                      <span className="caption-small">JavaScript</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='5 years'>
+                      <img src={html} alt="" />
+
+                      <span className="caption-small">HTML</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='85' data-time='5 years'>
+                      <img src={css} alt="" />
+
+                      <span className="caption-small">CSS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='3 years'>
+                      <img src={scss} alt="" />
+
+                      <span className="caption-small">SCSS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='4 years'>
+                      <img src={figma} alt="" />
+
+                      <span className="caption-small">Figma</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='25' data-time='5 months'>
+                      <img src={rive} alt="" />
+
+                      <span className="caption-small">Rive</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='65' data-time='2 years'>
+                      <img src={boostrap} alt="" />
+
+                      <span className="caption-small">JavaScript</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='47' data-time='1 year'>
+                      <img src={angular} alt="" />
+
+                      <span className="caption-small">AngularJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='64' data-time='1 year'>
+                      <img src={vue} alt="" />
+
+                      <span className="caption-small">VueJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='81' data-time='1 year'>
+                      <img src={tailwindcss} alt="" />
+
+                      <span className="caption-small">Tailwind</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='12' data-time='1 year'>
+                      <img src={solidjs} alt="" />
+
+                      <span className="caption-small">SolidJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='76' data-time='4 years'>
+                      <img src={reactNatove} alt="" />
+
+                      <span className="caption-small">React native</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='53' id="end" data-time='3 years'>
+                      <img src={Eletron} alt="" />
+                      <span className="caption-small">Eletron</span>
+                    </div>
+
+
+                  </div>
+
                   
-                  <div className="skill" data-proficiancy='70'>
-                    <img src={react} alt="" />
-
-                    <span className="caption-small">ReactJS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='30'>
-                    <img src={next} alt="" />
-
-                    <span className="caption-small">NextJS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='65'>
-                    <img src={javascript} alt="" />
-
-                    <span className="caption-small">JavaScript</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='100' data-reverse='yes'>
-                    <img src={html} alt="" />
-
-                    <span className="caption-small">HTML</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='85' data-reverse='yes'>
-                    <img src={css} alt="" />
-
-                    <span className="caption-small">CSS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='100' data-reverse='yes'>
-                    <img src={scss} alt="" />
-
-                    <span className="caption-small">SCSS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='100'>
-                    <img src={figma} alt="" />
-
-                    <span className="caption-small">Figma</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='25'>
-                    <img src={rive} alt="" />
-
-                    <span className="caption-small">Rive</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='65'>
-                    <img src={boostrap} alt="" />
-
-                    <span className="caption-small">JavaScript</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='47' data-reverse='yes'>
-                    <img src={angular} alt="" />
-
-                    <span className="caption-small">AngularJS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='64' data-reverse='yes'>
-                    <img src={vue} alt="" />
-
-                    <span className="caption-small">VueJS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='81' data-reverse='yes'>
-                    <img src={tailwindcss} alt="" />
-
-                    <span className="caption-small">Tailwind</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='12'>
-                    <img src={solidjs} alt="" />
-
-                    <span className="caption-small">SolidJS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='76'>
-                    <img src={reactNatove} alt="" />
-
-                    <span className="caption-small">React native</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='53' id="end">
-                    <img src={Eletron} alt="" />
-                    <span className="caption-small">Eletron</span>
-                  </div>
-
-
                 </div>
               </div>
 
               <div className="area-list" id="areaBackEnd">
                 <h2>Back-end</h2>
 
-                <div className="list-skills" data-wheel-x='yes' data-id='1' data-display='no' data-whell-off='off' id="backEnd">
-                  
-                  <div className="skill" data-proficiancy='95'>
-                    <img src={nodejs} alt="" />
+                <div className="group-lists" id="backEnd">
+                  <div className="list-skills" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
+                    
+                    <div className="skill" data-proficiancy='95' data-time='5 years'>
+                      <img src={nodejs} alt="" />
 
-                    <span className="caption-small">NodeJS</span>
+                      <span className="caption-small">NodeJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='5 years'>
+                      <img src={mysql} alt="" />
+
+                      <span className="caption-small">MySQL</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='4 years'>
+                      <img src={mongodb} alt="" />
+
+                      <span className="caption-small">MongoDB</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='74' data-time='3 years'>
+                      <img src={docker} alt="" />
+
+                      <span className="caption-small">Docker</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='10' data-time='1 years'>
+                      <img src={golang} alt="" />
+
+                      <span className="caption-small">GoLang</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='5' data-time='3 months'>
+                      <img src={rust} alt="" />
+
+                      <span className="caption-small">Rust</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='77'id="end" data-time='6 years'>
+                      <img src={php} alt="" />
+
+                      <span className="caption-small">PHP</span>
+                    </div>
+
                   </div>
-
-                  <div className="skill" data-proficiancy='100'>
-                    <img src={mysql} alt="" />
-
-                    <span className="caption-small">MySQL</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='100'>
-                    <img src={mongodb} alt="" />
-
-                    <span className="caption-small">MongoDB</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='74' data-reverse='yes'>
-                    <img src={docker} alt="" />
-
-                    <span className="caption-small">Docker</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='10' data-reverse='yes'>
-                    <img src={golang} alt="" />
-
-                    <span className="caption-small">GoLangS</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='5' data-reverse='yes'>
-                    <img src={rust} alt="" />
-
-                    <span className="caption-small">Rust</span>
-                  </div>
-
-                  <div className="skill" data-proficiancy='77'id="end">
-                    <img src={php} alt="" />
-
-                    <span className="caption-small">PHP</span>
-                  </div>
-
                 </div>
+
               </div>
 
 
@@ -723,149 +773,147 @@ function Skills() {
             <div className="group-list-skills">
               <div className="view-list">
   
-                <div className="list-skills" data-id='0' data-display='yes' data-whell-off='no' id="frontEnd">
-                  
-                  <div className="skill" data-proficiancy='70'>
+                <div className="list-skills" id="frontEnd" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
+                  <div className="skill" data-proficiancy='70' data-time='3 years'>
                     <img src={react} alt="" />
-  
+
                     <span className="caption-small">ReactJS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='30'>
+
+                  <div className="skill" data-proficiancy='30' data-time='3 years'>
                     <img src={next} alt="" />
-  
+
                     <span className="caption-small">NextJS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='65'>
+
+                  <div className="skill" data-proficiancy='65' data-time='5 years'>
                     <img src={javascript} alt="" />
-  
+
                     <span className="caption-small">JavaScript</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='100' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='100' data-time='5 years'>
                     <img src={html} alt="" />
-  
+
                     <span className="caption-small">HTML</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='85' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='85' data-time='5 years'>
                     <img src={css} alt="" />
-  
+
                     <span className="caption-small">CSS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='100' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='100' data-time='3 years'>
                     <img src={scss} alt="" />
-  
+
                     <span className="caption-small">SCSS</span>
                   </div>
-  
-                   <div className="skill" data-proficiancy='100'>
+
+                  <div className="skill" data-proficiancy='100' data-time='4 years'>
                     <img src={figma} alt="" />
-  
+
                     <span className="caption-small">Figma</span>
                   </div>
-  
-                   <div className="skill" data-proficiancy='25'>
+
+                  <div className="skill" data-proficiancy='25' data-time='5 months'>
                     <img src={rive} alt="" />
-  
+
                     <span className="caption-small">Rive</span>
                   </div>
-  
-                   <div className="skill" data-proficiancy='65'>
+
+                  <div className="skill" data-proficiancy='65' data-time='2 years'>
                     <img src={boostrap} alt="" />
-  
+
                     <span className="caption-small">JavaScript</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='47' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='47' data-time='1 year'>
                     <img src={angular} alt="" />
-  
+
                     <span className="caption-small">AngularJS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='64' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='64' data-time='1 year'>
                     <img src={vue} alt="" />
-  
+
                     <span className="caption-small">VueJS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='81' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='81' data-time='1 year'>
                     <img src={tailwindcss} alt="" />
-  
+
                     <span className="caption-small">Tailwind</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='12'>
+
+                  <div className="skill" data-proficiancy='12' data-time='1 year'>
                     <img src={solidjs} alt="" />
-  
+
                     <span className="caption-small">SolidJS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='76'>
+
+                  <div className="skill" data-proficiancy='76' data-time='4 years'>
                     <img src={reactNatove} alt="" />
-  
+
                     <span className="caption-small">React native</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='53' data-end='yes'>
+
+                  <div className="skill" data-proficiancy='53' data-end='yes' id="end" data-time='3 years'>
                     <img src={Eletron} alt="" />
                     <span className="caption-small">Eletron</span>
                   </div>
-  
-  
+
+
                 </div>
   
-                <div className="list-skills" data-id='1' data-display='no' data-whell-off='off' id="backEnd">
-                  
-                  <div className="skill" data-proficiancy='95'>
+                <div className="list-skills" id="backEnd" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
+                  <div className="skill" data-proficiancy='95' data-time='5 years'>
                     <img src={nodejs} alt="" />
-  
+
                     <span className="caption-small">NodeJS</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='100'>
+
+                  <div className="skill" data-proficiancy='100' data-time='5 years'>
                     <img src={mysql} alt="" />
-  
+
                     <span className="caption-small">MySQL</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='100'>
+
+                  <div className="skill" data-proficiancy='100' data-time='4 years'>
                     <img src={mongodb} alt="" />
-  
+
                     <span className="caption-small">MongoDB</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='74' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='74' data-time='3 years'>
                     <img src={docker} alt="" />
-  
+
                     <span className="caption-small">Docker</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='10' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='10' data-time='1 years'>
                     <img src={golang} alt="" />
-  
-                    <span className="caption-small">GoLangS</span>
+
+                    <span className="caption-small">GoLang</span>
                   </div>
-  
-                  <div className="skill" data-proficiancy='5' data-reverse='yes'>
+
+                  <div className="skill" data-proficiancy='5' data-time='3 months'>
                     <img src={rust} alt="" />
-  
+
                     <span className="caption-small">Rust</span>
                   </div>
-  
-                   <div className="skill" data-proficiancy='77'>
+
+                  <div className="skill" data-proficiancy='77'id="end" data-time='6 years'>
                     <img src={php} alt="" />
-  
+
                     <span className="caption-small">PHP</span>
                   </div>
-  
+
                 </div>
               </div>
   
               <div className="scrollbar-container">
-                <div className="scrollbar"></div>
+                <div className="scrollbar" data-fill='100'></div>
               </div>
             </div>
           </div>

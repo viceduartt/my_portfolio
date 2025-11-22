@@ -195,6 +195,7 @@ function Header() {
           gsap.to(header, {
             duration: 1,
             x: '0%',
+            display: 'flex',
             opacity: 1,
           })
 
@@ -212,6 +213,7 @@ function Header() {
             duration: 1,
             x: '60%',
             opacity: 0,
+            onComplete: () => {gsap.to(header, {duration: 0.1, display: 'none'})}
           })
 
           gsap.to(menuBtn, {
