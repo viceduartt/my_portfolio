@@ -1,13 +1,15 @@
-import Header from "../components/Header";
-import logo from "../assets/images/avatar.svg";
+"use client";
 
-import iconGithub from "../assets/icons/github.svg";
-import iconInstagram from "../assets/icons/instagram.svg";
-import iconYoutube from "../assets/icons/youtube.svg";
-import Loading from "../components/Loading";
-import gsap from "gsap";
+import Header from "./components/Header";
+import Loading from "./components/Loading";
+import Cursor from "./components/Cursor";
 import { useGSAP } from "@gsap/react";
-import Cursor from "../components/Cursor";
+import gsap from "gsap";
+
+const logo = "/images/avatar.svg";
+const iconGithub = "/icons/github.svg";
+const iconInstagram = "/icons/instagram.svg";
+const iconYoutube = "/icons/youtube.svg";
 
 
 
@@ -238,7 +240,7 @@ function Home() {
         </div>
 
         <div className="socialmendia">
-            <a id="link-instagram" className="link" href="https://ig.me/m/viceduartt"
+            <a id="link-instagram" className="link" href="https://www.instagram.com/viceduartt/?next=%2F"
             >
               <img src={iconInstagram} alt="" />
             </a>

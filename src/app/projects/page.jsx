@@ -1,16 +1,16 @@
+"use client";
+
 import Header from "../components/Header";
-
-import img1 from "../assets/images/projects/00/1338843.png";
-import iconTech1 from "../assets/images/frontend/tailwindcss.svg";
-import iconTech2 from "../assets/images/backend/golang.svg";
-import iconMore from "../assets/icons/more.svg";
-import Loading from "../components/Loading";
 import Cursor from "../components/Cursor";
+import Loading from "../components/Loading";
 
+const img1 = "/images/projects/00/1338843.png";
+const iconTech1 = "/images/frontend/tailwindcss.svg";
+const iconTech2 = "/images/backend/golang.svg";
+const programming = "/images/programming.svg"
 
 
 function Projects() {
-  const text = ""
 
   const changeBg = () => {
       document.querySelector('body').classList.remove('contact')
@@ -24,14 +24,17 @@ function Projects() {
       <Loading></Loading>
 
 
-      <div className="backgroumd">
+      <div className="notice-projects">
         <div className="msg">
-          <img src={img1} alt="" />
+          <img src={programming} alt="" />
 
           <div className="groupbtn-msg">
-            <span>I'm selecting the best projects; in the meantime, you can contact me.</span>
+            <span>I'm working on improving this section, please get in touch or check out my work on Instagram in the meantime!</span>
 
-            <a href="#contact" className="contact">Contact</a>
+            <div className="group-links">
+              <a href="/contact" className="contact-dev">Contact</a>
+              <a href="https://www.instagram.com/viceduartt/?next=%2F" className="socialmedia-dev">Instagram</a>
+            </div>
           </div>
 
         </div>

@@ -1,45 +1,56 @@
-import Header from "../components/Header";
+"use client";
 
-import iconClose from "../assets/icons/close.svg";
-import iconFrontend from "../assets/icons/frontend.svg";
-import iconBackend from "../assets/icons/backend.svg";
+import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Cursor from "../components/Cursor";
 
-
-import boostrap from "../assets/images/frontend/boostrap.svg";
-import angular from "../assets/images/frontend/angular.svg";
-import react from "../assets/images/frontend/react.svg";
-import next from "../assets/images/frontend/nextjs.svg";
-import html from "../assets/images/frontend/html.svg";
-import css from "../assets/images/frontend/css.svg";
-import rive from "../assets/images/frontend/rive.svg";
-import figma from "../assets/images/frontend/figma.svg";
-import solidjs from "../assets/images/frontend/solid.svg";
-import javascript from "../assets/images/frontend/javascript.svg";
-import vue from "../assets/images/frontend/vue.svg";
-import scss from "../assets/images/frontend/scss.svg";
-import tailwindcss from "../assets/images/frontend/tailwindcss.svg";
-import reactNatove from "../assets/images/frontend/reactNative.svg";
-import Eletron from "../assets/images/frontend/electronjs.svg";
-
-import nodejs from "../assets/images/backend/nodejs.svg";
-import mysql from "../assets/images/backend/mysql.svg";
-import mongodb from "../assets/images/backend/mongodb.svg";
-import golang from "../assets/images/backend/golang.svg";
-import docker from "../assets/images/backend/docker.svg";
-import php from "../assets/images/backend/php.svg";
-import rust from "../assets/images/backend/rust.svg";
+const iconClose = "/icons/close.svg";
+const iconFrontend = "/icons/frontend.svg";
+const iconBackend = "/icons/backend.svg";
+const boostrap = "/images/frontend/boostrap.svg";
+const angular = "/images/frontend/angular.svg";
+const react = "/images/frontend/react.svg";
+const next = "/images/frontend/nextjs.svg";
+const html = "/images/frontend/html.svg";
+const css = "/images/frontend/css.svg";
+const rive = "/images/frontend/rive.svg";
+const figma = "/images/frontend/figma.svg";
+const solidjs = "/images/frontend/solid.svg";
+const javascript = "/images/frontend/javascript.svg";
+const vue = "/images/frontend/vue.svg";
+const scss = "/images/frontend/scss.svg";
+const tailwindcss = "/images/frontend/tailwindcss.svg";
+const reactNatove = "/images/frontend/reactNative.svg";
+const Eletron = "/images/frontend/electronjs.svg";
+const nodejs = "/images/backend/nodejs.svg";
+const mysql = "/images/backend/mysql.svg";
+const mongodb = "/images/backend/mongodb.svg";
+const golang = "/images/backend/golang.svg";
+const docker = "/images/backend/docker.svg";
+const php = "/images/backend/php.svg";
+const rust = "/images/backend/rust.svg";
 
 
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useEffect, useState } from "react";
 
 function Skills() {
+  const [mobile, setMobile] = useState(false)
+
+  useEffect(() => {
+    if (window.innerWidth <= 840) {
+      setMobile(true)
+    }
+  }, [])
+
   useGSAP(() => {
     let posView = 0
     let indice = 0
+    let posViewFrontend = 0
+    let posViewBackend = 0
+
     const time = setInterval(() => {
 
       if (document.querySelector('.group-list-skills') !== null) {
@@ -76,43 +87,118 @@ function Skills() {
     
 
     const configCarroselSkills = () => {
-      const listsSkills = document.querySelectorAll('.group-lists')
-      
-      for (const listSkill of listsSkills) {
-        const skillEnd = listSkill.querySelector('#end')
-        
-        const obs = new IntersectionObserver((entries) => {
+      const viewLists = document.querySelectorAll('.group-lists')
+      let time = 7
 
 
-          if (entries[0].isIntersecting === true) {
+      const animaCarrosel = (entries) => {
+        console.log(entries[0].target)
+        if (entries[0].isIntersecting === true && entries[0].target.dataset.lock !== 'true') {
+          const listSkill = entries[0].target.parentElement
+          const groupLists = listSkill.parentElement
+          const newListSkill = listSkill.cloneNode(true)
+
+          newListSkill.classList.add('newList')
+          entries[0].target.dataset.lock = 'true'
+          console.log(entries[0].isIntersecting)
+
+          groupLists.appendChild(newListSkill)
+          //console.log(newListSkill)
+
+          
+          
+          
+          if (groupLists.id === 'frontEnd11') {
+            gsap.to(groupLists, {
+              duration: 1,
+              x: `-${posViewFrontend}px`,
+              delay: 7,
+              onComplete: () => {
+                groupLists.removeChild(listSkill)
+
+                gsap.to(groupLists, {
+                  duration: 12,
+                  x: `-${0}px`,
+                  
+                })
+              }
+            })
             
+            posViewFrontend = posViewFrontend + 35
+            
+            
+          } else if (groupLists.id === 'backEnd11') {
+            
+            posViewBackend = posViewBackend + 70
+            gsap.to(groupLists, {
+              duration: 6,
+              x: `-${posViewBackend}px`,
+              
+              onComplete: () => {
+                //groupLists.removeChild(listSkill)
+              }
+            })
           }
-        }, {
-          root: document.querySelector('.area-list'),
-          threshold: 0
-        })
-        
-        if (listSkill.id === 'frontEnd') {
-          const timeline = gsap.timeline({repeat: -1, yoyo: true})
-
-          obs.observe(skillEnd)
-
-          timeline.fromTo(listSkill, {
-            duration: 6, 
-            x: `1%`,
-            ease: 'back.out'
-          }, {
-            duration: 6, 
-            x: `-83%`,
-          })
-        } else if (listSkill.id === 'backEnd') {
-          const timeline = gsap.timeline({repeat: -1, yoyo: true})
-
-          timeline.to(listSkill, {
-            duration: 6, 
-            x: `-63%`
-          })
+          
+          
+          
+          
         }
+      }
+
+
+      const obs = new IntersectionObserver(animaCarrosel, {
+        root: document.querySelector('.view-list'),
+        threshold: 1
+      })
+      
+      for (const viewList of viewLists) {
+        const timeline = gsap.timeline({repeat: -1})
+        const listsSkills = viewList.querySelectorAll('.list-skills')
+        const skillsEnd = viewList.querySelectorAll('.SkillEnd')
+
+        const focusSkill = (tween) => {
+          console.log(time)
+            gsap.to(tween, {
+              duration: 1,
+              timeScale: 1,
+              ease: "power2.out"
+            })
+        }
+        
+
+        if (viewList.id === 'frontEnd') {
+          for (const listSkill of listsSkills) {
+            const tween = gsap.fromTo(listSkill, 
+              {x: '0%'},
+              {
+                duration: time*2,
+                repeat: -1,
+                ease: 'none',
+                x: '-103%'
+              }
+            )
+
+            viewList.addEventListener('click', () => {
+              focusSkill(tween)
+            })
+
+          }
+        } else if (viewList.id === 'backEnd') {
+          for (const listSkill of listsSkills) {
+            gsap.fromTo(listSkill, 
+              {x: '0%'},
+              {
+                duration: time,
+                repeat: -1,
+                ease: 'none',
+                x: '-107%'
+              }
+            )
+          }
+
+        }
+
 
 
       }
@@ -217,8 +303,8 @@ function Skills() {
                     duration: 1,
                     flexDirection: 'row-reverse',
                     opacity: 1,
-                    y: cursor.getBoundingClientRect().top - 60,
-                    x: cursor.getBoundingClientRect().right - boxInfo.offsetWidth
+                    y: cursor.getBoundingClientRect().top - 100,
+                    x: cursor.getBoundingClientRect().right - boxInfo.offsetWidth + 80
                   })
 
                   gsap.to(boxInfo, {
@@ -235,8 +321,8 @@ function Skills() {
 
                     flexDirection: 'row',
                     opacity: 1,
-                    y: cursor.getBoundingClientRect().top - 60,
-                    x: cursor.getBoundingClientRect().right
+                    y: cursor.getBoundingClientRect().top - 100,
+                    x: cursor.getBoundingClientRect().right - 160
                   })
                 }
 
@@ -325,10 +411,6 @@ function Skills() {
 
         if (window.innerWidth <= 1390) {
           document.querySelector('.scrollbar').style.height = `95%`
-
-          if (viewScroll.dataset.whellEnd === 'yes') {
-            document.querySelector('.scrollbar').style.height = `100%`
-          }
         } else {
           document.querySelector('.scrollbar').style.height = `${100}%`
         }
@@ -341,8 +423,13 @@ function Skills() {
               console.log(entries[0].isIntersecting)
               if (entries[0].isIntersecting === true) {
                 skill.parentElement.dataset.whellEnd = 'yes'
+                console.log('yes = ')
+                console.log(skill.parentElement)
               } else {
                 skill.parentElement.dataset.whellEnd = 'no'
+                console.log('yes = ')
+                console.log(skill.parentElement)
+
               }
             }, {
               root: document.querySelector('.view-list'),
@@ -412,7 +499,20 @@ function Skills() {
           const skills = listSkill.querySelectorAll('.skill')
           listSkill.dataset.display = 'yes'
 
-          
+          if (area === '0') {
+            if (window.innerWidth <= 1390) {
+              document.querySelector('.scrollbar').style.height = `95%`
+            } else {
+              document.querySelector('.scrollbar').style.height = `${100}%`
+            }
+
+          } else if (area === '1') {
+            if (window.innerWidth <= 1390) {
+              document.querySelector('.scrollbar').style.height = `100%`
+            } else {
+              document.querySelector('.scrollbar').style.height = `${100}%`
+            }
+          }
 
 
           gsap.to(listSkill, {
@@ -528,7 +628,7 @@ function Skills() {
       document.querySelector('body').classList.remove('contact')
   }
 
-  if (window.innerWidth <= 840) {
+  if (mobile) {
     return (
       <>
         <Cursor></Cursor>
@@ -558,12 +658,12 @@ function Skills() {
             <h1>Skills</h1>
 
             <div className="view-list">
-              <div className="area-list" id="areaFackEnd">
+              <div className="area-list" id="areaFrontEnd">
                 <h2>Front-end</h2>   
 
 
                 <div className="group-lists" id="frontEnd">                  
-                  <div className="list-skills" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
+                  <div className="list-skills initF" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
                     
                     <div className="skill" data-proficiancy='70' data-time='3 years'>
                       <img src={react} alt="" />
@@ -649,7 +749,7 @@ function Skills() {
                       <span className="caption-small">React native</span>
                     </div>
 
-                    <div className="skill" data-proficiancy='53' id="end" data-time='3 years'>
+                    <div className="skill SkillEnd" data-proficiancy='53' id="end" data-time='3 years'>
                       <img src={Eletron} alt="" />
                       <span className="caption-small">Eletron</span>
                     </div>
@@ -657,7 +757,99 @@ function Skills() {
 
                   </div>
 
-                  
+                  <div className="list-skills initF" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
+                    
+                    <div className="skill" data-proficiancy='70' data-time='3 years'>
+                      <img src={react} alt="" />
+
+                      <span className="caption-small">ReactJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='30' data-time='3 years'>
+                      <img src={next} alt="" />
+
+                      <span className="caption-small">NextJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='65' data-time='5 years'>
+                      <img src={javascript} alt="" />
+
+                      <span className="caption-small">JavaScript</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='5 years'>
+                      <img src={html} alt="" />
+
+                      <span className="caption-small">HTML</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='85' data-time='5 years'>
+                      <img src={css} alt="" />
+
+                      <span className="caption-small">CSS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='3 years'>
+                      <img src={scss} alt="" />
+
+                      <span className="caption-small">SCSS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='4 years'>
+                      <img src={figma} alt="" />
+
+                      <span className="caption-small">Figma</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='25' data-time='5 months'>
+                      <img src={rive} alt="" />
+
+                      <span className="caption-small">Rive</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='65' data-time='2 years'>
+                      <img src={boostrap} alt="" />
+
+                      <span className="caption-small">JavaScript</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='47' data-time='1 year'>
+                      <img src={angular} alt="" />
+
+                      <span className="caption-small">AngularJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='64' data-time='1 year'>
+                      <img src={vue} alt="" />
+
+                      <span className="caption-small">VueJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='81' data-time='1 year'>
+                      <img src={tailwindcss} alt="" />
+
+                      <span className="caption-small">Tailwind</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='12' data-time='1 year'>
+                      <img src={solidjs} alt="" />
+
+                      <span className="caption-small">SolidJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='76' data-time='4 years'>
+                      <img src={reactNatove} alt="" />
+
+                      <span className="caption-small">React native</span>
+                    </div>
+
+                    <div className="skill SkillEnd" data-proficiancy='53' id="end" data-time='3 years'>
+                      <img src={Eletron} alt="" />
+                      <span className="caption-small">Eletron</span>
+                    </div>
+
+
+                  </div>
                 </div>
               </div>
 
@@ -665,7 +857,7 @@ function Skills() {
                 <h2>Back-end</h2>
 
                 <div className="group-lists" id="backEnd">
-                  <div className="list-skills" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
+                  <div className="list-skills initB" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
                     
                     <div className="skill" data-proficiancy='95' data-time='5 years'>
                       <img src={nodejs} alt="" />
@@ -703,7 +895,53 @@ function Skills() {
                       <span className="caption-small">Rust</span>
                     </div>
 
-                    <div className="skill" data-proficiancy='77'id="end" data-time='6 years'>
+                    <div className="skill SkillEnd" data-proficiancy='77'id="end" data-time='6 years'>
+                      <img src={php} alt="" />
+
+                      <span className="caption-small">PHP</span>
+                    </div>
+
+                  </div>
+
+                  <div className="list-skills initB" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
+                    
+                    <div className="skill" data-proficiancy='95' data-time='5 years'>
+                      <img src={nodejs} alt="" />
+
+                      <span className="caption-small">NodeJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='5 years'>
+                      <img src={mysql} alt="" />
+
+                      <span className="caption-small">MySQL</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='4 years'>
+                      <img src={mongodb} alt="" />
+
+                      <span className="caption-small">MongoDB</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='74' data-time='3 years'>
+                      <img src={docker} alt="" />
+
+                      <span className="caption-small">Docker</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='10' data-time='1 years'>
+                      <img src={golang} alt="" />
+
+                      <span className="caption-small">GoLang</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='5' data-time='3 months'>
+                      <img src={rust} alt="" />
+
+                      <span className="caption-small">Rust</span>
+                    </div>
+
+                    <div className="skill SkillEnd" data-proficiancy='77'id="end" data-time='6 years'>
                       <img src={php} alt="" />
 
                       <span className="caption-small">PHP</span>
@@ -858,56 +1096,57 @@ function Skills() {
                     <span className="caption-small">React native</span>
                   </div>
 
-                  <div className="skill" data-proficiancy='53' data-end='yes' id="end" data-time='3 years'>
+                  <div className="skill" id="end" data-proficiancy='53' data-end='yes' data-time='3 years'>
                     <img src={Eletron} alt="" />
                     <span className="caption-small">Eletron</span>
                   </div>
 
 
                 </div>
-  
-                <div className="list-skills" id="backEnd" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
-                  <div className="skill" data-proficiancy='95' data-time='5 years'>
-                    <img src={nodejs} alt="" />
 
-                    <span className="caption-small">NodeJS</span>
-                  </div>
+                <div className="list-skills" data-wheel-x='yes' data-id='1' data-display='no' data-whell-off='off'>
+                    
+                    <div className="skill" data-proficiancy='95' data-time='5 years'>
+                      <img src={nodejs} alt="" />
 
-                  <div className="skill" data-proficiancy='100' data-time='5 years'>
-                    <img src={mysql} alt="" />
+                      <span className="caption-small">NodeJS</span>
+                    </div>
 
-                    <span className="caption-small">MySQL</span>
-                  </div>
+                    <div className="skill" data-proficiancy='100' data-time='5 years'>
+                      <img src={mysql} alt="" />
 
-                  <div className="skill" data-proficiancy='100' data-time='4 years'>
-                    <img src={mongodb} alt="" />
+                      <span className="caption-small">MySQL</span>
+                    </div>
 
-                    <span className="caption-small">MongoDB</span>
-                  </div>
+                    <div className="skill" data-proficiancy='100' data-time='4 years'>
+                      <img src={mongodb} alt="" />
 
-                  <div className="skill" data-proficiancy='74' data-time='3 years'>
-                    <img src={docker} alt="" />
+                      <span className="caption-small">MongoDB</span>
+                    </div>
 
-                    <span className="caption-small">Docker</span>
-                  </div>
+                    <div className="skill" data-proficiancy='74' data-time='3 years'>
+                      <img src={docker} alt="" />
 
-                  <div className="skill" data-proficiancy='10' data-time='1 years'>
-                    <img src={golang} alt="" />
+                      <span className="caption-small">Docker</span>
+                    </div>
 
-                    <span className="caption-small">GoLang</span>
-                  </div>
+                    <div className="skill" data-proficiancy='10' data-time='1 years'>
+                      <img src={golang} alt="" />
 
-                  <div className="skill" data-proficiancy='5' data-time='3 months'>
-                    <img src={rust} alt="" />
+                      <span className="caption-small">GoLang</span>
+                    </div>
 
-                    <span className="caption-small">Rust</span>
-                  </div>
+                    <div className="skill" data-proficiancy='5' data-time='3 months'>
+                      <img src={rust} alt="" />
 
-                  <div className="skill" data-proficiancy='77'id="end" data-time='6 years'>
-                    <img src={php} alt="" />
+                      <span className="caption-small">Rust</span>
+                    </div>
 
-                    <span className="caption-small">PHP</span>
-                  </div>
+                    <div className="skill" id="end" data-proficiancy='77'data-time='6 years'>
+                      <img src={php} alt="" />
+
+                      <span className="caption-small">PHP</span>
+                    </div>
 
                 </div>
               </div>

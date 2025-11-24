@@ -1,15 +1,23 @@
-import { Link } from "react-router-dom";
-import iconMusic from "../assets/icons/music.svg";
-import iconBr from "../assets/icons/br.svg";
-import iconFr from "../assets/icons/fr.svg";
-import iconUs from "../assets/icons/us.svg";
-import menu from "../assets/icons/menu.svg";
-import logo from "../assets/images/avatar.svg";
+const iconMusic = "/icons/music.svg";
+const iconBr = "/icons/br.svg"; 
+const iconFr =  "/icons/fr.svg";
+const iconUs = "/icons/us.svg";
+const menu = "/icons/menu.svg";
+const logo = "/images/avatar.svg";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useEffect, useState } from "react";
 
 function Header() {
+  const [mobile, setMobile] = useState(false)
+
+  useEffect(() => {
+    if (window.innerWidth <= 1000) {
+      setMobile(true)
+    }
+  }, [])
+
   let showMenu = false
 
   useGSAP(() => {
@@ -237,7 +245,7 @@ function Header() {
     
   }, [])
 
-  if (window.innerWidth <= 1000) {
+  if (mobile) {
     return (
       <>
 
@@ -245,7 +253,7 @@ function Header() {
           <div className="logo">
             <div className="bg-img">
 
-              <img src={logo} alt="" />
+              <img src={logo} alt="avatar" />
             </div>
 
             <span> &lt;VicedArtt/&gt;</span>
@@ -257,29 +265,29 @@ function Header() {
 
             <nav className="group-menu">
               <h2 className="ocult" id="home">
-                <Link className="menu" to='/'>
+                <a className="menu" href='/'>
                   <div data-change='0' className="bg"></div>
                   Home
-                </Link>
+                </a>
               </h2>
               <h2 className="ocult" id="projects">
-                <Link className="menu"to="/projects">
+                <a className="menu"href="/projects">
                   <div data-change='0' className="bg"></div>
                   Projects
-                </Link>
+                </a>
               </h2>
               <h2 className="ocult" id="contact">
-                <Link className="menu" to="/contact">
+                <a className="menu" href="/contact">
                   <div data-change='0' className="bg"></div>
                   Contact
-                </Link>
+                </a>
       
               </h2>
               <h2 className="ocult" id="skills">
-                <Link className="menu" to="/skills">
+                <a className="menu" href="/skills">
                   <div data-change='0' className="bg"></div>
                   Skills
-                </Link>
+                </a>
               </h2>
             </nav>
 
@@ -291,7 +299,10 @@ function Header() {
                 <button className="button-lang" id="lang-br"><img src={iconBr} alt="" /></button>
               </div>
               
-              <button className="button-music"><img src={iconMusic} alt="" /></button>
+              <button className="button-music">
+                <img src={iconMusic} alt="" />
+
+              </button>
       
             </div>
             
@@ -309,29 +320,29 @@ function Header() {
         
         <nav className="group-menu">
           <h2 className="ocult" id="home">
-            <Link className="menu" to='/'>
+            <a className="menu" href='/'>
               <div data-change='0' className="bg"></div>
               Home
-            </Link>
+            </a>
           </h2>
           <h2 className="ocult" id="projects">
-            <Link className="menu"to="/projects">
+            <a className="menu"href="/projects">
               <div data-change='0' className="bg"></div>
               Projects
-            </Link>
+            </a>
           </h2>
           <h2 className="ocult" id="contact">
-            <Link className="menu" to="/contact">
+            <a className="menu" href="/contact">
               <div data-change='0' className="bg"></div>
               Contact
-            </Link>
+            </a>
   
           </h2>
           <h2 className="ocult" id="skills">
-            <Link className="menu" to="/skills">
+            <a className="menu" href="/skills">
               <div data-change='0' className="bg"></div>
               Skills
-            </Link>
+            </a>
           </h2>
         </nav>
   

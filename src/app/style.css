@@ -146,8 +146,8 @@ label {
   position: absolute;
   top: 0%;
   left: 0%;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000;
   opacity: 1;
   z-index: 888888888888;
@@ -159,7 +159,7 @@ label {
   left: 0px;
   z-index: 99999999;
   opacity: 100%;
-  background-image: url("../images/cursor_default.svg");
+  background-image: url("/images/cursor_default.svg");
   background-repeat: no-repeat;
   height: 40px;
   width: 24px;
@@ -221,6 +221,18 @@ body {
 body.contact {
   background: linear-gradient(112.871deg, #881FED 10%, #000733 100%);
   background-size: 100% 1%;
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3764705882);
+  z-index: 999999;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ====== HEADER ====== */
@@ -407,18 +419,18 @@ main.home .socialmendia a #youtube {
   margin-top: 0;
 }
 
-.backgroumd {
+.notice-projects {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000000;
+  background: linear-gradient(112.871deg, #881FED 10%, #000733 100%);
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
 }
-.backgroumd .contact {
+.notice-projects .contact {
   display: block;
   border-radius: 1.6rem;
   padding: 1.9rem 4rem;
@@ -428,20 +440,50 @@ main.home .socialmendia a #youtube {
   position: relative;
   color: #050505;
 }
-.backgroumd .groupbtn-msg {
+.notice-projects span {
+  width: 80%;
+  text-align: center;
+  font-size: 3.2rem;
+}
+.notice-projects .groupbtn-msg {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem 0;
 }
-.backgroumd .msg {
-  margin-top: 3rem;
+.notice-projects .msg {
+  padding: 4rem 3rem;
+  border-radius: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.5058823529);
+  border: 0.2rem solid #28D9DF;
+  box-shadow: 0rem 0rem 10rem 1rem rgba(168, 168, 168, 0.5882352941);
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.backgroumd .msg img {
-  width: 100rem;
+.notice-projects .msg .group-links {
+  display: flex;
+  gap: 0 3rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+.notice-projects .msg .group-links .contact-dev, .notice-projects .msg .group-links .socialmedia-dev {
+  background-color: #FFFFFF;
+  color: #0C0C0C;
+  border-radius: 1.2rem;
+  padding: 1.6rem 2rem;
+  font-size: 3.5rem;
+  opacity: 0.9;
+  transition: all 1s;
+}
+.notice-projects .msg .group-links .contact-dev:hover, .notice-projects .msg .group-links .socialmedia-dev:hover {
+  opacity: 1;
+  padding: 1.6rem 4rem;
+}
+.notice-projects .msg img {
+  width: 50%;
+  margin-bottom: 5rem;
 }
 
 main.projects {
@@ -573,10 +615,58 @@ main.projects img {
 }
 
 main.contact {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5.4rem;
+}
+main.contact .notice-sendEmail {
+  opacity: 0;
+  display: none;
+  flex-direction: column;
+  align-items: end;
+  border-radius: 1.2rem;
+  border: 0.2rem solid #28D9DF;
+  padding: 2rem 3rem;
+  position: absolute;
+  top: -10%;
+  background-color: #1B1B1B;
+  min-width: 50vw;
+  min-height: 40vh;
+  z-index: 999999;
+}
+main.contact .notice-sendEmail .content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  text-align: center;
+  margin-top: 2rem;
+  gap: 5rem;
+}
+main.contact .notice-sendEmail .content img {
+  width: 20%;
+}
+main.contact .notice-sendEmail button {
+  position: relative;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00A6AC;
+  height: 5rem;
+  width: 5rem;
+  padding-right: 0.4rem;
+  border-radius: 100%;
+  transform: scale(0.6);
+  opacity: 0.9;
+}
+main.contact .notice-sendEmail button img {
+  height: 55%;
+  width: auto;
 }
 main.contact .group-input-socialmedia {
   border: 0.2rem solid #28D9DF;
@@ -596,6 +686,7 @@ main.contact .group-input-socialmedia .msg {
   position: relative;
 }
 main.contact .group-input-socialmedia .msg textarea {
+  font-family: "Inter", sans-serif;
   padding: 0 2.1rem;
   padding-top: 0.5rem;
   background-color: rgba(0, 0, 0, 0.2039215686);
@@ -668,9 +759,7 @@ main.contact .group-input-socialmedia header button {
   border-radius: 1.2rem;
   scale: 0.9;
   transition: all 0.6s;
-}
-main.contact .group-input-socialmedia header button:hover {
-  padding: 0 3rem;
+  opacity: 0.6;
 }
 main.contact .green {
   color: #28D9DF;
@@ -718,7 +807,7 @@ main.contact .group-cards-scroll .cards-container .card img {
   height: 6.3rem;
   width: auto;
 }
-main.contact .group-cards-scroll .cards-container .card button {
+main.contact .group-cards-scroll .cards-container .card a {
   border: 0.3rem solid #D76EFF;
   color: #D76EFF;
   background-color: rgba(0, 0, 0, 0);
@@ -727,7 +816,7 @@ main.contact .group-cards-scroll .cards-container .card button {
   transition: all 0.5s;
   border-radius: 1.2rem;
 }
-main.contact .group-cards-scroll .cards-container .card button:hover {
+main.contact .group-cards-scroll .cards-container .card a:hover {
   opacity: 1;
   scale: 1.1;
   background-color: #D76EFF;
@@ -823,8 +912,7 @@ main.skills .explore {
   height: fit-content;
   margin-top: 8rem;
   overflow: hidden;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 80vw;
   border: 0.1rem solid #D76EFF;
 }
 main.skills .explore header {
@@ -1002,6 +1090,21 @@ main.skills .explore .group-list-skills .list-off {
   :root {
     font-size: 63%;
   }
+  .group-links {
+    gap: 0 4rem !important;
+  }
+  .notice-projects {
+    align-items: start !important;
+  }
+  .notice-projects .msg {
+    margin-top: 4rem;
+  }
+  .notice-projects .msg img {
+    width: 70% !important;
+  }
+  .notice-projects .msg span {
+    width: 100% !important;
+  }
   .group-input-socialmedia {
     width: 100% !important;
   }
@@ -1168,6 +1271,16 @@ main.skills .explore .group-list-skills .list-off {
     font-size: 56%;
     overflow-x: hidden !important;
   }
+  .group-links {
+    flex-direction: column !important;
+    gap: 4rem 0 !important;
+    width: 100%;
+    padding: 0 2rem;
+  }
+  .group-links a {
+    padding: 2rem 0 !important;
+    text-align: center;
+  }
   #ball {
     width: 30.2rem !important;
     height: 30.2rem !important;
@@ -1179,10 +1292,6 @@ main.skills .explore .group-list-skills .list-off {
     display: flex;
     width: -moz-fit-content;
     width: fit-content;
-  }
-  .group-cards-scroll {
-    flex-direction: column !important;
-    margin-bottom: 5rem;
   }
   .cards-container {
     width: 100% !important;
@@ -1197,9 +1306,6 @@ main.skills .explore .group-list-skills .list-off {
     overflow-y: hidden !important;
     margin: 0;
     padding: 0 2rem;
-  }
-  .group-cards-scroll {
-    overflow: hidden !important;
   }
   .cursor {
     display: none !important;
@@ -1330,13 +1436,35 @@ main.skills .explore .group-list-skills .list-off {
     margin-bottom: 14rem;
     color: #28D9DF;
   }
-  .explore .list-skills {
-    background-color: rgba(255, 0, 0, 0.356);
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 0 5rem !important;
+  .explore .group-lists {
     width: -moz-fit-content !important;
     width: fit-content !important;
+    display: flex;
+    gap: 0 8rem !important;
+  }
+  .explore .group-lists .initB {
+    transform: translateX(-319px);
+  }
+  .explore .group-lists .initF {
+    transform: translateX(-129px);
+  }
+  .explore .list-skills {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0 8rem !important;
+    width: -moz-fit-content !important;
+    width: fit-content !important;
+  }
+  .explore .list-skills .skill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: -moz-max-content !important;
+    width: max-content !important;
+  }
+  .explore .list-skills .skill span {
+    width: 100% !important;
   }
   .explore .list-skills .skill img {
     margin-bottom: 2rem;

@@ -212,8 +212,8 @@ label {
     position: absolute;
     top: 0%;
     left: 0%;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: #000000;
     opacity: 1;
     z-index: 888888888888;
@@ -225,7 +225,7 @@ label {
     left: 0px;
     z-index: 99999999;
     opacity: 100%;
-    background-image: url('../images/cursor_default.svg');
+    background-image: url('/images/cursor_default.svg');
     background-repeat: no-repeat;
     height: 40px;
     width: 24px;
@@ -293,6 +293,18 @@ body {
 body.contact {
     background: linear-gradient(112.871deg, #881FED 10%, #000733 100%);
     background-size: 100% 1%;
+}
+
+.background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000060;
+    z-index: 999999;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ====== HEADER ====== */
@@ -510,17 +522,17 @@ main.home {
 }
 
 
-.backgroumd {
+
+.notice-projects {
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000000;
+    background: linear-gradient(112.871deg, #881FED 10%, #000733 100%);
     display: flex;
-
     justify-content: center;
-    align-items: start;
+    align-items: center;
 
     .contact {
         display: block;
@@ -531,6 +543,13 @@ main.home {
         background-color: $white;
         position: relative;
         color: $black-default;
+
+    }
+
+    span {
+        width: 80%;
+        text-align: center;
+        font-size: 3.2rem;
     }
 
     .groupbtn-msg {
@@ -541,9 +560,39 @@ main.home {
     }
 
     .msg {
-        margin-top: 3rem;
+        padding: 4rem 3rem;
+        border-radius: 1.2rem;
+        background-color: #00000081;
+        border: 0.2rem solid $emphasis-default;
+        box-shadow: 0rem 0rem 10rem 1rem #a8a8a896;
+        width: 90%;
+
+        .group-links {
+            display: flex;
+            gap: 0 3rem;
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+
+            .contact-dev, .socialmedia-dev {
+                background-color: $white;
+                color: $black-10;
+                border-radius: 1.2rem;
+                padding: 1.6rem 2rem;
+                font-size: 3.5rem;
+                opacity: 0.9;
+                transition: all 1s;
+
+                &:hover {
+                    opacity: 1;
+                    padding: 1.6rem 4rem;
+                }
+            }
+        }
+
+
         img {
-            width: 100rem;
+            width: 50%;
+            margin-bottom: 5rem;
         }
 
         display: flex;
@@ -551,13 +600,13 @@ main.home {
         align-items: center;
     }
 }
-
 main.projects {
     margin-top: 5.1rem;
     display: flex;
     display: none;
     justify-content: space-between;
     height: 100%;
+    
 
     .scrollbar-container {
         opacity: 0.4;
@@ -707,10 +756,67 @@ main.projects {
 }
 
 main.contact {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5.4rem;
+
+    .notice-sendEmail {
+        opacity:0;
+        display: none;
+        flex-direction: column;
+        align-items: end;
+        border-radius: 1.2rem;
+        border: 0.2rem solid $emphasis-default;
+        padding: 2rem 3rem;
+        position: absolute;
+        top: -10%;
+        background-color: $black-9;
+        min-width: 50vw;
+        min-height: 40vh;
+        z-index: 999999;
+
+
+        .content {
+            width: 100%;
+            height: 100%;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            text-align: center;
+            margin-top: 2rem;
+            gap: 5rem;
+
+            img {
+                width: 20%;
+            }
+        }
+
+        button {
+            position: relative;
+            left: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $emphasis-100;
+            height: 5rem;
+            width: 5rem;
+            padding-right: 0.4rem;
+            border-radius: 100%;
+            transform: scale(0.6);
+            opacity: 0.9;
+
+            img {
+                height: 55%;
+                width: auto;
+            }
+        }
+
+
+    }
 
 
     .group-input-socialmedia {
@@ -731,6 +837,7 @@ main.contact {
             position: relative;
 
             textarea {
+                font-family: 'Inter', sans-serif;
                 padding: 0 2.1rem;
                 padding-top: 0.5rem;
                 background-color: #00000034;
@@ -815,11 +922,7 @@ main.contact {
                 border-radius: 1.2rem;
                 scale: 0.9;
                 transition: all 0.6s;
-
-
-                &:hover {
-                    padding: 0 3rem;
-                }
+                opacity: 0.6;
             }
 
 
@@ -876,7 +979,7 @@ main.contact {
                     width: auto;
                 }
 
-                button {
+                a {
                     border: 0.3rem solid $support-50;
                     color: $support-50;
                     background-color: #00000000;
@@ -1011,7 +1114,7 @@ main.skills {
         height: fit-content;
         margin-top: 8rem;
         overflow: hidden;
-        width: fit-content;
+        width: 80vw;
         border: 0.1rem solid #D76EFF;
 
         header {
@@ -1222,6 +1325,26 @@ main.skills {
     :root {
         font-size: 63%;
 
+    }
+
+    .group-links {
+        gap: 0 4rem !important;
+    }
+
+    .notice-projects {
+        align-items: start !important;
+    }
+
+    .notice-projects .msg {
+        margin-top: 4rem;
+
+        img {
+            width: 70% !important;
+        }
+
+        span {
+            width: 100% !important;
+        }
     }
     
     .group-input-socialmedia {
@@ -1441,6 +1564,19 @@ main.skills {
 
     }
 
+    .group-links {
+        flex-direction: column !important;
+        gap: 4rem 0 !important;
+        width: 100%;
+        padding: 0 2rem;
+
+        a {
+            padding: 2rem 0 !important;
+            text-align: center;
+        }
+
+    }
+
     #ball {
         width: 30.2rem !important;
         height: 30.2rem !important;
@@ -1455,11 +1591,6 @@ main.skills {
     .group-lists {
         display: flex;
         width: fit-content;
-    }
-
-    .group-cards-scroll {
-        flex-direction: column !important;
-        margin-bottom: 5rem;
     }
 
     .cards-container {
@@ -1483,11 +1614,6 @@ main.skills {
         padding: 0 2rem;
     }
 
-    
-
-    .group-cards-scroll {
-        overflow: hidden !important;
-    }
 
     .cursor {
         display: none !important;
@@ -1647,14 +1773,37 @@ main.skills {
 
         }
 
+        .group-lists {
+            width: fit-content !important;
+            display: flex;
+            gap: 0 8rem !important;
+
+            .initB {
+                transform: translateX(-319px);
+            } 
+            
+            .initF {
+                transform: translateX(-129px);
+            }
+        }
+
         .list-skills {
-            background-color: rgba(255, 0, 0, 0.356);
             display: flex !important;
             flex-direction: row !important;
-            gap: 0 5rem !important;
+            gap: 0 8rem !important;
             width: fit-content !important;
 
             .skill {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: max-content !important;
+
+                span {
+                    width: 100% !important;
+                }
+
                 img {
                     margin-bottom: 2rem;
                 }

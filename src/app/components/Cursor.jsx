@@ -1,3 +1,5 @@
+"use client";
+
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 
@@ -23,7 +25,7 @@ function Cursor() {
             gsap.to('.cursor', {
               opacity: 1,
               scale: 1,
-              backgroundImage: "url('../images/cursor_pointer.svg')",
+              backgroundImage: "url('/images/cursor_pointer.svg')",
               duration: 1,
 
             })
@@ -35,7 +37,7 @@ function Cursor() {
               opacity: 1,
               scale: 1,
               duration: 1,
-              backgroundImage: "url('../images/cursor_default.svg')",
+              backgroundImage: "url('/images/cursor_default.svg')",
             })
           })
         })
