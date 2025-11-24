@@ -1197,17 +1197,22 @@ main.skills .explore .group-list-skills .list-off {
     margin-top: 0.5rem;
     height: 40%;
   }
+  * {
+    overflow-x: hidden !important;
+  }
   .header-moblie {
     background-color: #1B1B1B;
     flex-direction: column !important;
     width: 45vw !important;
     height: 100vh !important;
     position: absolute !important;
-    top: 0 !important;
-    right: 0 !important;
+    top: 0% !important;
+    right: 0% !important;
     opacity: 0;
     z-index: 99888;
+    display: none;
     margin: 0;
+    box-sizing: border-box;
     padding: 3rem 3rem;
     padding-top: 17rem;
     align-items: end;

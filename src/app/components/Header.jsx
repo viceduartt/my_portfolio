@@ -194,11 +194,12 @@ function Header() {
     
     const shwoHeader = () => {
       const menuBtn = document.querySelector('.btn-menu')
+      const header = document.querySelector('.header-moblie')
       console.log(menuBtn)
+      const timeline = gsap.timeline({})
 
       menuBtn.addEventListener('click', () => {
 
-        const header = document.querySelector('.header-moblie')
         
         console.log(showMenu)
         
@@ -225,7 +226,6 @@ function Header() {
 
           gsap.to(header, {
             duration: 1,
-            x: '60%',
             opacity: 0,
             onComplete: () => {gsap.to(header, {duration: 0.1, display: 'none'})}
           })
@@ -244,6 +244,8 @@ function Header() {
     const time = setTimeout(() => {
       console.log(mobile)
       if (window.innerWidth <= 1000) {
+        document.body.style.overflow = 'hidden'
+
         console.log('tetttt')
         gsap.to(document.querySelector('.header-moblie'), {
           duration: 0.1,

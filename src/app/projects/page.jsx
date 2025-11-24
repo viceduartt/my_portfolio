@@ -19,7 +19,6 @@ function Projects() {
   return (
     <>
       <Cursor></Cursor>
-      <Header/>
 
       <Loading></Loading>
 

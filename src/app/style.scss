@@ -1474,17 +1474,24 @@ main.skills {
         
     }
 
+    * {
+        overflow-x: hidden !important;
+    }
+
+
     .header-moblie {
         background-color: $black-9;
         flex-direction: column !important;
         width: 45vw !important;
         height: 100vh !important;
         position: absolute !important;
-        top: 0 !important;
-        right: 0 !important;
+        top: 0% !important;
+        right: 0% !important;
         opacity: 0;
         z-index: 99888;
+        display: none;
         margin: 0;
+        box-sizing: border-box;
         padding: 3rem 3rem;
         padding-top: 17rem;
         align-items: end;
