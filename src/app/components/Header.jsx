@@ -14,11 +14,12 @@ function Header() {
 
   useEffect(() => {
     if (window.innerWidth <= 1000) {
+      console.log('mobile screen')
       setMobile(true)
     }
   }, [])
 
-  let showMenu = false
+  let showMenu = true
 
   useGSAP(() => {
     const menus = document.querySelectorAll('header h2')
@@ -180,6 +181,7 @@ function Header() {
         animaLoadMenu(menu)
         animaLoadBtnMusic(menu)
 
+
         
         menu.addEventListener('mouseenter', (e) => {
           if (animate.change === '0') {
@@ -192,13 +194,16 @@ function Header() {
     
     const shwoHeader = () => {
       const menuBtn = document.querySelector('.btn-menu')
+      console.log(menuBtn)
 
       menuBtn.addEventListener('click', () => {
+
         const header = document.querySelector('.header-moblie')
         
         console.log(showMenu)
         
-        if (showMenu === false) {
+        if (showMenu === true) {
+          showMenu = false
           console.log('test')
           gsap.to(header, {
             duration: 1,
@@ -215,7 +220,8 @@ function Header() {
           })
 
         } else {
-          console.log('oioio')
+          console.log('Viiiiii')
+          showMenu = true
 
           gsap.to(header, {
             duration: 1,
@@ -234,14 +240,20 @@ function Header() {
 
     }
 
-    if (document.querySelector('.header-moblie') !== null) {
-      gsap.to(document.querySelector('.header-moblie'), {
-        duration: 0.1,
-        x: '60%',
-        
-      })
-      shwoHeader()
-    }
+    
+    const time = setTimeout(() => {
+      console.log(mobile)
+      if (window.innerWidth <= 1000) {
+        console.log('tetttt')
+        gsap.to(document.querySelector('.header-moblie'), {
+          duration: 0.1,
+          x: '60%',
+          
+        })
+        shwoHeader()
+      }
+    }, 200)
+
     
   }, [])
 
@@ -258,7 +270,7 @@ function Header() {
 
             <span> &lt;VicedArtt/&gt;</span>
           </div>
-          <button className="btn-menu" onClick={() => {showMenu = !showMenu}}><img src={menu} alt="" /></button> 
+          <button className="btn-menu"><img src={menu} alt="" /></button> 
 
 
           <div className="header-moblie">
