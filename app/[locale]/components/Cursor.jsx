@@ -1,0 +1,83 @@
+"use client";
+
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+
+function Cursor() {
+  let cursorX = 0
+  let cursorY = 0
+  let state = 0
+
+  useGSAP(() => {
+    const idTime = setInterval(() => {
+      const cursor = document.querySelector('.cursor')
+      const areaCursor = document.querySelectorAll('.area-mouse')
+
+      if (cursor !== undefined && areaCursor !== null) {
+        clearInterval(idTime)
+
+        const elementsClick = document.querySelectorAll('a, button, .button-music, label, textarea, .skill ')
+
+        elementsClick.forEach(eClick => {
+          eClick.addEventListener('mouseenter', () => {
+
+            
+            gsap.to('.cursor', {
+              opacity: 1,
+              scale: 1,
+              backgroundImage: "url('/images/cursor_pointer.svg')",
+              duration: 1,
+
+            })
+          })
+
+          eClick.addEventListener('mouseleave', () => {
+            
+            gsap.to('.cursor', {
+              opacity: 1,
+              scale: 1,
+              duration: 1,
+              backgroundImage: "url('/images/cursor_default.svg')",
+            })
+          })
+        })
+
+        moveCursor(cursor, areaCursor)
+
+      }
+    }, 200)
+
+
+    const moveCursor = (cursor, areaCursor) => {
+      document.addEventListener('mousemove', (e) => {
+        
+        if (state === 0) {
+
+          cursorX = e.clientX
+          cursorY = e.clientY
+
+
+          gsap.from(('.cursor'), {
+            x: cursorX,
+            y: cursorY,
+            opacity: 1,
+            scale: 1,
+            duration: 0.1,
+            ease: 'sine'
+          })  
+        }
+      })
+    }
+  }, [])
+
+
+
+
+  return (
+    <div className="cursor">
+    </div>
+
+  );
+}
+
+export default Cursor;
