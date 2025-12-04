@@ -1,5 +1,4 @@
-import './[locale]/reset.css'
-import './[locale]/style.css'
+
 import AudioPlayer from './[locale]/components/AudioPlayer';
 
 
@@ -8,7 +7,7 @@ export default async function RootLayout({ children, params }) {
   console.log(locale)
 
   return (
-    <html lang="en">
+    <html lang="en" translate='no'>
       <body>
         <AudioPlayer/>
         {children}

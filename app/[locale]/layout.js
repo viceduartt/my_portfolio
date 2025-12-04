@@ -1,3 +1,5 @@
+import './reset.css'
+import './style.css'
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";

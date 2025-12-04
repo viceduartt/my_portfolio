@@ -12,10 +12,9 @@ const iconGithub = "/icons/github.svg";
 const iconInstagram = "/icons/instagram.svg";
 const iconYoutube = "/icons/youtube.svg";
 
-
-
 function Home() {
-  const tHome = useTranslations("Home")
+  const home = useTranslations("home")
+
   const changeBg = () => {
     document.querySelector('body').classList.remove('contact')
   }
@@ -106,16 +105,16 @@ function Home() {
 
 
       let delay = 0.6
-      const ballWidth = document.querySelector('#ball').offsetWidth
-      
-      gsap.to('#ball', {
-        opacity: 1,
-        scale: 0.3,
-        duration: 0.5,
-        delay: delay
-      })
 
       if (window.innerWidth <= 840) {
+        gsap.to('#ball', {
+          opacity: 1,
+          scale: 0.3,
+          duration: 0.5,
+          left: photo.getBoundingClientRect().left + window.scrollX,
+          delay: delay
+        })
+        
         gsap.to('#ball', {
           scale: 0.5,
           top: (photo.getBoundingClientRect().top + window.screenY),
@@ -129,7 +128,15 @@ function Home() {
           scale: 1,
           delay: delay = delay + 0.5
         })
+
       } else {
+        gsap.to('#ball', {
+          opacity: 1,
+          scale: 0.3,
+          duration: 0.5,
+          delay: delay
+        })
+
         gsap.to('#ball', {
           scale: 1,
           top: (photo.getBoundingClientRect().top + window.screenY),
@@ -226,7 +233,7 @@ function Home() {
 
           <div className="goup-text-button">
             <div className="group-texts">
-              <h6>{tHome("h1")}</h6>
+              <h6>{home("grouptexts-h6")}</h6>
               <h3>Viced Artt <p className="emoji">✨</p></h3>
 
               <h1>Web Developer & <br /> UI Designer</h1>

@@ -12,12 +12,10 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
   const [mobile, setMobile] = useState(false)
-  const tComponents = useTranslations("Components")
   const pathname = usePathname()
   const lang = pathname.split("/")[1]
-  const maxVolume = 0.4
+  const maxVolume = 0.5
   let volume = 0
-  let lock = 0
 
   useEffect(() => {
     if (window.innerWidth <= 1000) {
@@ -25,7 +23,6 @@ export default function Header() {
     }
   }, [])
 
-  let showMenu = true
 
   useGSAP(() => {
     const menus = document.querySelectorAll('header h2')
@@ -136,6 +133,8 @@ export default function Header() {
     }
 
     const animaLoadBtnLang = () => {
+      console.log("funfun")
+
       document.querySelectorAll('.button-lang').forEach(btn => {
         if (btn.dataset.lang === lang) {
           btn.classList.add("on")
@@ -162,11 +161,21 @@ export default function Header() {
         }
       })
 
-      gsap.to('.button-lang', {
-        opacity: '75%',
-        duration: 0.6,
-        delay: 0.2
-      })
+      if (window.innerWidth <= 1000) {
+
+        gsap.to('.button-lang', {
+          opacity: '55%',
+          duration: 0.6,
+          delay: 0.2,
+        })
+      } else {
+        gsap.to('.button-lang', {
+          opacity: '75%',
+          duration: 0.6,
+          delay: 0.2,
+        })
+      }
+
 
       gsap.to('.button-lang.on', {
         opacity: 1,
@@ -177,6 +186,7 @@ export default function Header() {
     }
 
     const animaLoadBtnMusic = () => {
+      if (window.innerWidth >= 1000)
       gsap.to('.button-music', {
         opacity: 0.6,
         scale: 1,
@@ -208,7 +218,7 @@ export default function Header() {
   
           if (JSON.parse(sessionStorage.getItem('audio')).play === "false") {
             gsap.to(btnMusic, {
-              duration: 0.5,
+              duration: 1,
               scale: 1,
               opacity: 0.6
             })
@@ -219,12 +229,6 @@ export default function Header() {
           const audio = document.querySelector(".musicPlayer")
   
           const fadeinVolume = () => {
-            sessionStorage.setItem('audio', JSON.stringify({
-              currentTime: audio.currentTime,
-              duration: audio.duration,
-              play: audio.dataset.play
-            }))
-  
             console.log("player")
   
             const delay = setInterval(() => {  
@@ -237,13 +241,7 @@ export default function Header() {
             }, 50)
           }
   
-          const fadeoutVolume = () => {
-            sessionStorage.setItem('audio', JSON.stringify({
-              currentTime: audio.currentTime,
-              duration: audio.duration,
-              play: audio.dataset.play
-            }))
-  
+          const fadeoutVolume = () => {  
             console.log("pausedd")
   
             const delay = setInterval(() => {
@@ -258,23 +256,29 @@ export default function Header() {
             }, 100)
           }
   
+          console.log(JSON.parse(sessionStorage.getItem('audio')).play)
           
-          if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {
-            audio.dataset.play = "false"
-    
-  
-            gsap.to('.button-music', {
-              opacity: 1,
-              scale: 1,
-              duration: 0.6,
-            })
+          if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {   
+            
+            if (window.innerWidth <= 1000) {
+              gsap.to('.button-music', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+              })
+            } else {
+              gsap.to('.button-music', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+              })
+            }
 
             volume = audio.volume
 
             fadeoutVolume()
           } else if (JSON.parse(sessionStorage.getItem('audio')).play === "false") {
             audio.volume = 0
-            audio.dataset.play = "true"
   
             gsap.to(btnMusic, {
               duration: 0.5,
@@ -288,19 +292,19 @@ export default function Header() {
         }
   
         btnMusic.addEventListener("click", configMusic)
-        return () => window.removeEventListener("click", configMusic)
 
       }
     }
 
-    if (menus !== undefined) {
+    if (window.innerWidth >= 1000) {
+      console.log("desktop")
       for (let menu of menus) {
         const timeline = gsap.timeline({})
         const animate = document.querySelector(`#${menu.id} .menu .bg`).dataset
 
-        animaLoadBtnLang(menu)
+        animaLoadBtnLang()
         animaLoadMenu(menu)
-        animaLoadBtnMusic(menu)
+        animaLoadBtnMusic()
         animaBtnMusic()
 
 
@@ -313,26 +317,84 @@ export default function Header() {
       }
     }
 
+    const animaLoadBtnsMobile = () => {
+      const menus = document.querySelectorAll(".header-moblie h2")
+      const timeline = gsap.timeline({})
+
+      console.log(menus)
+
+      menus.forEach((menu) => {
+        gsap.from(menu, {
+          duration: 0.1,
+          opacity: 0,
+          x: "60%"
+        }, {
+          
+        }) 
+
+        timeline.to(menu, {
+          duration: 0.5,
+          opacity: 1,
+          x: "0%"
+        }) 
+      })
+    }
+
+    const resetMenuMobile = () => {
+      const menus = document.querySelectorAll(".header-moblie h2")
+      const btnLangs = document.querySelectorAll(".button-lang")
+      const timelineMenus = gsap.timeline({})
+      const timelineLangs = gsap.timeline({})
+
+      menus.forEach((menu) => {
+        timelineMenus.to(menu, {
+          duration: 0.2,
+          opacity: 0,
+          x: "100%",
+        })
+      })
+
+      gsap.to('.button-music', {
+        opacity: 0.1,
+        duration: 0
+      })
+
+      btnLangs.forEach((btn) => {
+        timelineLangs.to(btn, {
+          opacity: 0,
+          duration: 0.1,
+        })
+      })
+    }
+
 
     const shwoHeader = () => {
       const menuBtn = document.querySelector('.btn-menu')
       const header = document.querySelector('.header-moblie')
       console.log(menuBtn)
-      const timeline = gsap.timeline({})
 
       menuBtn.addEventListener('click', () => {
+        console.log(menuBtn.dataset.showmenu)
+
+        if (menuBtn.dataset.showmenu === "true") {
+          console.log('open')
 
 
-        console.log(showMenu)
+          animaLoadBtnsMobile()
 
-        if (showMenu === true) {
-          showMenu = false
-          console.log('test')
+          gsap.to("*", {
+            overflowY: "hidden"
+          })
+
           gsap.to(header, {
             duration: 1,
-            x: '0%',
-            display: 'flex',
+            pointerEvents: "all",
             opacity: 1,
+            onComplete: () => {
+              animaLoadBtnLang()
+              animaLoadBtnMusic()
+              animaBtnMusic()
+            }
           })
 
           gsap.to(menuBtn, {
@@ -342,14 +404,26 @@ export default function Header() {
             delay: 0.5
           })
 
-        } else {
-          console.log('Viiiiii')
-          showMenu = true
+        } else if (menuBtn.dataset.showmenu === "false") {
+
+          console.log('close')
+
+          resetMenuMobile()
+
+          if (window.innerWidth <= 1000) {
+            gsap.to("*", {
+              overflowY: "auto"
+            })
+
+          } else {
+
+          }
+
 
           gsap.to(header, {
             duration: 1,
             opacity: 0,
-            onComplete: () => { gsap.to(header, { duration: 0.1, display: 'none' }) }
+            pointerEvents: "none",
           })
 
           gsap.to(menuBtn, {
@@ -360,40 +434,133 @@ export default function Header() {
         }
       })
 
-    }
+    }  
 
 
     const time = setTimeout(() => {
+      clearTimeout(time)
+
       if (window.innerWidth <= 1000) {
-        document.body.style.overflow = 'hidden'
+        const menusMobile = document.querySelectorAll(".header-moblie h2")
 
-        console.log('tetttt')
-        gsap.to(document.querySelector('.header-moblie'), {
-          duration: 0.1,
-          x: '60%',
+        console.log(menusMobile)
 
-        })
+        for (let menu of menusMobile) {
+          const timeline = gsap.timeline({})
+          const animate = document.querySelector(`#${menu.id} .menu .bg`).dataset
+
+          animaLoadMenu(menu)
+
+          menu.addEventListener('mouseenter', (e) => {
+            if (animate.change === '0') {
+              changeAnimation(menu, timeline)
+            }
+          })
+        }
+
         shwoHeader()
       }
+
+      saveMusic()
     }, 200)
 
 
   }, [])
+
+  const saveMusic = () => {
+    const links = document.querySelectorAll(".ocult")
+    const btnContact = document.querySelectorAll(".contact")
+
+    btnContact.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const audio = document.querySelector(".musicPlayer")
+
+        sessionStorage.setItem('audio', JSON.stringify({ 
+          currentTime: audio.currentTime,
+          duration: audio.duration,
+          play: audio.dataset.play,
+          changeLang: true,
+        }))
+      })
+    })
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        const audio = document.querySelector(".musicPlayer")
+
+        sessionStorage.setItem('audio', JSON.stringify({ 
+          currentTime: audio.currentTime,
+          duration: audio.duration,
+          play: audio.dataset.play,
+          changeLang: true,
+        }))
+      })
+    })
+  }
+
+  const changeShowMenu = () => {
+    const btnMenu = document.querySelector(".btn-menu")
+
+    console.log(`target:`)
+    console.log(btnMenu.dataset)
+    console.log(btnMenu)
+    if (btnMenu.dataset.showmenu === "true") {
+      btnMenu.dataset.showmenu = "false"
+      console.log(`showMenu false ${btnMenu.dataset.showmenu}`)
+
+    } else if (btnMenu.dataset.showmenu === "false") {
+      btnMenu.dataset.showmenu = "true"
+      console.log(`showMenu true ${btnMenu.dataset.showmenu}`)
+    }
+  }
+
+  const changeStatusMusic = (target) => {
+    const btnMusic = document.querySelector(".button-music")
+    const audio = document.querySelector(".musicPlayer")
+
+    console.log("changeStatusMusic: ")
+
+    if (audio.dataset.play === "true") {
+      audio.dataset.play = "false"
+
+      sessionStorage.setItem('audio', JSON.stringify({
+        currentTime: audio.currentTime,
+        duration: audio.duration,
+        play: "false"
+      }))
+      
+      console.log(`data-true ${JSON.parse(sessionStorage.getItem('audio')).play}`)
+
+    } else if (audio.dataset.play === "false") {
+      audio.dataset.play = "true"
+
+      sessionStorage.setItem('audio', JSON.stringify({
+        currentTime: audio.currentTime,
+        duration: audio.duration,
+        play: "true"
+      }))
+
+      console.log(`data-false ${JSON.parse(sessionStorage.getItem('audio')).play}`)
+
+    }
+  }
 
   if (mobile) {
     return (
       <>
 
         <header>
-          <div className="logo">
-            <div className="bg-img">
+          <a href="/">          
+            <div className="logo">
+              <div className="bg-img">
 
-              <img src={logo} alt="avatar" />
+                <img src={logo} alt="avatar" />
+              </div>
+
+              <span> &lt;VicedArtt/&gt;</span>
             </div>
-
-            <span> &lt;{tComponents("title")}/&gt;</span>
-          </div>
-          <button className="btn-menu"><img src={menu} alt="" /></button>
+          </a>
+          <button onClick={() => {changeShowMenu()}} data-showmenu="true" className="btn-menu"><img src={menu} alt="" /></button>
 
 
           <div className="header-moblie">
@@ -432,7 +599,7 @@ export default function Header() {
                 <LanguageSwitcher />
               </div>
 
-              <button className="button-music">
+              <button onClick={(e) => {changeStatusMusic(e.target)}} className="button-music">
                 <img src={iconMusic} alt="" />
 
               </button>
@@ -484,7 +651,7 @@ export default function Header() {
               <LanguageSwitcher />
             </div>
 
-            <button className="button-music"><img src={iconMusic} alt="" /></button>
+            <button onClick={(e) => {changeStatusMusic(e.target)}} className="button-music"><img src={iconMusic} alt="" /></button>
           </div>
         </header>
       </>

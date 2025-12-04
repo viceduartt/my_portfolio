@@ -48,8 +48,6 @@ function Skills() {
   useGSAP(() => {
     let posView = 0
     let indice = 0
-    let posViewFrontend = 0
-    let posViewBackend = 0
 
     const time = setInterval(() => {
 
@@ -87,121 +85,79 @@ function Skills() {
     
 
     const configCarroselSkills = () => {
-      const viewLists = document.querySelectorAll('.group-lists')
-      let time = 7
+      const viewSkills = document.querySelector(".view-list")
+      const groupsSkills = document.querySelectorAll(".group-lists")
+      const skills = document.querySelectorAll(".skill")
+      const listSkills = document.querySelectorAll(".list-skills")
+      let slowmotion = null
 
 
-      const animaCarrosel = (entries) => {
-        console.log(entries[0].target)
-        if (entries[0].isIntersecting === true && entries[0].target.dataset.lock !== 'true') {
-          const listSkill = entries[0].target.parentElement
-          const groupLists = listSkill.parentElement
-          const newListSkill = listSkill.cloneNode(true)
-
-          newListSkill.classList.add('newList')
-          entries[0].target.dataset.lock = 'true'
-          console.log(entries[0].isIntersecting)
-
-          groupLists.appendChild(newListSkill)
-          //console.log(newListSkill)
-
-          
-          
-          
-          if (groupLists.id === 'frontEnd11') {
-            gsap.to(groupLists, {
-              duration: 1,
-              x: `-${posViewFrontend}px`,
-              delay: 7,
-              onComplete: () => {
-                groupLists.removeChild(listSkill)
-
-                gsap.to(groupLists, {
-                  duration: 12,
-                  x: `-${0}px`,
-                  
-                })
-              }
-            })
-            
-            posViewFrontend = posViewFrontend + 35
-            
-            
-          } else if (groupLists.id === 'backEnd11') {
-            
-            posViewBackend = posViewBackend + 70
-            gsap.to(groupLists, {
-              duration: 6,
-              x: `-${posViewBackend}px`,
-              
-              onComplete: () => {
-                //groupLists.removeChild(listSkill)
-              }
-            })
-          }
-          
-          
-          
-          
-        }
-      }
-
-
-      const obs = new IntersectionObserver(animaCarrosel, {
-        root: document.querySelector('.view-list'),
-        threshold: 1
-      })
-      
-      for (const viewList of viewLists) {
-        const timeline = gsap.timeline({repeat: -1})
-        const listsSkills = viewList.querySelectorAll('.list-skills')
-        const skillsEnd = viewList.querySelectorAll('.SkillEnd')
-
-        const focusSkill = (tween) => {
-          console.log(time)
-            gsap.to(tween, {
-              duration: 1,
-              timeScale: 1,
-              ease: "power2.out"
-            })
-        }
+      listSkills.forEach((list) => {
+        const skills = list.querySelectorAll(".skill")
+        let i = 0
         
-
-        if (viewList.id === 'frontEnd') {
-          for (const listSkill of listsSkills) {
-            const tween = gsap.fromTo(listSkill, 
-              {x: '0%'},
-              {
-                duration: time*2,
-                repeat: -1,
-                ease: 'none',
-                x: '-103%'
-              }
-            )
-
-            viewList.addEventListener('click', () => {
-              focusSkill(tween)
-            })
-
-          }
-        } else if (viewList.id === 'backEnd') {
-          for (const listSkill of listsSkills) {
-            gsap.fromTo(listSkill, 
-              {x: '0%'},
-              {
-                duration: time,
-                repeat: -1,
-                ease: 'none',
-                x: '-107%'
-              }
-            )
-          }
-
+        
+        if (list.dataset.area === "frontend") {
+          skills.forEach((skill) => {
+            skill.classList.add(`sf${i}`)
+            i++
+          })
+        } else if (list.dataset.area === "backend") {
+          skills.forEach((skill) => {
+            skill.classList.add(`sb${i}`)
+            i++
+          })
         }
+      })
 
 
+      const animaSkill = (entries) => {
+        const e = entries[0]
+        const getClass = e.target.className.split(" ")[1]
 
+        if (e.isIntersecting === true) {
+          gsap.to(`.${getClass}`, {
+            duration: 1,
+            y: "-100%",
+            scale: 1.8
+          })
+        } else {
+          gsap.to(`.${getClass}`, {
+            duration: 1,
+            y: "-%",
+            scale: 1
+          })
+        }
       }
+
+
+      const obsSkills = new IntersectionObserver(animaSkill, {
+        rootMargin: "0% -28% 0% -59%"
+      })
+
+      skills.forEach((skill) => {
+        obsSkills.observe(skill)
+      })
+
+      gsap.to(".area-list", {
+        duration: 3,
+        ease: "none",
+        x: "0%"
+      })
+
+      groupsSkills.forEach((groupSkill) => {
+        slowmotion = gsap.fromTo(groupSkill, {
+          x: "0%"
+        },{
+          duration: 30,
+          repeat: -1,
+          ease: "none",
+          delay: 2.9,
+          x: "-101.8%",
+        })
+      })
+
+
     }
     
     const configBtnsSkills = () => {
@@ -658,12 +614,9 @@ function Skills() {
             <h1>Skills</h1>
 
             <div className="view-list">
-              <div className="area-list" id="areaFrontEnd">
-                <h2>Front-end</h2>   
-
-
-                <div className="group-lists" id="frontEnd">                  
-                  <div className="list-skills initF" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
+              <div className="area-list">
+                <div className="group-lists" data-id="0">                  
+                  <div className="list-skills " data-display='yes' data-area="frontend">
                     
                     <div className="skill" data-proficiancy='70' data-time='3 years'>
                       <img src={react} alt="" />
@@ -749,7 +702,7 @@ function Skills() {
                       <span className="caption-small">React native</span>
                     </div>
 
-                    <div className="skill SkillEnd" data-proficiancy='53' id="end" data-time='3 years'>
+                    <div className="skill" data-proficiancy='53' id="end" data-time='3 years'>
                       <img src={Eletron} alt="" />
                       <span className="caption-small">Eletron</span>
                     </div>
@@ -757,7 +710,55 @@ function Skills() {
 
                   </div>
 
-                  <div className="list-skills initF" data-wheel-x='yes' data-id='0' data-display='yes' data-whell-off='no'>
+                  <div className="list-skills" data-display='yes' data-area="backend">
+                    
+                    <div className="skill" data-proficiancy='95' data-time='5 years'>
+                      <img src={nodejs} alt="" />
+
+                      <span className="caption-small">NodeJS</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='5 years'>
+                      <img src={mysql} alt="" />
+
+                      <span className="caption-small">MySQL</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='100' data-time='4 years'>
+                      <img src={mongodb} alt="" />
+
+                      <span className="caption-small">MongoDB</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='74' data-time='3 years'>
+                      <img src={docker} alt="" />
+
+                      <span className="caption-small">Docker</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='10' data-time='1 years'>
+                      <img src={golang} alt="" />
+
+                      <span className="caption-small">GoLang</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='5' data-time='3 months'>
+                      <img src={rust} alt="" />
+
+                      <span className="caption-small">Rust</span>
+                    </div>
+
+                    <div className="skill" data-proficiancy='77'id="end" data-time='6 years'>
+                      <img src={php} alt="" />
+
+                      <span className="caption-small">PHP</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div className="group-lists"  data-id="1">
+                  <div className="list-skills" data-display='yes' data-area="frontend">
                     
                     <div className="skill" data-proficiancy='70' data-time='3 years'>
                       <img src={react} alt="" />
@@ -843,21 +844,15 @@ function Skills() {
                       <span className="caption-small">React native</span>
                     </div>
 
-                    <div className="skill SkillEnd" data-proficiancy='53' id="end" data-time='3 years'>
+                    <div className="skill" data-proficiancy='53' id="end" data-time='3 years'>
                       <img src={Eletron} alt="" />
                       <span className="caption-small">Eletron</span>
                     </div>
 
 
                   </div>
-                </div>
-              </div>
 
-              <div className="area-list" id="areaBackEnd">
-                <h2>Back-end</h2>
-
-                <div className="group-lists" id="backEnd">
-                  <div className="list-skills initB" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
+                  <div className="list-skills" data-display='yes' data-area="backend">
                     
                     <div className="skill" data-proficiancy='95' data-time='5 years'>
                       <img src={nodejs} alt="" />
@@ -895,53 +890,7 @@ function Skills() {
                       <span className="caption-small">Rust</span>
                     </div>
 
-                    <div className="skill SkillEnd" data-proficiancy='77'id="end" data-time='6 years'>
-                      <img src={php} alt="" />
-
-                      <span className="caption-small">PHP</span>
-                    </div>
-
-                  </div>
-
-                  <div className="list-skills initB" data-wheel-x='yes' data-id='1' data-display='yes' data-whell-off='off'>
-                    
-                    <div className="skill" data-proficiancy='95' data-time='5 years'>
-                      <img src={nodejs} alt="" />
-
-                      <span className="caption-small">NodeJS</span>
-                    </div>
-
-                    <div className="skill" data-proficiancy='100' data-time='5 years'>
-                      <img src={mysql} alt="" />
-
-                      <span className="caption-small">MySQL</span>
-                    </div>
-
-                    <div className="skill" data-proficiancy='100' data-time='4 years'>
-                      <img src={mongodb} alt="" />
-
-                      <span className="caption-small">MongoDB</span>
-                    </div>
-
-                    <div className="skill" data-proficiancy='74' data-time='3 years'>
-                      <img src={docker} alt="" />
-
-                      <span className="caption-small">Docker</span>
-                    </div>
-
-                    <div className="skill" data-proficiancy='10' data-time='1 years'>
-                      <img src={golang} alt="" />
-
-                      <span className="caption-small">GoLang</span>
-                    </div>
-
-                    <div className="skill" data-proficiancy='5' data-time='3 months'>
-                      <img src={rust} alt="" />
-
-                      <span className="caption-small">Rust</span>
-                    </div>
-
-                    <div className="skill SkillEnd" data-proficiancy='77'id="end" data-time='6 years'>
+                    <div className="skill" data-proficiancy='77'id="end" data-time='6 years'>
                       <img src={php} alt="" />
 
                       <span className="caption-small">PHP</span>
@@ -949,10 +898,7 @@ function Skills() {
 
                   </div>
                 </div>
-
               </div>
-
-
             </div>
           </div>
         </main>

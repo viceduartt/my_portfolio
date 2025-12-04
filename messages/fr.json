@@ -1,9 +1,28 @@
 {
-  "Home": {
-    "h1": "asddasdasd"
+  "home": {
+    "grouptexts-h6": "Victor Eduardo & <br/> lima da rocha",
+    "grouptexts-h1": "Isso é um exemplo",
+    "grouptexts-h6-tocall": "Isso é um exemplo"
   },
-    "Components": {
-      "title": "AZ"
-    }
+
+  "contact": {
+    "h1": "Isso é um exemplo"
+  },
+
+  "projects": {
+    "h1": "Isso é um exemplo"
+  },
+
+  "skills": {
+    "h1": "Isso é um exemplo"
+  },
+
+  "header": {
+    "h1": "Isso é um exemplo"
+  },
+
+  "components": {
+    "title": "PT"
   }
+}
   

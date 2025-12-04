@@ -118,7 +118,7 @@ function Contact() {
 
               gsap.to(borderInput, {
                 duration: 1,
-                backgroundColor: '#28df5fff', 
+                backgroundColor: '#28df5fff',
                 onComplete: () => {
                   gsap.to(borderInput, {
                     duration: 1,
@@ -137,51 +137,101 @@ function Contact() {
                 opacity: 1,
               })
 
-              gsap.to(noticeBox, {
-                duration: 0.5,
-                delay: 1.3,
-                opacity: 1,
-                display: 'flex',
-                y: '10%',
-                onComplete: () => {
-                  const btn = noticeBox.querySelector('button')
+              if (window.innerWidth <= 1000) {
+                gsap.to(noticeBox, {
+                  duration: 0.5,
+                  delay: 1.3,
+                  opacity: 1,
+                  display: 'flex',
+                  y: '10%',
+                  onComplete: () => {
+                    const btn = noticeBox.querySelector('button')
 
-                  btn.addEventListener('mouseenter', () => {
-                    gsap.to(btn, {
-                      duration: 1,
-                      opacity: 1,
-                      display: 'flex'
+                    btn.addEventListener('mouseenter', () => {
+                      gsap.to(btn, {
+                        duration: 1,
+                        opacity: 1,
+                        display: 'flex'
+                      })
                     })
-                  })
-                  btn.addEventListener('mouseleave', () => {
-                    gsap.to(btn, {
-                      duration: 1,
-                      opacity: 0.9,
-                    })
-                  })
-
-                  btn.addEventListener('click', () => {
-                    gsap.to(document.querySelector('.background'), {
-                      duration: 0.5,
-                      opacity: 0,
+                    btn.addEventListener('mouseleave', () => {
+                      gsap.to(btn, {
+                        duration: 1,
+                        opacity: 0.9,
+                      })
                     })
 
-                    gsap.to(noticeBox, {
-                      duration: 0.5,
-                      opacity: 0,
-                      y: '-10%',
+                    btn.addEventListener('click', () => {
+                      gsap.to(document.querySelector('.background'), {
+                        duration: 0.5,
+                        opacity: 0,
+                      })
 
-                      onComplete: () => {
-                        gsap.to(noticeBox, {
-                          duration: 0.1,
-                          display:'none'
-                        })
-                      }
+                      gsap.to(noticeBox, {
+                        duration: 0.5,
+                        opacity: 0,
+                        y: '-10%',
+
+                        onComplete: () => {
+                          gsap.to(noticeBox, {
+                            duration: 0.1,
+                            display: 'none'
+                          })
+                        }
+                      })
                     })
-                  })
 
-                }
-              })
+                  }
+                })
+              } else {
+
+                gsap.to(noticeBox, {
+                  duration: 0.5,
+                  delay: 1.3,
+                  opacity: 1,
+                  display: 'flex',
+                  y: '10%',
+                  onComplete: () => {
+                    const btn = noticeBox.querySelector('button')
+
+                    btn.addEventListener('mouseenter', () => {
+                      gsap.to(btn, {
+                        duration: 1,
+                        opacity: 1,
+                        display: 'flex'
+                      })
+                    })
+                    btn.addEventListener('mouseleave', () => {
+                      gsap.to(btn, {
+                        duration: 1,
+                        opacity: 0.9,
+                      })
+                    })
+
+                    btn.addEventListener('click', () => {
+                      gsap.to(document.querySelector('.background'), {
+                        duration: 0.5,
+                        opacity: 0,
+                      })
+
+                      gsap.to(noticeBox, {
+                        duration: 0.5,
+                        opacity: 0,
+                        y: '-10%',
+
+                        onComplete: () => {
+                          gsap.to(noticeBox, {
+                            duration: 0.1,
+                            display: 'none'
+                          })
+                        }
+                      })
+                    })
+
+                  }
+                })
+              }
+
 
             } else {
               gsap.to(inputContainer, {
@@ -214,7 +264,7 @@ function Contact() {
 
       })
 
-      
+
       inputEmail.addEventListener('keydown', async (e) => {
         console.log(e.key)
         const emailContact = document.querySelector('#userEmail').value.trim()
@@ -229,17 +279,17 @@ function Contact() {
             const inputContainer = document.querySelector('.group-input-socialmedia')
             const borderInput = document.querySelector('.userEmail .border')
             const noticeBox = document.querySelector('.notice-sendEmail')
-  
+
             gsap.to(inputContainer, {
               duration: 1,
               border: '0.3rem solid #cddf28'
             })
-  
+
             gsap.to(borderInput, {
               duration: 1,
               backgroundColor: '#cddf28'
             })
-  
+
             try {
               const res = await fetch("/api/sendEmail", {
                 method: "POST",
@@ -249,9 +299,9 @@ function Contact() {
                   bodyMsg: bodyMsg,
                 }),
               });
-  
+
               console.log(res)
-  
+
               if (res.ok) {
                 gsap.to(inputContainer, {
                   duration: 1,
@@ -264,10 +314,10 @@ function Contact() {
                     })
                   }
                 })
-  
+
                 gsap.to(borderInput, {
                   duration: 1,
-                  backgroundColor: '#28df5fff', 
+                  backgroundColor: '#28df5fff',
                   onComplete: () => {
                     gsap.to(borderInput, {
                       duration: 1,
@@ -276,30 +326,44 @@ function Contact() {
                     })
                   }
                 })
-  
+
                 setValueEmail('')
                 setValueMsg('')
-  
+
+                gsap.to("*", {
+                  pointerEvents: "none",
+                  duration: 0.1
+                })
+
+                gsap.to(".notice-sendEmail button", {
+                  duration: 0.1,
+                  pointerEvents: "all",
+                })
+
                 gsap.to(document.querySelector('.background'), {
                   duration: 0.5,
                   delay: 1,
                   opacity: 1,
                 })
-  
+
+                gsap.from(noticeBox, {
+                  duration: 0.1,
+                  y: "-4vh"
+                })
+
                 gsap.to(noticeBox, {
                   duration: 0.5,
                   delay: 1.3,
                   opacity: 1,
-                  display: 'flex',
-                  y: '10%',
+                  pointerEvents: "all",
+                  y: '0vh',
                   onComplete: () => {
                     const btn = noticeBox.querySelector('button')
-  
+
                     btn.addEventListener('mouseenter', () => {
                       gsap.to(btn, {
                         duration: 1,
                         opacity: 1,
-                        display: 'flex'
                       })
                     })
                     btn.addEventListener('mouseleave', () => {
@@ -308,57 +372,56 @@ function Contact() {
                         opacity: 0.9,
                       })
                     })
-  
+
                     btn.addEventListener('click', () => {
+                      gsap.to("*", {
+                        pointerEvents: "all",
+                        duration: 0.1
+                      })
+
                       gsap.to(document.querySelector('.background'), {
                         duration: 0.5,
                         opacity: 0,
                       })
-  
+
                       gsap.to(noticeBox, {
                         duration: 0.5,
                         opacity: 0,
-                        y: '-10%',
-  
-                        onComplete: () => {
-                          gsap.to(noticeBox, {
-                            duration: 0.1,
-                            display:'none'
-                          })
-                        }
+                        pointerEvents: "none",
+                        y: '-3vh'
                       })
                     })
-  
+
                   }
                 })
-  
+
               } else {
                 gsap.to(inputContainer, {
                   duration: 1,
                   border: '0.3rem solid #f11212ff'
                 })
-  
+
                 gsap.to(borderInput, {
                   duration: 1,
                   backgroundColor: '#f11212ff'
                 })
               }
-  
+
             } catch {
               console.log('error in sendEmail')
-  
+
               gsap.to(inputContainer, {
                 duration: 1,
                 border: '0.3rem solid #f11212ff'
               })
-  
+
               gsap.to(borderInput, {
                 duration: 1,
                 backgroundColor: '#f11212ff'
               })
             }
-  
-  
+
+
           }
         }
 
@@ -644,8 +707,19 @@ function Contact() {
 
         <Loading></Loading>
 
+        <div className="background"></div>
 
         <main className="contact">
+          <div className="notice-sendEmail">
+            <button id="close-notice"><img src={close} alt="" /></button>
+
+            <div className="content">
+              <img className="happCat" src={happyCat} alt="" />
+
+              <span className="notice-msg">Email sent successfully! I'll get back to you shortly.</span>
+            </div>
+          </div>
+
           <div className="group-input-socialmedia">
             <header>
               <label className="userEmail" htmlFor="userEmail">
@@ -671,7 +745,7 @@ function Contact() {
           <div className="group-socialmedia-cards">
             <div className="group-socialmedia">
               <a href="maito:" className="btn-socialmedia"><img src={email} alt="" /></a>
-              <a href="" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
+              <a href="" className="btn-socialmedia"><img id="icon-whatsapp" src={whatsapp} alt="" /></a>
               <a href="" className="btn-socialmedia"><img src={instagram} alt="" /></a>
               <a href="" className="btn-socialmedia"><img src={discord} alt="" /></a>
             </div>
