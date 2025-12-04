@@ -1544,6 +1544,7 @@ main.skills {
     }
 
     * {
+        overflow-y: hidden;
         overflow-x: hidden !important;
     }
 
@@ -1880,6 +1881,60 @@ main.skills {
 
             button {
                 width: 100%;
+            }
+
+            h3 {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+
+}
+
+@media (max-width: 393px) {
+    main.home {
+        margin-top: 2rem;
+        justify-content: center;
+
+        .about {
+            flex-direction: column;
+            text-align: center;
+
+            button {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 5rem;
+            }
+
+            h3 {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+
+}
+
+@media (max-width: 329px) {
+    main.home {
+        margin-top: 2rem;
+        justify-content: center;
+
+        .about {
+            flex-direction: column;
+            text-align: center;
+
+            button {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 4.6rem;
             }
 
             h3 {

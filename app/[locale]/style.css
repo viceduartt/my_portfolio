@@ -1259,6 +1259,7 @@ main.skills .explore .group-list-skills .list-off {
     height: 40%;
   }
   * {
+    overflow-y: hidden;
     overflow-x: hidden !important;
   }
   .header-moblie {
@@ -1530,6 +1531,48 @@ main.skills .explore .group-list-skills .list-off {
   }
   main.home .about button {
     width: 100%;
+  }
+  main.home .about h3 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (max-width: 393px) {
+  main.home {
+    margin-top: 2rem;
+    justify-content: center;
+  }
+  main.home .about {
+    flex-direction: column;
+    text-align: center;
+  }
+  main.home .about button {
+    width: 100%;
+  }
+  main.home .about h1 {
+    font-size: 5rem;
+  }
+  main.home .about h3 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (max-width: 329px) {
+  main.home {
+    margin-top: 2rem;
+    justify-content: center;
+  }
+  main.home .about {
+    flex-direction: column;
+    text-align: center;
+  }
+  main.home .about button {
+    width: 100%;
+  }
+  main.home .about h1 {
+    font-size: 4.6rem;
   }
   main.home .about h3 {
     width: 100%;
