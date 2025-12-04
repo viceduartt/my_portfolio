@@ -35,13 +35,29 @@ const rust = "/images/backend/rust.svg";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+
 
 function Skills() {
+  const tSkills = useTranslations("skills")
   const [mobile, setMobile] = useState(false)
 
   useEffect(() => {
     if (window.innerWidth <= 840) {
       setMobile(true)
+    }
+
+    
+    if (document.querySelector(".skill") !== null) {
+      const skills = document.querySelectorAll(".skill")
+  
+      skills.forEach((skill) => {
+        const text = skill.querySelector("span").innerText
+
+        console.log(text)
+        skill.dataset.time = tSkills(text)
+        console.log(skill.dataset.time)
+      })
     }
   }, [])
 
@@ -220,7 +236,7 @@ function Skills() {
               const fillGraphic = proeficity * 4
               const xp = skill.dataset.time
 
-              boxInfo.querySelector('.data-ex').innerText = `Experience: ${xp}`
+              boxInfo.querySelector('.data-ex').innerText = `${tSkills("headingex-xp")}: ${xp}`
 
               gsap.to('.graphic',{
                   duration: 0.1,
@@ -593,7 +609,9 @@ function Skills() {
         <Loading></Loading>
         
 
-        <main className="skills" onLoad={() => {changeBg()}}>
+        <main className="skills" onLoad={() => {
+          changeBg()
+        }}>
           
           <div className="container-ex" data-display='no'>
             <div className="graphic">
@@ -601,9 +619,9 @@ function Skills() {
             </div>
 
             <div className="group-text-ex">
-              <span className="heading-ex fontPixel">Proficiency</span>
+              <span className="heading-ex fontPixel">{tSkills("headingex-title")}</span>
 
-              <span className="data-ex label-small">Experience: 3 years</span>
+              <span className="data-ex label-small"></span>
             </div>
 
 
@@ -611,7 +629,7 @@ function Skills() {
 
 
           <div className="explore">
-            <h1>Skills</h1>
+            <h1>{tSkills("explore-title")}</h1>
 
             <div className="view-list">
               <div className="area-list">
@@ -913,7 +931,9 @@ function Skills() {
         <Loading></Loading>
         
   
-        <main className="skills" onLoad={() => {changeBg()}}>
+        <main className="skills" onLoad={() => {
+          changeBg()
+        }}>
           
           <div className="container-ex" data-display='no'>
             <div className="graphic">
@@ -921,9 +941,9 @@ function Skills() {
             </div>
   
             <div className="group-text-ex">
-              <span className="heading-ex fontPixel">Proficiency</span>
+              <span className="heading-ex fontPixel">{tSkills("headingex-title")}</span>
   
-              <span className="data-ex label-small">Experience: 3 years</span>
+              <span className="data-ex label-small"></span>
             </div>
   
   
@@ -947,7 +967,7 @@ function Skills() {
                 </button>
               </div>
   
-              <span>Skills</span>
+              <span>{tSkills("explore-title")}</span>
   
               <button className="close">
                 <img src={iconClose} alt="" />
@@ -1009,7 +1029,7 @@ function Skills() {
                   <div className="skill" data-proficiancy='65' data-time='2 years'>
                     <img src={boostrap} alt="" />
 
-                    <span className="caption-small">JavaScript</span>
+                    <span className="caption-small">Bootstrap</span>
                   </div>
 
                   <div className="skill" data-proficiancy='47' data-time='1 year'>
@@ -1076,7 +1096,7 @@ function Skills() {
                       <span className="caption-small">Docker</span>
                     </div>
 
-                    <div className="skill" data-proficiancy='10' data-time='1 years'>
+                    <div className="skill" data-proficiancy='10' data-time='1 year'>
                       <img src={golang} alt="" />
 
                       <span className="caption-small">GoLang</span>

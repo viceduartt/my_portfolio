@@ -1,24 +1,89 @@
 {
   "home": {
-    "grouptexts-h6": "Victor Eduardo & <br/> lima da rocha",
-    "grouptexts-h1": "Isso é um exemplo",
-    "grouptexts-h6-tocall": "Isso é um exemplo"
+    "grouptexts-h6": "Hello I am",
+    "grouptexts-h1-p1": "Web Developer &",
+    "grouptexts-h1-p2": "UI Designer",
+    "grouptexts-textimpact": "Building the next era.",
+    "contactBtn": "Build the Future"
+
   },
 
   "contact": {
-    "h1": "Isso é um exemplo"
+    "noticemsg": "Email sent successfully! I'll get back to you shortly.",
+    "placeholderInput": "contactemail@example.com",
+    "sendEmail": "Send",
+    "placeholderTextarea": "Describe your request here with the main details.",
+    "btnCard": "Let’s Go",
+
+
+    "Website Development": "Website Development",
+    "desc-Website Development": "I develop everything from <span class='green'>landing pages</span> to <span class='green'>media streaming websites!</span> But I'm always available for challenges.",
+
+    "E-commerce creation": "E-commerce creation",
+    "desc-E-commerce creation": "I create online stores for everyone from small to <span class='green'>large</span>, tailored to your needs.",
+
+    "Creation of internal systems": "Systems development",
+    "desc-Creation of internal systems": "I can develop any type of system your business needs, from <span class='green'>tracking</span> and <span class='green'>inventory management systems</span> to <span class='green'>fully customized solutions.</span>",
+
+
+    "Creating interfaces for websites/apps": "Creating interfaces for websites/apps",
+    "desc-Creating interfaces for websites/apps": "I develop the product interface and design from scratch or enhance what you already have.",
+
+    "Mobile app development": "Mobile app development",
+    "desc-Mobile app development": "Do you have an amazing idea for a mobile app? I can help turn your idea into reality! I create apps for <span class='green'>iOS</span> and <span class='green'>Android</span> at no extra cost.",
+
+    "Web Application Consulting": "Web Application Consulting",
+    "desc-Web Application Consulting": "Is your web application not getting as many visitors as before? Is it slow? I can find out why for you!",
+
+    "UI/UX Design Consulting": "UI/UX Design Consulting",
+    "desc-UI/UX Design Consulting": "Has your product reached the level you've always dreamed of? Don't be fooled, <span class='green'>it can go much further with a solid design!</span>"
+
+
+
+
   },
 
   "projects": {
-    "h1": "Isso é um exemplo"
+    "msg": "I'm working on improving this section, please get in touch or check out my work on Instagram in the meantime!",
+    "btn": "Contact"
   },
 
   "skills": {
-    "h1": "Isso é um exemplo"
+    "headingex-title": "Proficiency",
+    "headingex-xp": "Experience",
+    "explore-title": "Skills",
+
+    "NodeJS": "5 years",
+    "MySQL": "5 years",
+    "MongoDB": "4 years",
+    "Docker": "3 years",
+    "GoLang": "1 year",
+    "Rust": "3 months",
+    "PHP": "6 years",
+
+    "ReactJS": "3 years",
+    "NextJS": "3 years",
+    "JavaScript": "5 years",
+    "HTML": "5 years",
+    "CSS": "5 years",
+    "SCSS": "3 years",
+    "Figma": "4 years",
+    "Rive": "5 months",
+    "Bootstrap": "2 years",
+    "AngularJS": "1 year",
+    "VueJS": "1 year",
+    "Tailwind": "1 year",
+    "SolidJS": "1 year",
+    "React native": "4 years",
+    "Eletron": "3 years"
+
   },
 
   "header": {
-    "h1": "Isso é um exemplo"
+    "menu-home": "Home",
+    "menu-projects": "Projects",
+    "menu-contact": "Contact",
+    "menu-skills": "Skills"
   },
 
   "components": {

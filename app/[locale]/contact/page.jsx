@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useEffect, useState } from "react";
+import { useTranslations } from "use-intl";
 
 const close = "/icons/close.svg";
 const happyCat = "/images/happyCat.svg";
@@ -24,20 +25,36 @@ const consultingInterface = "/icons/consultingDesign.svg";
 
 
 function Contact() {
+  const tContact = useTranslations("contact")
   const [mobile, setMobile] = useState(false)
-
-  useEffect(() => {
-    if (window.innerWidth <= 1000) {
-      setMobile(true)
-    }
-  }, [])
-
   let posView = 0.1
   let posScrollBar = 0.3
   const [valueEmail, setValueEmail] = useState('')
   const [valueMsg, setValueMsg] = useState('')
 
+  useEffect(() => {
+    if (window.innerWidth <= 1000) {
+      setMobile(true)
+    }
 
+    if (document.querySelector(".card") !== null) {
+      const cards = document.querySelectorAll(".card")
+
+      const getTag = (getTranslaye) => {
+        return tContact.raw(getTranslaye)
+
+      }
+
+      cards.forEach(card=>{
+        const text = card.querySelector("h3").innerText
+
+
+        card.querySelector("h3").innerText = getTag(text)
+        card.querySelector("p").innerHTML = getTag(`desc-${text}`)
+      })
+    }
+
+  }, [])
 
   useGSAP(() => {
     const time = setTimeout(() => {
@@ -881,7 +898,7 @@ function Contact() {
             <div className="content">
               <img className="happCat" src={happyCat} alt="" />
 
-              <span className="notice-msg">Email sent successfully! I'll get back to you shortly.</span>
+              <span className="notice-msg">{tContact("noticemsg")}</span>
             </div>
           </div>
 
@@ -889,7 +906,7 @@ function Contact() {
             <header>
               <label className="userEmail" htmlFor="userEmail">
                 <div className="output" id="outputEmail"></div>
-                <input type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder="contactemail@example.com" />
+                <input type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder={tContact("placeholderInput")} />
 
                 <div className="border"></div>
               </label>
@@ -903,14 +920,14 @@ function Contact() {
                   <a href="https://github.com/viceduartt" className="btn-socialmedia"><img src={discord} alt="" /></a>
                 </div>
 
-                <button className="button-small" id="sendEmail">Send</button>
+                <button className="button-small" id="sendEmail">{tContact("sendEmail")}</button>
               </div>
             </header>
 
             <label htmlFor="msg" className="msg">
               <div className="output" id="outputMsg"></div>
 
-              <textarea name="msg" id="msg" translate="no" onChange={(e) => { handleMsg(e.target.value) }} value={valueMsg} placeholder="teste"></textarea>
+              <textarea name="msg" id="msg" translate="no" onChange={(e) => { handleMsg(e.target.value) }} value={valueMsg} placeholder={tContact("placeholderTextarea")}></textarea>
             </label>
           </div>
 
@@ -928,9 +945,9 @@ function Contact() {
                   <img src={website} alt="" />
 
                   <div className="group-nameService-descriptionService">
-                    <h3 className="nameService">Website Development</h3>
+                  <h3 className="nameService">Website Development</h3>
 
-                    <p className="body-big">I develop everything from <span className="green">landing pages</span> to <span className="green">media streaming websites!</span> But I'm always available for challenges.</p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 
@@ -944,7 +961,7 @@ function Contact() {
                   <div className="group-nameService-descriptionService">
                     <h3 className="nameService">E-commerce creation</h3>
 
-                    <p className="body-big">I create online stores for everyone from small to <span className="green">large</span>, tailored to your needs.</p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 
@@ -958,7 +975,7 @@ function Contact() {
                   <div className="group-nameService-descriptionService">
                     <h3 className="nameService">Creation of internal systems</h3>
 
-                    <p className="body-big">I can develop any type of system your business needs, from <span className="green">tracking</span> and <span className="green">inventory management systems</span> to <span className="green">fully customized solutions.</span></p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 
@@ -972,7 +989,7 @@ function Contact() {
                   <div className="group-nameService-descriptionService">
                     <h3 className="nameService">Creating interfaces for websites/apps</h3>
 
-                    <p className="body-big">I develop the product interface and design from scratch or enhance what you already have.</p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 
@@ -986,7 +1003,7 @@ function Contact() {
                   <div className="group-nameService-descriptionService">
                     <h3 className="nameService">Mobile app development</h3>
 
-                    <p className="body-big">Do you have an amazing idea for a mobile app? I can help turn your idea into reality! I create apps for <span className="green">iOS</span> and <span className="green">ndroid</span> at no extra cost.</p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 
@@ -1000,7 +1017,7 @@ function Contact() {
                   <div className="group-nameService-descriptionService">
                     <h3 className="nameService">Web Application Consulting</h3>
 
-                    <p className="body-big">Is your web application not getting as many visitors as before? Is it slow? I can find out why for you!</p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 
@@ -1014,7 +1031,7 @@ function Contact() {
                   <div className="group-nameService-descriptionService">
                     <h3 className="nameService">UI/UX Design Consulting</h3>
 
-                    <p className="body-big">Has your product reached the level you've always dreamed of? Don't be fooled, <span className="green">it can go much further with a solid design!</span></p>
+                    <p className="body-big"></p>
                   </div>
                 </div>
 

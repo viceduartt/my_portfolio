@@ -1,24 +1,87 @@
 {
   "home": {
-    "grouptexts-h6": "Victor Eduardo & <br/> lima da rocha",
-    "grouptexts-h1": "Isso é um exemplo",
-    "grouptexts-h6-tocall": "Isso é um exemplo"
+    "grouptexts-h6": "Olá eu sou",
+    "grouptexts-h1-p1": "Desenvolvedor Web &",
+    "grouptexts-h1-p2": "UI Designer",
+    "grouptexts-textimpact": "Construindo a próxima era.",
+    "contactBtn": "Construa o Futuro"
   },
 
   "contact": {
-    "h1": "Isso é um exemplo"
+    "noticemsg": "Email enviado com sucesso! Entrarei em contato em breve.",
+    "placeholderInput": "seuEmailParaContato@exemplo.com",
+    "sendEmail": "Enviar",
+    "placeholderTextarea": "Descreva aqui sua solicitação com os principais detalhes.",
+    "btnCard": "Selecionar",
+
+    "Website Development": "Criação de sites",
+    "desc-Website Development": "Eu desenvolvo desde <span class='green'>landing pages</span> até <span class='green'>sites de streaming de mídia!</span> Mas estou sempre disponível para desafios",
+
+    "E-commerce creation": "Criação de Lojas virtuais",
+    "desc-E-commerce creation": "Eu desenvolvo lojas virtuais para todas as demandas, desde pequenas até <span class='green'>grandes</span>, feitas sob medida para suas necessidades.",
+
+    "Creation of internal systems": "Desenvolvimento de sistemas",
+    "desc-Creation of internal systems": "Eu posso desenvolver qualquer tipo de sistema que o seu negócio precise, desde <span class='green'>sistema de rastreamento</span> e <span class='green'>sistemas de gerenciamento de estoque</span> até <span class='green'>soluções totalmente personalizadas.</span>",
+
+
+    "Creating interfaces for websites/apps": "Criação de Interfaces para sites/apps",
+    "desc-Creating interfaces for websites/apps": "Eu desenvolvo as interfaces e o design dos sues produtos do zero ou aprimoro o seu design atual!.",
+
+    "Mobile app development": "Criação de apps mobile",
+    "desc-Mobile app development": "Você tem uma ideia incrível para um app mobile? Eu ajudo você a transformar sua ideia em realidade! Eu crio apps multiplataforma para <span class='green'>iOS</span> e <span class='green'>Android</span> sem custo adicional.",
+
+    "Web Application Consulting": "Consultoria de aplicações web",
+    "desc-Web Application Consulting": "Sua aplicação web não está recebendo tantos visitantes quanto antes? Está lento? SEO caiu?  Posso descobrir o motivo para você!",
+
+    "UI/UX Design Consulting": "Consultoria de UI/UX Design",
+    "desc-UI/UX Design Consulting": "Seu produto chegou ao nível que você sempre sonhou? Não se engane, <span class='green'>ele pode ir muito mais longe com um design sólido!</span>"
+
+
+
+
   },
 
   "projects": {
-    "h1": "Isso é um exemplo"
+    "msg": "Estou trabalhando para traduzir esta seção. Enquanto isso, entre em contato ou confira meus trabalhos no Instagram!",
+    "btn": "Contato"
   },
 
   "skills": {
-    "h1": "Isso é um exemplo"
+    "headingex-title": "Proficiência",
+    "headingex-xp": "Experiência",
+    "explore-title": "Habilidades",
+
+    "NodeJS": "5 anos",
+    "MySQL": "5 anos",
+    "MongoDB": "4 anos",
+    "Docker": "3 anos",
+    "GoLang": "1 ano",
+    "Rust": "3 meses",
+    "PHP": "6 anos",
+
+    "ReactJS": "3 anos",
+    "NextJS": "3 anos",
+    "JavaScript": "5 anos",
+    "HTML": "5 anos",
+    "CSS": "5 anos",
+    "SCSS": "3 anos",
+    "Figma": "4 anos",
+    "Rive": "5 meses",
+    "Bootstrap": "2 anos",
+    "AngularJS": "1 ano",
+    "VueJS": "1 ano",
+    "Tailwind": "1 ano",
+    "SolidJS": "1 ano",
+    "React native": "4 anos",
+    "Eletron": "3 anos"
+
   },
 
   "header": {
-    "h1": "Isso é um exemplo"
+    "menu-home": "Inicio",
+    "menu-projects": "Projetos",
+    "menu-contact": "Contato",
+    "menu-skills": "Habilidades"
   },
 
   "components": {

@@ -16,7 +16,10 @@ export function LanguageSwitcher() {
     const audio = document.querySelector(".musicPlayer")
     const btnMenu = document.querySelector(".btn-menu")
 
-    btnMenu.dataset.showmenu = "true"
+    if (btnMenu !== null) {
+      btnMenu.dataset.showmenu = "true"
+    }
+
     
     sessionStorage.setItem('audio', JSON.stringify({ 
       currentTime: audio.currentTime,

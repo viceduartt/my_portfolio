@@ -8,14 +8,16 @@ import gsap from "gsap";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [mobile, setMobile] = useState(false)
   const pathname = usePathname()
   const lang = pathname.split("/")[1]
   const maxVolume = 0.5
+  const header = useTranslations("header")
   let volume = 0
+
 
   useEffect(() => {
     if (window.innerWidth <= 1000) {
@@ -443,7 +445,6 @@ export default function Header() {
       if (window.innerWidth <= 1000) {
         const menusMobile = document.querySelectorAll(".header-moblie h2")
 
-        console.log(menusMobile)
 
         for (let menu of menusMobile) {
           const timeline = gsap.timeline({})
@@ -475,12 +476,25 @@ export default function Header() {
       btn.addEventListener("click", () => {
         const audio = document.querySelector(".musicPlayer")
 
-        sessionStorage.setItem('audio', JSON.stringify({ 
-          currentTime: audio.currentTime,
-          duration: audio.duration,
-          play: audio.dataset.play,
-          changeLang: true,
-        }))
+        if (JSON.parse(sessionStorage.getItem('audio')) === null) {
+          if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {
+            console.log("mudou para skjskj")
+            sessionStorage.setItem('audio', JSON.stringify({ 
+              currentTime: audio.currentTime,
+              duration: audio.duration,
+              play: "true",
+              changeLang: true,
+            }))
+          } else {
+            sessionStorage.setItem('audio', JSON.stringify({ 
+              currentTime: audio.currentTime,
+              duration: audio.duration,
+              play: "false",
+              changeLang: false,
+            }))
+          }
+        }
+
       })
     })
 
@@ -488,12 +502,24 @@ export default function Header() {
       link.addEventListener("click", () => {
         const audio = document.querySelector(".musicPlayer")
 
-        sessionStorage.setItem('audio', JSON.stringify({ 
-          currentTime: audio.currentTime,
-          duration: audio.duration,
-          play: audio.dataset.play,
-          changeLang: true,
-        }))
+        if (JSON.parse(sessionStorage.getItem('audio')) === null) {
+          if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {
+            console.log("mudou para skjskj")
+            sessionStorage.setItem('audio', JSON.stringify({ 
+              currentTime: audio.currentTime,
+              duration: audio.duration,
+              play: "true",
+              changeLang: true,
+            }))
+          }
+          } else {
+            sessionStorage.setItem('audio', JSON.stringify({ 
+              currentTime: audio.currentTime,
+              duration: audio.duration,
+              play: "true",
+              changeLang: true,
+            }))
+        }
       })
     })
   }
@@ -515,7 +541,6 @@ export default function Header() {
   }
 
   const changeStatusMusic = (target) => {
-    const btnMusic = document.querySelector(".button-music")
     const audio = document.querySelector(".musicPlayer")
 
     console.log("changeStatusMusic: ")
@@ -569,26 +594,27 @@ export default function Header() {
               <h2 className="ocult" id="home">
                 <a className="menu" href='/'>
                   <div data-change='0' className="bg"></div>
-                  Home
+                  {header("menu-home")}
+
                 </a>
               </h2>
               <h2 className="ocult" id="projects">
                 <a className="menu" href="/projects">
                   <div data-change='0' className="bg"></div>
-                  Projects
+                  {header("menu-projects")}
                 </a>
               </h2>
               <h2 className="ocult" id="contact">
                 <a className="menu" href="/contact">
                   <div data-change='0' className="bg"></div>
-                  Contact
+                  {header("menu-contact")}
                 </a>
 
               </h2>
               <h2 className="ocult" id="skills">
                 <a className="menu" href="/skills">
                   <div data-change='0' className="bg"></div>
-                  Skills
+                  {header("menu-skills")}
                 </a>
               </h2>
             </nav>
@@ -600,7 +626,7 @@ export default function Header() {
               </div>
 
               <button onClick={(e) => {changeStatusMusic(e.target)}} className="button-music">
-                <img src={iconMusic} alt="" />
+                <img className="img-button-music"  src={iconMusic} alt="" />
 
               </button>
 
@@ -622,26 +648,28 @@ export default function Header() {
             <h2 className="ocult" id="home">
               <a className="menu" href='/'>
                 <div data-change='0' className="bg"></div>
-                Home
+                {header("menu-home")}
               </a>
             </h2>
             <h2 className="ocult" id="projects">
               <a className="menu" href="/projects">
                 <div data-change='0' className="bg"></div>
-                Projects
+                {header("menu-projects")}
               </a>
             </h2>
             <h2 className="ocult" id="contact">
               <a className="menu" href="/contact">
                 <div data-change='0' className="bg"></div>
-                Contact
+                {header("menu-contact")}
+                
               </a>
 
             </h2>
             <h2 className="ocult" id="skills">
               <a className="menu" href="/skills">
                 <div data-change='0' className="bg"></div>
-                Skills
+                {header("menu-skills")}
+
               </a>
             </h2>
           </nav>

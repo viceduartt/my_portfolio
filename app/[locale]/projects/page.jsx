@@ -3,6 +3,7 @@
 import Header from "../components/Header";
 import Cursor from "../components/Cursor";
 import Loading from "../components/Loading";
+import { useTranslations } from "use-intl";
 
 const img1 = "/images/projects/00/1338843.png";
 const iconTech1 = "/images/frontend/tailwindcss.svg";
@@ -11,6 +12,7 @@ const programming = "/images/programming.svg"
 
 
 function Projects() {
+  const project = useTranslations("projects")
 
   const changeBg = () => {
       document.querySelector('body').classList.remove('contact')
@@ -28,10 +30,10 @@ function Projects() {
           <img src={programming} alt="" />
 
           <div className="groupbtn-msg">
-            <span>I'm working on improving this section, please get in touch or check out my work on Instagram in the meantime!</span>
+            <span>{project("msg")}</span>
 
             <div className="group-links">
-              <a href="/contact" className="contact-dev">Contact</a>
+              <a href="/contact" className="contact-dev">{project("btn")}</a>
               <a href="https://www.instagram.com/viceduartt/?next=%2F" className="socialmedia-dev">Instagram</a>
             </div>
           </div>

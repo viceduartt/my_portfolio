@@ -19,7 +19,7 @@ function Home() {
     document.querySelector('body').classList.remove('contact')
   }
 
-  useGSAP(() => {
+  useGSAP(() => { 
     const animaContact = (contact) => {
       contact.addEventListener('mouseleave', () => {
         gsap.to('.contact .bg', {
@@ -236,13 +236,13 @@ function Home() {
               <h6>{home("grouptexts-h6")}</h6>
               <h3>Viced Artt <p className="emoji">✨</p></h3>
 
-              <h1>Web Developer & <br /> UI Designer</h1>
-              <h6 className="text-impact">Building the next era.</h6>
+              <h1>{home("grouptexts-h1-p1")}<br/>{home("grouptexts-h1-p2")}</h1>
+              <h6 className="text-impact">{home("grouptexts-textimpact")}</h6>
             </div>
 
             <button className="contact">
               <div className="bg"></div>
-              <a href="/contact" className="button">Build the Future</a>
+              <a href="/contact" className="button">{home("contactBtn")}</a>
             </button>
           </div>
         </div>
