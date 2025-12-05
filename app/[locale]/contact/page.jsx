@@ -25,19 +25,19 @@ const consultingInterface = "/icons/consultingDesign.svg";
 
 
 function Contact() {
-  const tContact = useTranslations("contact")
-  const [mobile, setMobile] = useState(false)
   let posView = 0.1
-  let posScrollBar = 0.3
+  const [mobile, setMobile] = useState(false)
+  let posScrollBar = 0.1
   const [valueEmail, setValueEmail] = useState('')
   const [valueMsg, setValueMsg] = useState('')
+  const tContact = useTranslations("contact")
 
   useEffect(() => {
-    if (window.innerWidth <= 1000) {
+    if (window.innerWidth <= 1088) {
       setMobile(true)
     }
 
-    if (window.innerWidth <= 1000) {
+    if (window.innerWidth <= 1088) {
 
       console.log("oi")
     } else {
@@ -159,7 +159,7 @@ function Contact() {
                 opacity: 1,
               })
 
-              if (window.innerWidth <= 1000) {
+              if (window.innerWidth <= 1088) {
                 gsap.to(noticeBox, {
                   duration: 0.5,
                   delay: 1.3,
@@ -616,12 +616,11 @@ function Contact() {
 
 
             } else {
-              if (posView > -50.5) {
+              if (posView > -40.5) {
 
                 gsap.to(groupCards, {
                   duration: 1,
                   x: `${posView--}%`
-
                 })
 
                 gsap.to('.scroll', {
@@ -629,16 +628,24 @@ function Contact() {
                   x: `${posScrollBar++}%`
                 })
 
+
+
                 timeline.to('.scroll', {
                   duration: 0.5,
                   opacity: 1
                 })
-              } else {
+              } 
+              
+              if (posView <= -40.8) {
+                console.log("foijkjkl")
+
                 gsap.to('.scroll', {
                   duration: 1,
-                  x: `67%`
+                  x: `42.8%`
                 })
               }
+
+              console.log(posView)
             }
           })
         }
@@ -885,7 +892,7 @@ function Contact() {
                   <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20have%20a%20web%20application%20and%20I%20would%20like%20to%20request%20your%20consulting%20services%20for%20(Please%20provide%20more%20details%20and%20explain%20your%20problem)." id="consultingWebapp" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card cardMobile">
+                <div className="card cardMobile cardEnd">
                   <div className="group-icon-text">
                     <img src={consultingInterface} alt="" />
 
@@ -1050,7 +1057,7 @@ function Contact() {
                 <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20have%20a%20web%20application%20and%20I%20would%20like%20to%20request%20your%20consulting%20services%20for%20(Please%20provide%20more%20details%20and%20explain%20your%20problem)." id="consultingWebapp" className="btn-selectService">Let’s Go</a>
               </div>
 
-              <div className="card">
+              <div className="card cardEnd">
                 <div className="group-icon-text">
                   <img src={consultingInterface} alt="" />
 

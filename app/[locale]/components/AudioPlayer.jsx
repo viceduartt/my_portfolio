@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function AudioPlayer() {
   let volume = 0
-  const maxVolume = 0.5
+  const maxVolume = 0.6
   let lock = false
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function AudioPlayer() {
             play: audio.dataset.play
           }))
 
-          if (window.innerWidth >= 1000) {
+          if (window.innerWidth >= 1088) {
             gsap.to(".button-music", {
               duration: 1,
               scale: 1.2,
@@ -62,9 +62,9 @@ export default function AudioPlayer() {
 
               gsap.to(btnMusic, {
                 duration: 0.5,
-                scale: 1.1,
-                opacity: 1,
-                delay: 8
+                scale: 1,
+                opacity: 0.6,
+                delay: 0.6
               })
               console.error(error)
             })

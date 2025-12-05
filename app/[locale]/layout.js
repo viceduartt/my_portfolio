@@ -17,8 +17,8 @@ export default async function RootLayout({ children, params }) {
   const messages = await getMessages(locale);
 
   return (
-      <NextIntlClientProvider messages={messages}>
-        {children}
-      </NextIntlClientProvider>
+    <NextIntlClientProvider messages={messages}>
+      {children}
+    </NextIntlClientProvider>
   );
 }

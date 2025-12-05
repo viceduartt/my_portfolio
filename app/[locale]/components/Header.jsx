@@ -20,7 +20,7 @@ export default function Header() {
 
 
   useEffect(() => {
-    if (window.innerWidth <= 1000) {
+    if (window.innerWidth <= 1088) {
       setMobile(true)
     }
   }, [])
@@ -163,7 +163,7 @@ export default function Header() {
         }
       })
 
-      if (window.innerWidth <= 1000) {
+      if (window.innerWidth <= 1088) {
 
         gsap.to('.button-lang', {
           opacity: '55%',
@@ -188,12 +188,12 @@ export default function Header() {
     }
 
     const animaLoadBtnMusic = () => {
-      if (window.innerWidth >= 1000)
-      gsap.to('.button-music', {
-        opacity: 0.6,
-        scale: 1,
-        duration: 0.6
-      })
+      if (window.innerWidth >= 1088)
+        gsap.to('.button-music', {
+          opacity: 0.6,
+          scale: 1,
+          duration: 0.6
+        })
     }
 
     const animaBtnMusic = () => {
@@ -207,6 +207,14 @@ export default function Header() {
             opacity: 1
           })
         } else if (JSON.parse(sessionStorage.getItem('audio')).play === "false") {
+          if (JSON.parse(sessionStorage.getItem('audio')).play === "false") {
+            gsap.to(btnMusic, {
+              duration: 1,
+              scale: 1,
+              opacity: 0.6
+            })
+          }
+
           btnMusic.addEventListener("mouseenter", () => {
             gsap.to(btnMusic, {
               duration: 0.5,
@@ -215,9 +223,9 @@ export default function Header() {
             })
           })
         }
-  
-        btnMusic.addEventListener("mouseleave", () => {        
-  
+
+        btnMusic.addEventListener("mouseleave", () => {
+
           if (JSON.parse(sessionStorage.getItem('audio')).play === "false") {
             gsap.to(btnMusic, {
               duration: 1,
@@ -227,13 +235,13 @@ export default function Header() {
           }
         })
 
-        function configMusic () {
+        function configMusic() {
           const audio = document.querySelector(".musicPlayer")
-  
+
           const fadeinVolume = () => {
             console.log("player")
-  
-            const delay = setInterval(() => {  
+
+            const delay = setInterval(() => {
               if (audio.volume >= maxVolume - 0.1) {
                 clearInterval(delay)
               } else {
@@ -242,12 +250,12 @@ export default function Header() {
               }
             }, 50)
           }
-  
-          const fadeoutVolume = () => {  
+
+          const fadeoutVolume = () => {
             console.log("pausedd")
-  
+
             const delay = setInterval(() => {
-  
+
               if (audio.volume <= 0.2) {
                 clearInterval(delay)
                 audio.pause()
@@ -257,14 +265,14 @@ export default function Header() {
               }
             }, 100)
           }
-  
+
           console.log(JSON.parse(sessionStorage.getItem('audio')).play)
-          
-          if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {   
-            
-            if (window.innerWidth <= 1000) {
+
+          if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {
+
+            if (window.innerWidth <= 1088) {
               gsap.to('.button-music', {
-                opacity: 1,
+                opacity: 0.6,
                 scale: 1,
                 duration: 0.5,
               })
@@ -281,24 +289,24 @@ export default function Header() {
             fadeoutVolume()
           } else if (JSON.parse(sessionStorage.getItem('audio')).play === "false") {
             audio.volume = 0
-  
+
             gsap.to(btnMusic, {
               duration: 0.5,
               scale: 1.1,
               opacity: 1,
             })
-  
+
             audio.play()
             fadeinVolume()
           }
         }
-  
+
         btnMusic.addEventListener("click", configMusic)
 
       }
     }
 
-    if (window.innerWidth >= 1000) {
+    if (window.innerWidth >= 1088) {
       console.log("desktop")
       for (let menu of menus) {
         const timeline = gsap.timeline({})
@@ -331,14 +339,14 @@ export default function Header() {
           opacity: 0,
           x: "60%"
         }, {
-          
-        }) 
+
+        })
 
         timeline.to(menu, {
           duration: 0.5,
           opacity: 1,
           x: "0%"
-        }) 
+        })
       })
     }
 
@@ -369,7 +377,6 @@ export default function Header() {
       })
     }
 
-
     const shwoHeader = () => {
       const menuBtn = document.querySelector('.btn-menu')
       const header = document.querySelector('.header-moblie')
@@ -381,11 +388,15 @@ export default function Header() {
         if (menuBtn.dataset.showmenu === "true") {
           console.log('open')
 
+          sessionStorage.setItem('scroll', JSON.stringify({
+            run: "false"
+          }))
+
 
           animaLoadBtnsMobile()
 
           gsap.to("*", {
-            overflowY: "hidden"
+            //overflowY: "hidden"
           })
 
           gsap.to(header, {
@@ -410,11 +421,15 @@ export default function Header() {
 
           console.log('close')
 
+          sessionStorage.setItem('scroll', JSON.stringify({
+            run: "true"
+          }))
+
           resetMenuMobile()
 
-          if (window.innerWidth <= 1000) {
+          if (window.innerWidth <= 1088) {
             gsap.to("*", {
-              overflowY: "auto"
+              //overflowY: "auto"
             })
 
           } else {
@@ -436,13 +451,13 @@ export default function Header() {
         }
       })
 
-    }  
+    }
 
 
     const time = setTimeout(() => {
       clearTimeout(time)
 
-      if (window.innerWidth <= 1000) {
+      if (window.innerWidth <= 1088) {
         const menusMobile = document.querySelectorAll(".header-moblie h2")
 
 
@@ -479,14 +494,14 @@ export default function Header() {
         if (JSON.parse(sessionStorage.getItem('audio')) === null) {
           if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {
             console.log("mudou para skjskj")
-            sessionStorage.setItem('audio', JSON.stringify({ 
+            sessionStorage.setItem('audio', JSON.stringify({
               currentTime: audio.currentTime,
               duration: audio.duration,
               play: "true",
               changeLang: true,
             }))
           } else {
-            sessionStorage.setItem('audio', JSON.stringify({ 
+            sessionStorage.setItem('audio', JSON.stringify({
               currentTime: audio.currentTime,
               duration: audio.duration,
               play: "false",
@@ -505,20 +520,21 @@ export default function Header() {
         if (JSON.parse(sessionStorage.getItem('audio')) === null) {
           if (JSON.parse(sessionStorage.getItem('audio')).play === "true") {
             console.log("mudou para skjskj")
-            sessionStorage.setItem('audio', JSON.stringify({ 
+            sessionStorage.setItem('audio', JSON.stringify({
               currentTime: audio.currentTime,
               duration: audio.duration,
               play: "true",
               changeLang: true,
             }))
+            console.log("caso 1")
           }
-          } else {
-            sessionStorage.setItem('audio', JSON.stringify({ 
-              currentTime: audio.currentTime,
-              duration: audio.duration,
-              play: "true",
-              changeLang: true,
-            }))
+        } else {
+          sessionStorage.setItem('audio', JSON.stringify({
+            currentTime: audio.currentTime,
+            duration: audio.duration,
+            play: audio.dataset.play,
+            changeLang: false,
+          }))
         }
       })
     })
@@ -553,7 +569,7 @@ export default function Header() {
         duration: audio.duration,
         play: "false"
       }))
-      
+
       console.log(`data-true ${JSON.parse(sessionStorage.getItem('audio')).play}`)
 
     } else if (audio.dataset.play === "false") {
@@ -575,7 +591,7 @@ export default function Header() {
       <>
 
         <header>
-          <a href="/">          
+          <a href="/">
             <div className="logo">
               <div className="bg-img">
 
@@ -585,7 +601,7 @@ export default function Header() {
               <span> &lt;VicedArtt/&gt;</span>
             </div>
           </a>
-          <button onClick={() => {changeShowMenu()}} data-showmenu="true" className="btn-menu"><img src={menu} alt="" /></button>
+          <button onClick={() => { changeShowMenu() }} data-showmenu="true" className="btn-menu"><img src={menu} alt="" /></button>
 
 
           <div className="header-moblie">
@@ -625,8 +641,8 @@ export default function Header() {
                 <LanguageSwitcher />
               </div>
 
-              <button onClick={(e) => {changeStatusMusic(e.target)}} className="button-music">
-                <img className="img-button-music"  src={iconMusic} alt="" />
+              <button onClick={(e) => { changeStatusMusic(e.target) }} className="button-music">
+                <img className="img-button-music" src={iconMusic} alt="" />
 
               </button>
 
@@ -661,7 +677,7 @@ export default function Header() {
               <a className="menu" href="/contact">
                 <div data-change='0' className="bg"></div>
                 {header("menu-contact")}
-                
+
               </a>
 
             </h2>
@@ -679,7 +695,7 @@ export default function Header() {
               <LanguageSwitcher />
             </div>
 
-            <button onClick={(e) => {changeStatusMusic(e.target)}} className="button-music"><img src={iconMusic} alt="" /></button>
+            <button onClick={(e) => { changeStatusMusic(e.target) }} className="button-music"><img src={iconMusic} alt="" /></button>
           </div>
         </header>
       </>

@@ -264,7 +264,6 @@ label {
 
 * {
     cursor: none;
-    //overflow: hidden;
 }
 
 .output {
@@ -293,7 +292,6 @@ body {
     background-size: 100% 1%;
     margin: 0 7.4rem;
     color: $white;
-    overflow-y: hidden;
 }
 
 body.contact {
@@ -408,7 +406,6 @@ header {
         }
     }
 }
-
 
 /* ====== MAIN ====== */
 
@@ -827,7 +824,6 @@ main.contact {
 
     }
 
-
     .group-input-socialmedia {
         border: 0.2rem solid $emphasis-default;
         border-radius: 1.2rem;
@@ -1037,7 +1033,7 @@ main.contact {
             .scroll {
                 background-color: $emphasis-default;
                 height: 100%;
-                width: 60%;
+                width: 70%;
                 border-radius: 1.2rem;
                 opacity: 0.7;
             }
@@ -1109,11 +1105,9 @@ main.skills {
     }
 
     .circ {
-
         transition: .3s;
 
-    }
-
+    } 
 
     .explore {
         opacity: 1;
@@ -1336,6 +1330,10 @@ main.skills {
 
     }
 
+    .titleSkills {
+        margin: 0 !important;
+    }
+
     .group-links {
         gap: 0 4rem !important;
     }
@@ -1373,10 +1371,14 @@ main.skills {
 
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1088px) {
     :root {
         font-size: 60%;
 
+    }
+
+    * {
+        overflow: hidden;
     }
 
     .notice-sendEmail {
@@ -1435,6 +1437,14 @@ main.skills {
         }
     }
 
+    .explore {
+        padding-top: 0 !important;
+
+        header {
+            margin-top: 0 !important;
+        }
+    }
+
 
     .background {
         background-color: #0000009f;
@@ -1442,10 +1452,6 @@ main.skills {
 
     header {
         margin: 1rem !important;
-    }
-
-    body {
-        overflow: hidden;
     }
 
 
@@ -1544,11 +1550,6 @@ main.skills {
 
     }
 
-    * {
-        overflow-y: hidden;
-        overflow-x: hidden !important;
-    }
-
 
     .header-moblie {
         overflow-y: hidden;
@@ -1642,7 +1643,7 @@ main.skills {
     :root {
         font-size: 56%;
 
-        overflow-x: hidden !important;
+        //overflow-x: hidden !important;
 
     }
 
@@ -1797,6 +1798,10 @@ main.skills {
         width: fit-content;
     }
 
+    .cardEnd {
+        margin-bottom: 6rem;
+    }
+
     .cards-container {
         width: 100% !important;
         flex-direction: column !important;
@@ -1813,7 +1818,7 @@ main.skills {
     }
 
     body {
-        overflow-y: hidden !important;
+        //overflow-y: hidden !important;
         margin: 0;
         padding: 0 2rem;
     }
@@ -2020,4 +2025,10 @@ main.skills {
         }
     }
 
+}
+
+@media (max-width: 976px) {
+    .titleSkills {
+        display: none;
+    }
 }

@@ -3,16 +3,43 @@ import gsap from "gsap"
 import { useEffect } from "react";
 
 function Loading() {
+    let scrollY = 0;
+
+    function update() {
+        window.scrollTo(0, scrollY);
+    }
+
+    function onWheel(e) {
+        const runScroll = JSON.parse(sessionStorage.getItem('scroll'))
+
+        if (runScroll !== null) {
+            if (runScroll.run === "true") {
+                e.preventDefault();
+                scrollY += e.deltaY;
+                clamp();
+                update();
+            }
+        }
+    }
+
+    function clamp() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        scrollY = Math.max(0, Math.min(scrollY, max));
+    }
+
     useEffect(() => {
         window.scrollTo({
             top: 0,
             behavior: "instant"
         });
+
+        sessionStorage.setItem('scroll', JSON.stringify({
+            run: "false"
+        }))
     }, [])
 
     useGSAP(() => {
         const timeline = gsap.timeline({})
-
 
         timeline.to('.loading', {
             opacity: 1,
@@ -26,12 +53,17 @@ function Loading() {
             duration: 0.5,
             delay: 0.2,
             onComplete: () => {
-                if (window.innerWidth <= 1000) {
-                    gsap.to("*", {
-                        duration: 0.1,
-                        overflowY: "auto"
-                    })
-                }
+                const time = setTimeout(() => {
+                    clearTimeout(time)
+                    if (window.innerWidth <= 1088) {
+                        sessionStorage.setItem('scroll', JSON.stringify({
+                            run: "true"
+                        }))
+
+                        window.addEventListener('wheel', onWheel, { passive: false });
+
+                    }
+                }, 600);
             }
         })
     })

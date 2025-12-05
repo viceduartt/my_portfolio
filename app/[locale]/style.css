@@ -221,7 +221,6 @@ body {
   background-size: 100% 1%;
   margin: 0 7.4rem;
   color: #FFFFFF;
-  overflow-y: hidden;
 }
 
 body.contact {
@@ -856,7 +855,7 @@ main.contact .group-cards-scroll .scroll-container {
 main.contact .group-cards-scroll .scroll-container .scroll {
   background-color: #28D9DF;
   height: 100%;
-  width: 60%;
+  width: 70%;
   border-radius: 1.2rem;
   opacity: 0.7;
 }
@@ -1099,6 +1098,9 @@ main.skills .explore .group-list-skills .list-off {
   :root {
     font-size: 63%;
   }
+  .titleSkills {
+    margin: 0 !important;
+  }
   .group-links {
     gap: 0 4rem !important;
   }
@@ -1124,9 +1126,12 @@ main.skills .explore .group-list-skills .list-off {
     grid-template-columns: 1fr 1fr 1fr 1fr !important;
   }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1088px) {
   :root {
     font-size: 60%;
+  }
+  * {
+    overflow: hidden;
   }
   .notice-sendEmail {
     display: flex !important;
@@ -1177,14 +1182,17 @@ main.skills .explore .group-list-skills .list-off {
     height: 55%;
     width: auto;
   }
+  .explore {
+    padding-top: 0 !important;
+  }
+  .explore header {
+    margin-top: 0 !important;
+  }
   .background {
     background-color: rgba(0, 0, 0, 0.6235294118);
   }
   header {
     margin: 1rem !important;
-  }
-  body {
-    overflow: hidden;
   }
   main.contact {
     justify-content: flex-start !important;
@@ -1257,10 +1265,6 @@ main.skills .explore .group-list-skills .list-off {
   .btn-menu img {
     margin-top: 0.5rem;
     height: 40%;
-  }
-  * {
-    overflow-y: hidden;
-    overflow-x: hidden !important;
   }
   .header-moblie {
     overflow-y: hidden;
@@ -1340,7 +1344,6 @@ main.skills .explore .group-list-skills .list-off {
 @media (max-width: 840px) {
   :root {
     font-size: 56%;
-    overflow-x: hidden !important;
   }
   .notice-projects .contact {
     display: block;
@@ -1467,6 +1470,9 @@ main.skills .explore .group-list-skills .list-off {
     width: -moz-fit-content;
     width: fit-content;
   }
+  .cardEnd {
+    margin-bottom: 6rem;
+  }
   .cards-container {
     width: 100% !important;
     flex-direction: column !important;
@@ -1477,7 +1483,6 @@ main.skills .explore .group-list-skills .list-off {
     transform: translateX(20rem);
   }
   body {
-    overflow-y: hidden !important;
     margin: 0;
     padding: 0 2rem;
   }
@@ -1640,5 +1645,10 @@ main.skills .explore .group-list-skills .list-off {
     width: 100%;
     display: flex;
     justify-content: center;
+  }
+}
+@media (max-width: 976px) {
+  .titleSkills {
+    display: none;
   }
 }/*# sourceMappingURL=style.css.map */
