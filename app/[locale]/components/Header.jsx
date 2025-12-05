@@ -14,7 +14,7 @@ export default function Header() {
   const [mobile, setMobile] = useState(false)
   const pathname = usePathname()
   const lang = pathname.split("/")[1]
-  const maxVolume = 0.5
+  const maxVolume = 0.4
   const header = useTranslations("header")
   let volume = 0
 

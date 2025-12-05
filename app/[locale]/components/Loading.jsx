@@ -4,6 +4,21 @@ import { useEffect } from "react";
 
 function Loading() {
     let scrollY = 0;
+    let touchStart = 0;
+
+    function onTouchStart(e) {
+        touchStart = e.touches[0].clientY;
+    }
+
+    function onTouchMove(e) {
+        e.preventDefault();
+        const current = e.touches[0].clientY;
+        const delta = touchStart - current;
+        touchStart = current;
+        scrollY += delta;
+        clamp();
+        update();
+    }
 
     function update() {
         window.scrollTo(0, scrollY);
@@ -26,6 +41,7 @@ function Loading() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         scrollY = Math.max(0, Math.min(scrollY, max));
     }
+
 
     useEffect(() => {
         window.scrollTo({
@@ -61,6 +77,8 @@ function Loading() {
                         }))
 
                         window.addEventListener('wheel', onWheel, { passive: false });
+                        window.addEventListener('touchstart', onTouchStart, { passive: false });
+                        window.addEventListener('touchmove', onTouchMove, { passive: false });
 
                     }
                 }, 600);
