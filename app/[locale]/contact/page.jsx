@@ -37,22 +37,27 @@ function Contact() {
       setMobile(true)
     }
 
-    if (document.querySelector(".card") !== null) {
-      const cards = document.querySelectorAll(".card")
+    if (window.innerWidth <= 1000) {
 
-      const getTag = (getTranslaye) => {
-        return tContact.raw(getTranslaye)
+      console.log("oi")
+    } else {
+      if (document.querySelector(".card") !== null) {
+        const cards = document.querySelectorAll(".card")
 
+        const getTag = (getTranslaye) => {
+          return tContact.raw(getTranslaye)
+        }
+
+        cards.forEach(card => {
+          const text = card.querySelector("h3").innerText
+
+          card.querySelector("h3").innerText = getTag(text)
+          card.querySelector("p").innerHTML = getTag(`desc-${text}`)
+          card.querySelector("a").innerHTML = getTag("btnCard")
+        })
       }
-
-      cards.forEach(card=>{
-        const text = card.querySelector("h3").innerText
-
-
-        card.querySelector("h3").innerText = getTag(text)
-        card.querySelector("p").innerHTML = getTag(`desc-${text}`)
-      })
     }
+
 
   }, [])
 
@@ -716,6 +721,27 @@ function Contact() {
     }
   }
 
+  const chnageTextMobile = () => {
+    if (document.querySelector(".cardMobile") !== null) {
+
+      const cards = document.querySelectorAll(".cardMobile")
+
+      const getTag = (getTranslaye) => {
+        return tContact.raw(getTranslaye)
+
+      }
+
+      cards.forEach(card => {
+        const text = card.querySelector("h3").innerText
+
+        card.querySelector("h3").innerText = getTag(text)
+        card.querySelector("p").innerHTML = getTag(`desc-${text}`)
+        card.querySelector("a").innerHTML = getTag("btnCard")
+
+      })
+    }
+  }
+
   if (mobile) {
     return (
       <>
@@ -733,14 +759,14 @@ function Contact() {
             <div className="content">
               <img className="happCat" src={happyCat} alt="" />
 
-              <span className="notice-msg">Email sent successfully! I'll get back to you shortly.</span>
+              <span className="notice-msg">{tContact("noticemsg")}</span>
             </div>
           </div>
 
           <div className="group-input-socialmedia">
             <header>
               <label className="userEmail" htmlFor="userEmail">
-                <input type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder="contactemail@example.com" />
+                <input type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder={tContact("placeholderInput")} />
 
                 <div className="border"></div>
               </label>
@@ -750,21 +776,21 @@ function Contact() {
             <div className="msg-send">
               <label htmlFor="msg" className="msg">
 
-                <textarea name="msg" id="msg" translate="no" onChange={(e) => { handleMsg(e.target.value) }} value={valueMsg} placeholder="Describe what I can do for you here, or if you prefer, send me an email at viceduartt@gmail.com"></textarea>
+                <textarea name="msg" id="msg" translate="no" onChange={(e) => { handleMsg(e.target.value) }} value={valueMsg} placeholder={tContact("placeholderTextarea")}></textarea>
               </label>
 
 
-              <button className="button-small" id="sendEmail">Send</button>
+              <button className="button-small" id="sendEmail">{tContact("sendEmail")}</button>
             </div>
           </div>
 
 
           <div className="group-socialmedia-cards">
             <div className="group-socialmedia">
-              <a href="maito:" className="btn-socialmedia"><img src={email} alt="" /></a>
-              <a href="" className="btn-socialmedia"><img id="icon-whatsapp" src={whatsapp} alt="" /></a>
-              <a href="" className="btn-socialmedia"><img src={instagram} alt="" /></a>
-              <a href="" className="btn-socialmedia"><img src={discord} alt="" /></a>
+              <a target="_blank" href="maito:viceduartt@gmail.com" className="btn-socialmedia"><img src={email} alt="" /></a>
+              <a target="_blank" href="https://wa.me/5581989258359" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
+              <a target="_blank" href="https://www.instagram.com/viceduartt/?next=%2F" className="btn-socialmedia"><img src={instagram} alt="" /></a>
+              <a target="_blank" href="https://github.com/viceduartt" className="btn-socialmedia"><img src={discord} alt="" /></a>
             </div>
 
             <div className="group-cards-scroll">
@@ -774,7 +800,7 @@ function Contact() {
 
               <div className="cards-container" data-scroll='no'>
 
-                <div className="card">
+                <div onLoad={() => { chnageTextMobile() }} className="card cardMobile">
 
                   <div className="group-icon-text">
                     <img src={website} alt="" />
@@ -786,10 +812,10 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20a%20website%20for%20my%20business.%20(Describe%20the%20type%20of%20website%20and%20the%20features%20you%20would%20like)" d="Website" id="Website" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20a%20website%20for%20my%20business.%20(Describe%20the%20type%20of%20website%20and%20the%20features%20you%20would%20like)" d="Website" id="Website" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card">
+                <div className="card cardMobile">
                   <div className="group-icon-text">
                     <img src={virtualStory} alt="" />
 
@@ -800,10 +826,10 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20an%20online%20store%20for%20my%20business.%20(Please%20tell%20me%20more%20about%20the%20features%20the%20online%20store%20will%20have%2C%20and%20its%20size.)" id="Ecommerce" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20an%20online%20store%20for%20my%20business.%20(Please%20tell%20me%20more%20about%20the%20features%20the%20online%20store%20will%20have%2C%20and%20its%20size.)" id="Ecommerce" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card">
+                <div className="card cardMobile">
                   <div className="group-icon-text">
                     <img src={systemInternal} alt="" />
 
@@ -814,10 +840,10 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hello%2C%20I%20need%20you%20to%20create%20a%20system%20for%20my%20business.%20(Describe%20exactly%20what%20you%20need.)" id="internalSystems" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20need%20you%20to%20create%20a%20system%20for%20my%20business.%20(Describe%20exactly%20what%20you%20need.)" id="internalSystems" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card">
+                <div className="card cardMobile">
                   <div className="group-icon-text">
                     <img src={interfaces} alt="" />
 
@@ -828,10 +854,10 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20some%20interfaces%20for%20my%20app%2Fwebsite.%20(Please%20provide%20more%20details.)" id="interfaces" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20some%20interfaces%20for%20my%20app%2Fwebsite.%20(Please%20provide%20more%20details.)" id="interfaces" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card">
+                <div className="card cardMobile">
                   <div className="group-icon-text">
                     <img src={moblieApp} alt="" />
 
@@ -842,10 +868,10 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20a%20mobile%20app%20for%20my%20business.%20(Please%20provide%20more%20details.)" id="MobileApp" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20a%20mobile%20app%20for%20my%20business.%20(Please%20provide%20more%20details.)" id="MobileApp" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card">
+                <div className="card cardMobile">
                   <div className="group-icon-text">
                     <img src={consultingWebsite} alt="" />
 
@@ -856,10 +882,10 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hello%2C%20I%20have%20a%20web%20application%20and%20I%20would%20like%20to%20request%20your%20consulting%20services%20for%20(Please%20provide%20more%20details%20and%20explain%20your%20problem)." id="consultingWebapp" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20have%20a%20web%20application%20and%20I%20would%20like%20to%20request%20your%20consulting%20services%20for%20(Please%20provide%20more%20details%20and%20explain%20your%20problem)." id="consultingWebapp" className="btn-selectService">Let’s Go</a>
                 </div>
 
-                <div className="card">
+                <div className="card cardMobile">
                   <div className="group-icon-text">
                     <img src={consultingInterface} alt="" />
 
@@ -870,7 +896,7 @@ function Contact() {
                     </div>
                   </div>
 
-                  <a href="https://wa.me/5581989258359?text=Hello%2C%20I%20already%20have%20a%20design%20for%20my%20app%2Fwebsite%2C%20but%20I%20would%20like%20to%20request%20your%20consulting%20services." id="consulting Design" className="btn-selectService">Let’s Go</a>
+                  <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20already%20have%20a%20design%20for%20my%20app%2Fwebsite%2C%20but%20I%20would%20like%20to%20request%20your%20consulting%20services." id="consulting Design" className="btn-selectService">Let’s Go</a>
                 </div>
               </div>
             </div>
@@ -914,10 +940,10 @@ function Contact() {
 
               <div className="group-socialmedia-btnSend">
                 <div className="group-socialmedia">
-                  <a href="maito:viceduartt@gmail.com" className="btn-socialmedia"><img src={email} alt="" /></a>
-                  <a href="https://wa.me/5581989258359" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
-                  <a href="https://www.instagram.com/viceduartt/?next=%2F" className="btn-socialmedia"><img src={instagram} alt="" /></a>
-                  <a href="https://github.com/viceduartt" className="btn-socialmedia"><img src={discord} alt="" /></a>
+                  <a target="_blank" href="maito:viceduartt@gmail.com" className="btn-socialmedia"><img src={email} alt="" /></a>
+                  <a target="_blank" href="https://wa.me/5581989258359" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
+                  <a target="_blank" href="https://www.instagram.com/viceduartt/?next=%2F" className="btn-socialmedia"><img src={instagram} alt="" /></a>
+                  <a target="_blank" href="https://github.com/viceduartt" className="btn-socialmedia"><img src={discord} alt="" /></a>
                 </div>
 
                 <button className="button-small" id="sendEmail">{tContact("sendEmail")}</button>
@@ -945,13 +971,13 @@ function Contact() {
                   <img src={website} alt="" />
 
                   <div className="group-nameService-descriptionService">
-                  <h3 className="nameService">Website Development</h3>
+                    <h3 className="nameService">Website Development</h3>
 
                     <p className="body-big"></p>
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20a%20website%20for%20my%20business.%20(Describe%20the%20type%20of%20website%20and%20the%20features%20you%20would%20like)" d="Website" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20a%20website%20for%20my%20business.%20(Describe%20the%20type%20of%20website%20and%20the%20features%20you%20would%20like)" d="Website" className="btn-selectService">Let’s Go</a>
               </div>
 
               <div className="card">
@@ -965,7 +991,7 @@ function Contact() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20an%20online%20store%20for%20my%20business.%20(Please%20tell%20me%20more%20about%20the%20features%20the%20online%20store%20will%20have%2C%20and%20its%20size.)" id="Ecommerce" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20someone%20to%20create%20an%20online%20store%20for%20my%20business.%20(Please%20tell%20me%20more%20about%20the%20features%20the%20online%20store%20will%20have%2C%20and%20its%20size.)" id="Ecommerce" className="btn-selectService">Let’s Go</a>
               </div>
 
               <div className="card">
@@ -979,7 +1005,7 @@ function Contact() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hello%2C%20I%20need%20you%20to%20create%20a%20system%20for%20my%20business.%20(Describe%20exactly%20what%20you%20need.)" id="internalSystems" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20need%20you%20to%20create%20a%20system%20for%20my%20business.%20(Describe%20exactly%20what%20you%20need.)" id="internalSystems" className="btn-selectService">Let’s Go</a>
               </div>
 
               <div className="card">
@@ -993,7 +1019,7 @@ function Contact() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20some%20interfaces%20for%20my%20app%2Fwebsite.%20(Please%20provide%20more%20details.)" id="interfaces" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20some%20interfaces%20for%20my%20app%2Fwebsite.%20(Please%20provide%20more%20details.)" id="interfaces" className="btn-selectService">Let’s Go</a>
               </div>
 
               <div className="card">
@@ -1007,7 +1033,7 @@ function Contact() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20a%20mobile%20app%20for%20my%20business.%20(Please%20provide%20more%20details.)" id="MobileApp" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hi%2C%20I%20need%20you%20to%20create%20a%20mobile%20app%20for%20my%20business.%20(Please%20provide%20more%20details.)" id="MobileApp" className="btn-selectService">Let’s Go</a>
               </div>
 
               <div className="card">
@@ -1021,7 +1047,7 @@ function Contact() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hello%2C%20I%20have%20a%20web%20application%20and%20I%20would%20like%20to%20request%20your%20consulting%20services%20for%20(Please%20provide%20more%20details%20and%20explain%20your%20problem)." id="consultingWebapp" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20have%20a%20web%20application%20and%20I%20would%20like%20to%20request%20your%20consulting%20services%20for%20(Please%20provide%20more%20details%20and%20explain%20your%20problem)." id="consultingWebapp" className="btn-selectService">Let’s Go</a>
               </div>
 
               <div className="card">
@@ -1035,7 +1061,7 @@ function Contact() {
                   </div>
                 </div>
 
-                <a href="https://wa.me/5581989258359?text=Hello%2C%20I%20already%20have%20a%20design%20for%20my%20app%2Fwebsite%2C%20but%20I%20would%20like%20to%20request%20your%20consulting%20services." id="consulting Design" className="btn-selectService">Let’s Go</a>
+                <a target="_blank" href="https://wa.me/5581989258359?text=Hello%2C%20I%20already%20have%20a%20design%20for%20my%20app%2Fwebsite%2C%20but%20I%20would%20like%20to%20request%20your%20consulting%20services." id="consulting Design" className="btn-selectService">Let’s Go</a>
               </div>
             </div>
           </div>

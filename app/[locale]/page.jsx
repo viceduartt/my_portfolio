@@ -248,15 +248,15 @@ function Home() {
         </div>
 
         <div className="socialmendia">
-            <a id="link-instagram" className="link" href="https://www.instagram.com/viceduartt/?next=%2F"
+            <a target="_blank" id="link-instagram" className="link" href="https://www.instagram.com/viceduartt/?next=%2F"
             >
               <img src={iconInstagram} alt="" />
             </a>
-            <a id="link-github" className="link" href="https://github.com/viceduartt"
+            <a target="_blank" id="link-github" className="link" href="https://github.com/viceduartt"
             >
               <img src={iconGithub} alt="" />
             </a>
-            <a id="link-youtube" className="link" href="https://www.youtube.com/@VicEduartt"
+            <a target="_blank" id="link-youtube" className="link" href="https://www.youtube.com/@VicEduartt"
             >
               <img src={iconYoutube} id="youtube" alt="" />
             </a>

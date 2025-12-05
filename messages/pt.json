@@ -9,7 +9,7 @@
 
   "contact": {
     "noticemsg": "Email enviado com sucesso! Entrarei em contato em breve.",
-    "placeholderInput": "seuEmailParaContato@exemplo.com",
+    "placeholderInput": "seuemail@exemplo.com",
     "sendEmail": "Enviar",
     "placeholderTextarea": "Descreva aqui sua solicitação com os principais detalhes.",
     "btnCard": "Selecionar",

@@ -1,13 +1,22 @@
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import { useEffect } from "react";
 
 function Loading() {
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+    }, [])
+
     useGSAP(() => {
         const timeline = gsap.timeline({})
 
+
         timeline.to('.loading', {
             opacity: 1,
-            duration: 0.1
+            duration: 0.1,
         })
 
 

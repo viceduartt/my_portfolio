@@ -491,7 +491,7 @@ main.home .socialmendia a #youtube {
   padding: 1.6rem 4rem;
 }
 .notice-projects .msg img {
-  width: 50%;
+  height: 30vw;
   margin-bottom: 5rem;
 }
 
@@ -1342,6 +1342,65 @@ main.skills .explore .group-list-skills .list-off {
     font-size: 56%;
     overflow-x: hidden !important;
   }
+  .notice-projects .contact {
+    display: block;
+    border-radius: 1.6rem;
+    padding: 1.9rem 4rem;
+    font-size: 4rem !important;
+    margin-top: 2.4rem;
+    background-color: #FFFFFF;
+    position: relative;
+    color: #050505;
+  }
+  .notice-projects span {
+    width: 80%;
+    text-align: center;
+    font-size: 2.7rem;
+  }
+  .notice-projects .groupbtn-msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem 0;
+  }
+  .notice-projects .msg {
+    padding: 4rem 3rem;
+    border-radius: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.5058823529);
+    border: 0.2rem solid #28D9DF;
+    box-shadow: 0rem 0rem 10rem 1rem rgba(168, 168, 168, 0.5882352941);
+    width: 90%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .notice-projects .msg .group-links {
+    display: flex;
+    gap: 2rem 0rem !important;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+  }
+  .notice-projects .msg .group-links .contact-dev,
+  .notice-projects .msg .group-links .socialmedia-dev {
+    background-color: #FFFFFF;
+    color: #0C0C0C;
+    border-radius: 1.2rem;
+    padding: 1rem 2rem !important;
+    font-size: 3.7rem;
+    opacity: 0.9;
+    transition: all 1s;
+  }
+  .notice-projects .msg .group-links .contact-dev:hover,
+  .notice-projects .msg .group-links .socialmedia-dev:hover {
+    opacity: 1;
+    padding: 1.2rem 4rem !important;
+  }
+  .notice-projects .msg img {
+    height: 40vw;
+    margin-bottom: 5rem;
+  }
   main.contact input {
     width: -moz-fit-content !important;
     width: fit-content !important;
@@ -1350,13 +1409,15 @@ main.skills .explore .group-list-skills .list-off {
   main.contact input::-moz-placeholder {
     font-size: 2.5rem !important;
   }
-  main.contact input, main.contact input::placeholder {
+  main.contact input,
+  main.contact input::placeholder {
     font-size: 2.5rem !important;
   }
   main.contact textarea::-moz-placeholder, main.contact input::-moz-placeholder {
     opacity: 0.9;
   }
-  main.contact textarea::placeholder, main.contact input::placeholder {
+  main.contact textarea::placeholder,
+  main.contact input::placeholder {
     opacity: 0.9;
   }
   main.contact textarea {
@@ -1365,11 +1426,12 @@ main.skills .explore .group-list-skills .list-off {
   main.contact textarea::-moz-placeholder {
     font-size: 2rem !important;
   }
-  main.contact textarea, main.contact textarea::placeholder {
+  main.contact textarea,
+  main.contact textarea::placeholder {
     font-size: 2rem !important;
   }
   main.contact button {
-    font-size: 2.7rem !important;
+    font-size: 2.5rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center;
