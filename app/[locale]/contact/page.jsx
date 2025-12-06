@@ -110,14 +110,12 @@ function Contact() {
 
     const sendEmail = async () => {
       const btnSend = document.querySelector('#sendEmail')
-      const inputEmail = document.querySelector('#userEmail')
 
       btnSend.addEventListener('click', async () => {
         const emailContact = document.querySelector('#userEmail').value.trim()
         const bodyMsg = document.querySelector('#msg').value.trim()
 
         const checkEmail = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
-
 
         if ((emailContact !== '' && bodyMsg !== '') && (emailContact.length < 254 && checkEmail.test(emailContact))) {
           const inputContainer = document.querySelector('.group-input-socialmedia')
@@ -146,7 +144,11 @@ function Contact() {
 
             console.log(res)
 
-            if (res.ok) {
+            if (res.ok === false) {
+              sessionStorage.setItem('scroll', JSON.stringify({
+                run: "false"
+              }))
+
               gsap.to(inputContainer, {
                 duration: 1,
                 border: '0.3rem solid #28df5fff',
@@ -174,6 +176,10 @@ function Contact() {
               setValueEmail('')
               setValueMsg('')
 
+              sessionStorage.setItem('scroll', JSON.stringify({
+                run: "false"
+              }))
+
               gsap.to(document.querySelector('.background'), {
                 duration: 0.5,
                 delay: 1,
@@ -181,11 +187,22 @@ function Contact() {
               })
 
               if (window.innerWidth <= 1088) {
+                gsap.to(".background", {
+                  duration: 0.1,
+                  pointerEvents: "all"
+                })
+
+                gsap.to(".notice-sendEmail, .notice-sendEmail *", {
+                  duration: 0.1,
+                  pointerEvents: "all"
+                })
+
                 gsap.to(noticeBox, {
                   duration: 0.5,
                   delay: 1.3,
                   opacity: 1,
                   display: 'flex',
+                  pointerEvents: "all",
                   y: '10%',
                   onComplete: () => {
                     const btn = noticeBox.querySelector('button')
@@ -194,17 +211,29 @@ function Contact() {
                       gsap.to(btn, {
                         duration: 1,
                         opacity: 1,
+                        scale: 0.7,
                         display: 'flex'
                       })
                     })
                     btn.addEventListener('mouseleave', () => {
                       gsap.to(btn, {
                         duration: 1,
-                        opacity: 0.9,
+                        opacity: 0.5,
+                        scale: 0.6
                       })
                     })
 
                     btn.addEventListener('click', () => {
+                      gsap.to(".background", {
+                        duration: 0.2,
+                        pointerEvents: "none"
+                      })
+
+                      gsap.to(".notice-sendEmail, .notice-sendEmail *", {
+                        duration: 0.1,
+                        pointerEvents: "all"
+                      })
+
                       gsap.to(document.querySelector('.background'), {
                         duration: 0.5,
                         opacity: 0,
@@ -217,9 +246,14 @@ function Contact() {
 
                         onComplete: () => {
                           gsap.to(noticeBox, {
-                            duration: 0.1,
-                            display: 'none'
+                            duration: 0.5,
+                            display: "none"
                           })
+
+                          sessionStorage.setItem('scroll', JSON.stringify({
+                            run: "true"
+                          }))
+
                         }
                       })
                     })
@@ -227,12 +261,22 @@ function Contact() {
                   }
                 })
               } else {
+                gsap.to(".background", {
+                  duration: 0.1,
+                  pointerEvents: "all"
+                })
+
+                gsap.to(".notice-sendEmail, .notice-sendEmail *", {
+                  duration: 0.1,
+                  pointerEvents: "all"
+                })
 
                 gsap.to(noticeBox, {
                   duration: 0.5,
                   delay: 1.3,
                   opacity: 1,
                   display: 'flex',
+                  pointerEvents: "all",
                   y: '10%',
                   onComplete: () => {
                     const btn = noticeBox.querySelector('button')
@@ -241,17 +285,24 @@ function Contact() {
                       gsap.to(btn, {
                         duration: 1,
                         opacity: 1,
-                        display: 'flex'
+                        display: 'flex',
+                        scale: 0.7
                       })
                     })
                     btn.addEventListener('mouseleave', () => {
                       gsap.to(btn, {
                         duration: 1,
-                        opacity: 0.9,
+                        opacity: 0.5,
+                        scale: 0.6
                       })
                     })
 
                     btn.addEventListener('click', () => {
+                      gsap.to(".background", {
+                        duration: 0.2,
+                        pointerEvents: "none"
+                      })
+
                       gsap.to(document.querySelector('.background'), {
                         duration: 0.5,
                         opacity: 0,
@@ -263,6 +314,10 @@ function Contact() {
                         y: '-10%',
 
                         onComplete: () => {
+                          sessionStorage.setItem('scroll', JSON.stringify({
+                            run: "false"
+                          }))
+
                           gsap.to(noticeBox, {
                             duration: 0.1,
                             display: 'none'
@@ -304,170 +359,6 @@ function Contact() {
 
 
         }
-
-      })
-
-
-      inputEmail.addEventListener('keydown', async (e) => {
-        console.log(e.key)
-        const emailContact = document.querySelector('#userEmail').value.trim()
-        const bodyMsg = document.querySelector('#msg').value.trim()
-
-        const checkEmail = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
-
-        console.log(e.key)
-
-        if (e.key === 'Enter') {
-          if ((emailContact !== '' && bodyMsg !== '') && (emailContact.length < 254 && checkEmail.test(emailContact))) {
-            const inputContainer = document.querySelector('.group-input-socialmedia')
-            const borderInput = document.querySelector('.userEmail .border')
-            const noticeBox = document.querySelector('.notice-sendEmail')
-
-            gsap.to(inputContainer, {
-              duration: 1,
-              border: '0.3rem solid #cddf28'
-            })
-
-            gsap.to(borderInput, {
-              duration: 1,
-              backgroundColor: '#cddf28'
-            })
-
-            try {
-              const res = await fetch("/api/sendEmail", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  emailContact: emailContact,
-                  bodyMsg: bodyMsg,
-                }),
-              });
-
-              console.log(res)
-
-              if (res.ok) {
-                gsap.to(inputContainer, {
-                  duration: 1,
-                  border: '0.3rem solid #28df5fff',
-                  onComplete: () => {
-                    gsap.to(inputContainer, {
-                      duration: 1,
-                      delay: 0.5,
-                      border: '0.2rem solid #28D9DF'
-                    })
-                  }
-                })
-
-                gsap.to(borderInput, {
-                  duration: 1,
-                  backgroundColor: '#28df5fff',
-                  onComplete: () => {
-                    gsap.to(borderInput, {
-                      duration: 1,
-                      delay: 0.5,
-                      backgroundColor: '#28D9DF'
-                    })
-                  }
-                })
-
-                setValueEmail('')
-                setValueMsg('')
-
-                gsap.to("*", {
-                  pointerEvents: "none",
-                  duration: 0.1
-                })
-
-                gsap.to(".notice-sendEmail button", {
-                  duration: 0.1,
-                  pointerEvents: "all",
-                })
-
-                gsap.to(document.querySelector('.background'), {
-                  duration: 0.5,
-                  delay: 1,
-                  opacity: 1,
-                })
-
-                gsap.from(noticeBox, {
-                  duration: 0.1,
-                  y: "-4vh"
-                })
-
-                gsap.to(noticeBox, {
-                  duration: 0.5,
-                  delay: 1.3,
-                  opacity: 1,
-                  pointerEvents: "all",
-                  y: '0vh',
-                  onComplete: () => {
-                    const btn = noticeBox.querySelector('button')
-
-                    btn.addEventListener('mouseenter', () => {
-                      gsap.to(btn, {
-                        duration: 1,
-                        opacity: 1,
-                      })
-                    })
-                    btn.addEventListener('mouseleave', () => {
-                      gsap.to(btn, {
-                        duration: 1,
-                        opacity: 0.9,
-                      })
-                    })
-
-                    btn.addEventListener('click', () => {
-                      gsap.to("*", {
-                        pointerEvents: "all",
-                        duration: 0.1
-                      })
-
-                      gsap.to(document.querySelector('.background'), {
-                        duration: 0.5,
-                        opacity: 0,
-                      })
-
-                      gsap.to(noticeBox, {
-                        duration: 0.5,
-                        opacity: 0,
-                        pointerEvents: "none",
-                        y: '-3vh'
-                      })
-                    })
-
-                  }
-                })
-
-              } else {
-                gsap.to(inputContainer, {
-                  duration: 1,
-                  border: '0.3rem solid #f11212ff'
-                })
-
-                gsap.to(borderInput, {
-                  duration: 1,
-                  backgroundColor: '#f11212ff'
-                })
-              }
-
-            } catch {
-              console.log('error in sendEmail')
-
-              gsap.to(inputContainer, {
-                duration: 1,
-                border: '0.3rem solid #f11212ff'
-              })
-
-              gsap.to(borderInput, {
-                duration: 1,
-                backgroundColor: '#f11212ff'
-              })
-            }
-
-
-          }
-        }
-
 
       })
     }
@@ -828,7 +719,7 @@ function Contact() {
           <div className="group-input-socialmedia">
             <header>
               <label className="userEmail" htmlFor="userEmail">
-                <input type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder={tContact("placeholderInput")} />
+                <input autoComplete="off" type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder={tContact("placeholderInput")} />
 
                 <div className="border"></div>
               </label>
@@ -1001,7 +892,7 @@ function Contact() {
             <header>
               <label className="userEmail" htmlFor="userEmail">
                 <div className="output" id="outputEmail"></div>
-                <input type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder={tContact("placeholderInput")} />
+                <input autoComplete="off" type="email" name="userEmail" translate="no" onChange={(e) => { handleEmail(e.target.value) }} id="userEmail" value={valueEmail} placeholder={tContact("placeholderInput")} />
 
                 <div className="border"></div>
               </label>

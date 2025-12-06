@@ -303,6 +303,8 @@ body.contact {
     background-size: 100% 1%;
 }
 
+
+
 .background {
     position: absolute;
     display: block;
@@ -782,12 +784,12 @@ main.projects {
         opacity: 0;
         height: fit-content;
         pointer-events: none;
-    
+
         span {
             font-size: 2.6rem;
             font-family: "Jersey 15", sans-serif;
             color: $emphasis-default;
-    
+
         }
     }
 }
@@ -815,8 +817,7 @@ main.contact {
         min-height: 40vh;
         pointer-events: none;
 
-        z-index: 999999;
-
+        z-index: 9999993;
 
         .content {
             width: 100%;
@@ -847,7 +848,7 @@ main.contact {
             padding-right: 0.4rem;
             border-radius: 100%;
             transform: scale(0.6);
-            opacity: 0.9;
+            opacity: 0.5;
 
             img {
                 height: 55%;
@@ -1416,7 +1417,6 @@ main.skills {
     }
 
     .notice-sendEmail {
-        display: flex !important;
         flex-direction: column;
         align-items: flex-end;
         border-radius: 1.2rem;
@@ -2005,6 +2005,12 @@ main.skills {
         }
     }
 
+}
+
+@media (max-width: 494px) {
+    .notice-sendEmail .content {
+        margin-top: 5rem !important;
+    }
 }
 
 @media (max-width: 393px) {
