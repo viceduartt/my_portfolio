@@ -144,7 +144,7 @@ function Contact() {
 
             console.log(res)
 
-            if (res.ok === false) {
+            if (res.ok) {
               sessionStorage.setItem('scroll', JSON.stringify({
                 run: "false"
               }))
