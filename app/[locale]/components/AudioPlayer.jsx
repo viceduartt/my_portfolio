@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function AudioPlayer() {
   let volume = 0
-  const maxVolume = 0.4
+  const maxVolume = 0
   let lock = false
 
   useEffect(() => {

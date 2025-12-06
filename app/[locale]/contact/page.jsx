@@ -23,7 +23,6 @@ const systemInternal = "/icons/systemInternal.svg";
 const consultingWebsite = "/icons/consultingWebsite.svg";
 const consultingInterface = "/icons/consultingDesign.svg";
 
-
 function Contact() {
   let posView = 0.1
   const [mobile, setMobile] = useState(false)
@@ -31,6 +30,7 @@ function Contact() {
   const [valueEmail, setValueEmail] = useState('')
   const [valueMsg, setValueMsg] = useState('')
   const tContact = useTranslations("contact")
+  const emailCopy = "viceduartt@gmail.com"
 
   useEffect(() => {
     if (window.innerWidth <= 1088) {
@@ -74,6 +74,7 @@ function Contact() {
         animaLoading()
 
         sendEmail()
+        animaCopyBox()
 
         if (window.innerWidth > 840) {
 
@@ -86,6 +87,26 @@ function Contact() {
         changeBg()
       }
     }, 300)
+
+    const animaCopyBox = () => {
+      document.querySelector(".linkEmail").addEventListener("click", () => {
+
+        gsap.to(".emailBox", {
+          duration: 1,
+          opacity: 1,
+          y: "2vh",
+          pointerEvents: "all"
+        })
+
+        gsap.to(".emailBox", {
+          duration: 1,
+          delay: 4,
+          opacity: 0,
+          pointerEvents: "none",
+          y: "-1vh"
+        })
+      })
+    }
 
     const sendEmail = async () => {
       const btnSend = document.querySelector('#sendEmail')
@@ -634,8 +655,8 @@ function Contact() {
                   duration: 0.5,
                   opacity: 1
                 })
-              } 
-              
+              }
+
               if (posView <= -40.8) {
                 console.log("foijkjkl")
 
@@ -679,12 +700,38 @@ function Contact() {
       })
     }
 
-
     const changeBg = () => {
       document.querySelector('body').classList.add('contact')
     }
+  }, [])
 
-  })
+  function copiarTexto(texto) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(texto).catch(function () {
+        fallbackCopy(texto);
+      });
+    }
+
+    fallbackCopy(texto);
+  }
+
+  function fallbackCopy(texto) {
+    var input = document.createElement("textarea");
+    input.value = texto;
+
+    input.style.position = "fixed";
+    input.style.top = "-1000px";
+
+    document.body.appendChild(input);
+    input.focus();
+    input.select();
+
+    try {
+      document.execCommand("copy");
+    } catch (err) { }
+
+    document.body.removeChild(input);
+  }
 
   const handleEmail = (e) => {
     setValueEmail(e)
@@ -759,7 +806,15 @@ function Contact() {
 
         <div className="background"></div>
 
+        <div className="emailBoxContainer">
+          <div className="emailBox">
+            <span>{tContact("copymsg")}</span>
+          </div>
+        </div>
+
         <main className="contact">
+
+
           <div className="notice-sendEmail">
             <button id="close-notice"><img src={close} alt="" /></button>
 
@@ -794,7 +849,7 @@ function Contact() {
 
           <div className="group-socialmedia-cards">
             <div className="group-socialmedia">
-              <a target="_blank" href="maito:viceduartt@gmail.com" className="btn-socialmedia"><img src={email} alt="" /></a>
+              <a onClick={() => { copiarTexto(emailCopy) }} href="#" className="linkEmail btn-socialmedia"><img src={email} alt="" /></a>
               <a target="_blank" href="https://wa.me/5581989258359" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
               <a target="_blank" href="https://www.instagram.com/viceduartt/?next=%2F" className="btn-socialmedia"><img src={instagram} alt="" /></a>
               <a target="_blank" href="https://github.com/viceduartt" className="btn-socialmedia"><img src={discord} alt="" /></a>
@@ -923,8 +978,15 @@ function Contact() {
 
         <div className="background"></div>
 
+        <div className="emailBoxContainer">
+          <div className="emailBox">
+            <span>{tContact("copymsg")}</span>
+          </div>
+        </div>
+
 
         <main className="contact">
+
           <div className="notice-sendEmail">
             <button id="close-notice"><img src={close} alt="" /></button>
 
@@ -947,7 +1009,7 @@ function Contact() {
 
               <div className="group-socialmedia-btnSend">
                 <div className="group-socialmedia">
-                  <a target="_blank" href="maito:viceduartt@gmail.com" className="btn-socialmedia"><img src={email} alt="" /></a>
+                  <a onClick={() => { copiarTexto(emailCopy) }} href="#" className="linkEmail btn-socialmedia"><img src={email} alt="" /></a>
                   <a target="_blank" href="https://wa.me/5581989258359" className="btn-socialmedia"><img src={whatsapp} alt="" /></a>
                   <a target="_blank" href="https://www.instagram.com/viceduartt/?next=%2F" className="btn-socialmedia"><img src={instagram} alt="" /></a>
                   <a target="_blank" href="https://github.com/viceduartt" className="btn-socialmedia"><img src={discord} alt="" /></a>

@@ -13,6 +13,7 @@
     "contactBtn": "Build the Future"
   },
   "contact": {
+    "copymsg": "Email viceduartt@gmail.com copied!",
     "noticemsg": "Email sent successfully! I'll get back to you shortly.",
     "placeholderInput": "yourEmail@example.com",
     "sendEmail": "Send",

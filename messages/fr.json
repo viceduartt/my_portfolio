@@ -13,6 +13,7 @@
     "contactBtn": "Construire le futur"
   },
   "contact": {
+    "copymsg": "Courriel viceduartt@gmail.com en copie!",
     "noticemsg": "E-mail envoyé avec succès ! Je reviendrai vers vous rapidement.",
     "placeholderInput": "contactemail@example.com",
     "sendEmail": "Envoyer",
