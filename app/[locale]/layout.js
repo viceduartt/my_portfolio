@@ -9,7 +9,7 @@ export async function generateMetadata({ params }) {
   const messages = await getMessages(locale)
   const meta = messages?.meta || {}
   const baseUrl = 'https://vicedartt.com'
-  
+
   const title = meta.title || 'VicedArtt — Portfólio'
   const description = meta.description || 'VicedArtt — web developer and UI designer portfolio. Explore responsive websites and modern interface projects focused on user experience. Discover my skills, browse my work, and get in touch.'
   const image = `${baseUrl}/favicon.png`
@@ -20,6 +20,7 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
+    colorScheme: "dark",
 
     openGraph: {
       title,
