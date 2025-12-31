@@ -236,6 +236,10 @@ body.contact {
   background-size: 100% 1%;
 }
 
+body, main {
+  overflow: hidden;
+}
+
 .background {
   position: absolute;
   display: block;
